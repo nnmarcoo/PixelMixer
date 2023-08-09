@@ -8,37 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/4e9af29b-26da-4726-956a-45a07489cf3c.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/read.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/.suo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/Browse.VC.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/fileList.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/ipch/AutoPCH/a9be7cf7ae80747f/MAIN.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/Main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj.filters" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj.user" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/Main.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.exe.recipe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.ilk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.command.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.read.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.write.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/PixelMixer.lastbuildstate" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.command.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.read.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.write.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/vc143.idb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/vc143.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/x64/Debug/PixelMixer.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/x64/Debug/PixelMixer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/Main.obj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/Main.obj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +109,7 @@
       <workItem from="1691552843251" duration="487000" />
       <workItem from="1691553437154" duration="229000" />
       <workItem from="1691553676839" duration="196000" />
+      <workItem from="1691554950832" duration="12000" />
     </task>
     <servers />
   </component>
