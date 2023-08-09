@@ -8,9 +8,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Images/icon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Images/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Images/icon2.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Images/icon2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/MainFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.Build.CppClean.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/App.obj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/App.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/MainFrame.obj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/MainFrame.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.tlog/link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/vc143.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +127,7 @@
       <workItem from="1691554950832" duration="12000" />
       <workItem from="1691554983994" duration="1602000" />
       <workItem from="1691556632423" duration="1392000" />
-      <workItem from="1691590280131" duration="7787000" />
+      <workItem from="1691590280131" duration="9797000" />
     </task>
     <servers />
   </component>
