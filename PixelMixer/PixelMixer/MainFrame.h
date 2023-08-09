@@ -1,9 +1,9 @@
 #pragma once
 #include <wx/wx.h>
 
-class MainFrame : public wxFrame
+class MainFrame final : public wxFrame
 {
 public:
-    MainFrame(const wxString& title);
+    explicit MainFrame(const wxString& title);
     
 };
