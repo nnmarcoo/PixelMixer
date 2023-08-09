@@ -18,6 +18,14 @@
             <Platform>x64</Platform>
         </ProjectConfiguration>
     </ItemGroup>
+    <ItemGroup>
+      <ClInclude Include="App.h" />
+      <ClInclude Include="MainFrame.h" />
+    </ItemGroup>
+    <ItemGroup>
+      <ClCompile Include="App.cpp" />
+      <ClCompile Include="MainFrame.cpp" />
+    </ItemGroup>
     <PropertyGroup Label="Globals">
         <VCProjectVersion>16.0</VCProjectVersion>
         <Keyword>Win32Proj</Keyword>
@@ -134,9 +142,6 @@
             <AdditionalLibraryDirectories>$(WXWIN)\lib\vc_x64_lib</AdditionalLibraryDirectories>
         </Link>
     </ItemDefinitionGroup>
-    <ItemGroup>
-        <ClCompile Include="Main.cpp"/>
-    </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">
     </ImportGroup>
