@@ -8,6 +8,7 @@ enum IDs
 
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title) // constructor
 {
+    SetIcon(wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/Images/icon2.ico", wxBITMAP_TYPE_ICO)); // change to relative path
     //SetWindowStyle(wxFRAME_NO_TASKBAR);
     wxWindowBase::SetBackgroundColour("#23272a"); // should this be in App.cpp
     
