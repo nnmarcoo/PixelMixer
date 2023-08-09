@@ -7,20 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/App.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/MainFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/App.obj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/App.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/MainFrame.obj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/MainFrame.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.iobj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.iobj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.ipdb" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.ipdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/CL.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/CL.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.tlog/link.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/vc143.pdb" afterDir="false" />
-    </list>
+    <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,7 +109,7 @@
       <workItem from="1691553676839" duration="196000" />
       <workItem from="1691554950832" duration="12000" />
       <workItem from="1691554983994" duration="1602000" />
-      <workItem from="1691556632423" duration="1282000" />
+      <workItem from="1691556632423" duration="1392000" />
     </task>
     <servers />
   </component>
