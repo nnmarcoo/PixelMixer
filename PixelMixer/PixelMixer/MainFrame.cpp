@@ -14,8 +14,18 @@ enum IDs
     minimizeButton_ID = 5
 };
 
+wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
+    EVT_BUTTON(exitButton_ID, MainFrame::OnExitButtonClick)
+    EVT_BUTTON(maximizeButton_ID, MainFrame::OnMaximizeButtonClick)
+    EVT_BUTTON(minimizeButton_ID, MainFrame::OnMinimizeButtonClick)
+wxEND_EVENT_TABLE();
+
+
+
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize) // constructor
 {
+    // Assuming you have a wxFrame named 'frame'
+    
     // Layout setup
     
     // Store the mem address of the created wxStatusBar object
@@ -66,6 +76,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     exitButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
     exitButton->SetForegroundColour("#dbdbdb");
     exitButton->SetBackgroundColour("#2c2f33");
+    
 
     // Maximize button
     auto* maximizeButton = new wxButton(headerPanel, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
@@ -74,7 +85,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     maximizeButton->SetBackgroundColour("#2c2f33");
 
     // Minimize button
-    auto* minimizeButton = new wxButton(headerPanel, minimizeButton_ID, "_", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    auto* minimizeButton = new wxButton(headerPanel, minimizeButton_ID, "_", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
     minimizeButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
     minimizeButton->SetForegroundColour("#dbdbdb");
     minimizeButton->SetBackgroundColour("#2c2f33");
@@ -143,19 +154,17 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     });
 }
 
-void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e)
-{
+void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
     isDragging_ = true;
     dragStart_ = e.GetPosition();
 }
 
-void MainFrame::OnHeaderLeftUp(wxMouseEvent& e)
-{
+void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
     isDragging_ = false;
 }
 
-void MainFrame::OnMouseMove(wxMouseEvent& e)
-{
+void MainFrame::OnMouseMove(wxMouseEvent& e) {
+    if (IsMaximized()) return;
     if (isDragging_)
     {
         const wxPoint newPos = e.GetPosition() - dragStart_;
@@ -163,15 +172,30 @@ void MainFrame::OnMouseMove(wxMouseEvent& e)
     }
 }
 
-void MainFrame::OnTitleBarDoubleClick(wxMouseEvent& e)
-{
-    if (IsMaximized())
-    {
+void MainFrame::OnTitleBarDoubleClick(wxMouseEvent& e) {
+    if (IsMaximized()) {
         Restore();
     }
-    else
-    {
+    else {
         Maximize();
     }
 }
+
+void MainFrame::OnExitButtonClick(wxCommandEvent& e) {
+    Destroy();
+}
+
+void MainFrame::OnMaximizeButtonClick(wxCommandEvent& e)
+{
+    if (IsMaximized())
+        Restore();
+    else
+        Maximize();
+}
+
+void MainFrame::OnMinimizeButtonClick(wxCommandEvent& e)
+{
+    Iconize(true);
+}
+
 

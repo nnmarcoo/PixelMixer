@@ -7,6 +7,7 @@ public:
     explicit MainFrame(const wxString& title);
 private:
     std::string icon_path_ = "C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico";
+    wxDECLARE_EVENT_TABLE();
     
     bool isDragging_;
     wxPoint dragStart_;
@@ -14,8 +15,10 @@ private:
     void OnHeaderLeftUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
     void OnTitleBarDoubleClick(wxMouseEvent& e);
-
-
+    void OnExitButtonClick(wxCommandEvent& e);
+    void OnMaximizeButtonClick(wxCommandEvent& e);
+    void OnMinimizeButtonClick(wxCommandEvent& e);
+    
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area
     WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override
     {
