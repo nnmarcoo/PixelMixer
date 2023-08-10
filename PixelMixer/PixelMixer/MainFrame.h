@@ -6,7 +6,7 @@ class MainFrame final : public wxFrame
 public:
     explicit MainFrame(const wxString& title);
 private:
-    const std::string icon_path_ = "C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico";
+    std::string icon_path_ = "C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico";
     
     bool isDragging_;
     wxPoint dragStart_;

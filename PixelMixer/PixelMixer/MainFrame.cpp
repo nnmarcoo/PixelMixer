@@ -1,12 +1,17 @@
 #include "MainFrame.h"
 #include <wx/wx.h>
 #include <wx/splitter.h>
+#include <wx/sizer.h>
 
 //todo make the vertical splitter sash a custom color
+//todo if mouse leaves window before mouse up, it won't change the bool
 
 enum IDs
 {
-    header_ID = 2
+    header_ID = 2,
+    exitButton_ID = 3,
+    maximizeButton_ID = 4,
+    minimizeButton_ID = 5
 };
 
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize) // constructor
@@ -42,7 +47,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
 
     // configure the horizontal splitter
         hSplitter->SplitHorizontally(headerPanel, vSplitter); // Split the top(header) and bottom(main region)
-        hSplitter->SetSashPosition(FromDIP(30)); // is DIP necessary?
+        hSplitter->SetSashPosition(30);
     
     SetWindowStyle(wxSYSTEM_MENU | wxRESIZE_BORDER| wxCLIP_CHILDREN); // Must be after status bar declaration
     CenterOnScreen();
@@ -53,7 +58,89 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     headerPanel->Bind(wxEVT_LEFT_UP, &MainFrame::OnHeaderLeftUp, this, header_ID);
     headerPanel->Bind(wxEVT_MOTION, &MainFrame::OnMouseMove, this, header_ID);
     headerPanel->Bind(wxEVT_LEFT_DCLICK, &MainFrame::OnTitleBarDoubleClick, this, header_ID);
+
+    // GUI button controls
     
+    // Exit button 
+    auto* exitButton = new wxButton(headerPanel, exitButton_ID, "X", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    exitButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+    exitButton->SetForegroundColour("#dbdbdb");
+    exitButton->SetBackgroundColour("#2c2f33");
+
+    // Maximize button
+    auto* maximizeButton = new wxButton(headerPanel, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    maximizeButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+    maximizeButton->SetForegroundColour("#dbdbdb");
+    maximizeButton->SetBackgroundColour("#2c2f33");
+
+    // Minimize button
+    auto* minimizeButton = new wxButton(headerPanel, minimizeButton_ID, "_", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    minimizeButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+    minimizeButton->SetForegroundColour("#dbdbdb");
+    minimizeButton->SetBackgroundColour("#2c2f33");
+    
+
+    // Bind button locations TODO REMOVE THESE BINDS AND REPLACE WITH BOXSIZER OR SOMETHING
+    headerPanel->Bind(wxEVT_SIZE, [exitButton](wxSizeEvent& event) {
+    wxSize newSize = event.GetSize();
+    int buttonX = newSize.GetWidth() - 50;
+    exitButton->Move(wxPoint(buttonX, 0));
+    event.Skip();
+    });
+
+    headerPanel->Bind(wxEVT_SIZE, [maximizeButton](wxSizeEvent& event) {
+    wxSize newSize = event.GetSize();
+    int buttonX = newSize.GetWidth() - 100;
+    maximizeButton->Move(wxPoint(buttonX, 0));
+    event.Skip();
+    });
+
+    headerPanel->Bind(wxEVT_SIZE, [minimizeButton](wxSizeEvent& event) {
+    wxSize newSize = event.GetSize();
+    int buttonX = newSize.GetWidth() - 150;
+    minimizeButton->Move(wxPoint(buttonX, 0));
+    event.Skip();
+    });
+
+    // Bind button hover event
+
+    // Define a common event handler function for hover and leave events
+    auto ButtonHoverHandler = [](wxMouseEvent& event, wxButton* button, const wxString& hoverColor) {
+        button->SetBackgroundColour(hoverColor);  // Change the background color on hover
+        button->Refresh();
+        event.Skip();
+    };
+
+    auto ButtonLeaveHandler = [](wxMouseEvent& event, wxButton* button, const wxString& defaultColor) {
+        button->SetBackgroundColour(defaultColor);  // Change the background color back when leaving hover
+        button->Refresh();
+        event.Skip();
+    };
+    
+    // Bind the common event handlers to each button
+    exitButton->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
+        ButtonHoverHandler(event, exitButton, "#ff3333"); // Hover color for exitButton
+    });
+
+    exitButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
+        ButtonLeaveHandler(event, exitButton, "#2c2f33"); // Default color for exitButton
+    });
+
+    maximizeButton->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
+        ButtonHoverHandler(event, maximizeButton, "#3c3f43"); // Hover color for maximizeButton
+    });
+
+    maximizeButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
+        ButtonLeaveHandler(event, maximizeButton, "#2c2f33"); // Default color for maximizeButton
+    });
+
+    minimizeButton->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
+        ButtonHoverHandler(event, minimizeButton, "#3c3f43"); // Hover color for minimizeButton
+    });
+
+    minimizeButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
+        ButtonLeaveHandler(event, minimizeButton, "#2c2f33"); // Default color for minimizeButton
+    });
 }
 
 void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e)
@@ -69,7 +156,8 @@ void MainFrame::OnHeaderLeftUp(wxMouseEvent& e)
 
 void MainFrame::OnMouseMove(wxMouseEvent& e)
 {
-    if (isDragging_) {
+    if (isDragging_)
+    {
         const wxPoint newPos = e.GetPosition() - dragStart_;
         SetPosition(GetPosition() + newPos);
     }
@@ -77,9 +165,12 @@ void MainFrame::OnMouseMove(wxMouseEvent& e)
 
 void MainFrame::OnTitleBarDoubleClick(wxMouseEvent& e)
 {
-    if (IsMaximized()) {
+    if (IsMaximized())
+    {
         Restore();
-    } else {
+    }
+    else
+    {
         Maximize();
     }
 }
