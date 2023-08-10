@@ -5,5 +5,4 @@ class MainFrame final : public wxFrame
 {
 public:
     explicit MainFrame(const wxString& title);
-    
 };
