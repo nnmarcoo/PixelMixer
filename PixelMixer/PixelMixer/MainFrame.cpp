@@ -1,7 +1,6 @@
 #include "MainFrame.h"
-#include <wx/wx.h>
-#include <wx/splitter.h>
-#include <wx/display.h>
+#include "HeaderPanel.h"
+
 //todo make the vertical splitter sash a custom color
 //todo if mouse leaves window before mouse up, it won't change the bool
 
@@ -44,12 +43,11 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     // Create the panels to color the split regions
     auto* configPanel = new wxPanel(vSplitter);
     auto* viewportPanel = new wxPanel(vSplitter);
-    auto* headerPanel = new wxPanel(hSplitter, header_ID);
+    auto* headerPanel = new HeaderPanel(hSplitter, header_ID);
 
     // Set the panel colors
     viewportPanel->SetBackgroundColour("#36393e");
       configPanel->SetBackgroundColour("#282b30");
-      headerPanel->SetBackgroundColour("#2c2f33");
 
     // Configure the vertical splitter
         vSplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
@@ -62,14 +60,6 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     SetWindowStyle(wxSYSTEM_MENU | wxRESIZE_BORDER| wxCLIP_CHILDREN); // Must be after status bar declaration
     CenterOnScreen();
     // Layout setup end ==
-
-    
-
-    //Bind header to event handlers so the window can be dragged and maximized by empty header space
-    headerPanel->Bind(wxEVT_LEFT_DOWN, &MainFrame::OnHeaderLeftDown, this, header_ID);
-    headerPanel->Bind(wxEVT_LEFT_UP, &MainFrame::OnHeaderLeftUp, this, header_ID);
-    headerPanel->Bind(wxEVT_MOTION, &MainFrame::OnMouseMove, this, header_ID);
-    headerPanel->Bind(wxEVT_LEFT_DCLICK, &MainFrame::OnTitleBarDoubleClick, this, header_ID);
 
     // GUI button controls
     //Header buttons
@@ -130,38 +120,6 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     }
 
     //Viewport
-}
-
-void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
-    isDragging_ = true; //          todo WTF is the point of isDragging_ if I can just check the mouse state???
-    dragStart_ = e.GetPosition();
-}
-
-void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
-    isDragging_ = false;
-    
-    wxPoint mousePos = wxGetMousePosition(); // these two lines get the mouse position on the monitor it is on
-    wxPoint rMousePos = mousePos - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
-
-    if (rMousePos.y == 0) { // todo implement docking for side of screen
-        SetPosition(GetPosition() + wxPoint(0, 50));
-        Maximize();
-    }
-}
-
-void MainFrame::OnMouseMove(wxMouseEvent& e) {
-    if (IsMaximized()) isDragging_ = false;
-    if (isDragging_  && wxGetMouseState().LeftIsDown()) {
-        const wxPoint newPos = e.GetPosition() - dragStart_;
-        SetPosition(GetPosition() + newPos);
-    }
-}
-
-void MainFrame::OnTitleBarDoubleClick(wxMouseEvent& e) {
-    if (IsMaximized()) 
-        Restore();
-    else 
-        Maximize();
 }
 
 void MainFrame::OnExitButtonClick(wxCommandEvent& e) {

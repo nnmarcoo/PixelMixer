@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include <wx/splitter.h>
 
 class MainFrame final : public wxFrame
 {
@@ -13,10 +14,6 @@ private:
     bool isDragging_;
     wxPoint dragStart_;
     wxStaticText* statusText;
-    void OnHeaderLeftDown(const wxMouseEvent& e);
-    void OnHeaderLeftUp(wxMouseEvent& e);
-    void OnMouseMove(wxMouseEvent& e);
-    void OnTitleBarDoubleClick(wxMouseEvent& e);
     void OnExitButtonClick(wxCommandEvent& e);
     void OnMaximizeButtonClick(wxCommandEvent& e);
     void OnMinimizeButtonClick(wxCommandEvent& e);
