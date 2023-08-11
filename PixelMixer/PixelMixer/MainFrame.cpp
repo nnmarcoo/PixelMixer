@@ -164,7 +164,7 @@ void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
 }
 
 void MainFrame::OnMouseMove(wxMouseEvent& e) {
-    if (IsMaximized()) return;
+    if (IsMaximized()) isDragging_ = false;
     if (isDragging_)
     {
         const wxPoint newPos = e.GetPosition() - dragStart_;
