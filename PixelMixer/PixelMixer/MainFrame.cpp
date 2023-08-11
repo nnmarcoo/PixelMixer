@@ -1,6 +1,7 @@
 #include "MainFrame.h"
 #include <wx/wx.h>
 #include <wx/splitter.h>
+#include <wx/display.h>
 
 //todo make the vertical splitter sash a custom color
 //todo if mouse leaves window before mouse up, it won't change the bool
@@ -114,22 +115,18 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     exitButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
         ButtonLeaveHandler(event, exitButton, "#2c2f33"); // Default color for exitButton
     });
+    
+    for (wxButton* button : headerButtons) {
+        if (button->GetId() == exitButton_ID) continue;
+        
+        button->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
+        ButtonHoverHandler(event, button, "#3c3f43");
+        });
 
-    maximizeButton->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
-        ButtonHoverHandler(event, maximizeButton, "#3c3f43"); // Hover color for maximizeButton
-    });
-
-    maximizeButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
-        ButtonLeaveHandler(event, maximizeButton, "#2c2f33"); // Default color for maximizeButton
-    });
-
-    minimizeButton->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
-        ButtonHoverHandler(event, minimizeButton, "#3c3f43"); // Hover color for minimizeButton
-    });
-
-    minimizeButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
-        ButtonLeaveHandler(event, minimizeButton, "#2c2f33"); // Default color for minimizeButton
-    });
+        button->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
+            ButtonLeaveHandler(event, button, "#2c2f33");
+        });
+    }
 }
 
 void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
@@ -139,7 +136,11 @@ void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
 
 void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
     isDragging_ = false;
-    if (wxGetMousePosition().y == 0) { // todo implement docking for side of screen
+    
+    wxPoint mousePos = wxGetMousePosition(); // these two lines get the mouse position on the monitor it is on
+    wxPoint rMousePos = wxGetMousePosition() - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
+
+    if (rMousePos.y == 0) { // todo implement docking for side of screen
         SetPosition(GetPosition() + wxPoint(0, 50));
         Maximize();
     }
