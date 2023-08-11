@@ -4,6 +4,7 @@
 
 //todo make the vertical splitter sash a custom color
 //todo if mouse leaves window before mouse up, it won't change the bool
+//todo optimize button hover binds
 
 enum IDs {
     header_ID = 2,
@@ -132,18 +133,22 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
 }
 
 void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
-    isDragging_ = true;
+    isDragging_ = true; //          todo WTF is the point of isDragging_ if I can just check the mouse state???
     dragStart_ = e.GetPosition();
 }
 
 void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
     isDragging_ = false;
+    SetStatusText(wxString::Format(wxT("%d"), e.GetPosition().y));
+    if (wxGetMousePosition().y == 0) { // todo implement docking for side of screen
+        Center();
+        Maximize();
+    }
 }
 
 void MainFrame::OnMouseMove(wxMouseEvent& e) {
     if (IsMaximized()) isDragging_ = false;
-    if (isDragging_)
-    {
+    if (isDragging_  && wxGetMouseState().LeftIsDown()) {
         const wxPoint newPos = e.GetPosition() - dragStart_;
         SetPosition(GetPosition() + newPos);
     }
