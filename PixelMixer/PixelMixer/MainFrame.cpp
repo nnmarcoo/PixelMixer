@@ -2,17 +2,18 @@
 #include <wx/wx.h>
 #include <wx/splitter.h>
 #include <wx/display.h>
-
 //todo make the vertical splitter sash a custom color
 //todo if mouse leaves window before mouse up, it won't change the bool
-//todo optimize button hover binds
+
+// File -> Open, save, export, import, settings
 
 enum IDs {
     header_ID = 2,
     exitButton_ID = 3,
     maximizeButton_ID = 4,
     minimizeButton_ID = 5,
-    iconButton_ID = 6
+    iconButton_ID = 6,
+    fileImportButton_ID = 7
 };
 
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
@@ -31,7 +32,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     // Configure the main window
     statusBar->SetForegroundColour("#bfbfbf");
     statusBar->SetBackgroundColour("#2c2f33");
-    statusText = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.1.1-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // custom status bar color
+    statusText = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.1.2-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // custom status bar color
     SetClientSize(wxGetDisplaySize() * 0.8);
     SetIcon(icon_);
     wxTopLevelWindowBase::SetMinSize(wxSize((GetSize().GetWidth() / 5) * 2, (GetSize().GetHeight() / 5) * 2)); // Min size is double the config column
@@ -72,6 +73,8 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
 
     // GUI button controls
     //Header buttons
+    auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);
+    
     auto* exitButton = new wxButton(headerPanel, exitButton_ID, "x", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
     auto* maximizeButton = new wxButton(headerPanel, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
     auto* minimizeButton = new wxButton(headerPanel, minimizeButton_ID, "_", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
@@ -79,8 +82,6 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     iconButton->SetBitmap(icon_);
 
     wxButton* headerButtons[] = {minimizeButton , maximizeButton, exitButton};
-
-    auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);
 
     headerSizer->Add(iconButton, 0, wxALIGN_CENTER | wxLEFT, 5);
     
@@ -116,7 +117,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
         ButtonLeaveHandler(event, exitButton, "#2c2f33"); // Default color for exitButton
     });
     
-    for (wxButton* button : headerButtons) {
+    for (wxButton* button : headerButtons) { // Change the rest of the buttons
         if (button->GetId() == exitButton_ID) continue;
         
         button->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
@@ -127,6 +128,8 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
             ButtonLeaveHandler(event, button, "#2c2f33");
         });
     }
+
+    //Viewport
 }
 
 void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
@@ -138,7 +141,7 @@ void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
     isDragging_ = false;
     
     wxPoint mousePos = wxGetMousePosition(); // these two lines get the mouse position on the monitor it is on
-    wxPoint rMousePos = wxGetMousePosition() - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
+    wxPoint rMousePos = mousePos - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
 
     if (rMousePos.y == 0) { // todo implement docking for side of screen
         SetPosition(GetPosition() + wxPoint(0, 50));
