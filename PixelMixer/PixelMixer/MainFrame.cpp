@@ -1,7 +1,6 @@
 #include "MainFrame.h"
 #include <wx/wx.h>
 #include <wx/splitter.h>
-#include <wx/sizer.h>
 
 //todo make the vertical splitter sash a custom color
 //todo if mouse leaves window before mouse up, it won't change the bool
@@ -24,8 +23,6 @@ wxEND_EVENT_TABLE();
 
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize) // constructor
 {
-    // Assuming you have a wxFrame named 'frame'
-    
     // Layout setup
     
     // Store the mem address of the created wxStatusBar object
@@ -63,6 +60,8 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     CenterOnScreen();
     // Layout setup end
 
+    
+
     //Bind header to event handlers so the window can be dragged and maximized
     headerPanel->Bind(wxEVT_LEFT_DOWN, &MainFrame::OnHeaderLeftDown, this, header_ID);
     headerPanel->Bind(wxEVT_LEFT_UP, &MainFrame::OnHeaderLeftUp, this, header_ID);
@@ -71,8 +70,9 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
 
     // GUI button controls
     
+    //Header buttons
     // Exit button 
-    auto* exitButton = new wxButton(headerPanel, exitButton_ID, "X", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    auto* exitButton = new wxButton(headerPanel, exitButton_ID, "x", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
     exitButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
     exitButton->SetForegroundColour("#dbdbdb");
     exitButton->SetBackgroundColour("#2c2f33");
@@ -89,8 +89,12 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     minimizeButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
     minimizeButton->SetForegroundColour("#dbdbdb");
     minimizeButton->SetBackgroundColour("#2c2f33");
-    
 
+    wxBoxSizer* headerSizer = new wxBoxSizer(wxHORIZONTAL);
+    headerSizer->Add(exitButton, 0, 0, 10);
+    headerPanel->SetSizer(headerSizer);
+    
+/*
     // Bind button locations TODO REMOVE THESE BINDS AND REPLACE WITH BOXSIZER OR SOMETHING
     headerPanel->Bind(wxEVT_SIZE, [exitButton](wxSizeEvent& event) {
     wxSize newSize = event.GetSize();
@@ -112,6 +116,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     minimizeButton->Move(wxPoint(buttonX, 0));
     event.Skip();
     });
+    */
 
     // Bind button hover event
 
