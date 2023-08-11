@@ -21,8 +21,6 @@ wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(iconButton_ID, MainFrame::OnIconButtonClick)
 wxEND_EVENT_TABLE();
 
-
-
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize) { // constructor
     // Layout setup
     
@@ -30,7 +28,9 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     wxStatusBar* statusBar = wxFrameBase::CreateStatusBar();
 
     // Configure the main window
+    statusBar->SetForegroundColour("#bfbfbf");
     statusBar->SetBackgroundColour("#2c2f33");
+    statusText = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.1.1-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // custom status bar color
     SetClientSize(wxGetDisplaySize() * 0.8);
     SetIcon(icon_);
     wxTopLevelWindowBase::SetMinSize(wxSize((GetSize().GetWidth() / 5) * 2, (GetSize().GetHeight() / 5) * 2)); // Min size is double the config column
@@ -139,9 +139,8 @@ void MainFrame::OnHeaderLeftDown(const wxMouseEvent& e) {
 
 void MainFrame::OnHeaderLeftUp(wxMouseEvent& e) {
     isDragging_ = false;
-    SetStatusText(wxString::Format(wxT("%d"), e.GetPosition().y));
     if (wxGetMousePosition().y == 0) { // todo implement docking for side of screen
-        Center();
+        SetPosition(GetPosition() + wxPoint(0, 50));
         Maximize();
     }
 }
@@ -155,12 +154,10 @@ void MainFrame::OnMouseMove(wxMouseEvent& e) {
 }
 
 void MainFrame::OnTitleBarDoubleClick(wxMouseEvent& e) {
-    if (IsMaximized()) {
+    if (IsMaximized()) 
         Restore();
-    }
-    else {
+    else 
         Maximize();
-    }
 }
 
 void MainFrame::OnExitButtonClick(wxCommandEvent& e) {

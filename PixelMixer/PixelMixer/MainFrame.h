@@ -12,6 +12,7 @@ private:
     
     bool isDragging_;
     wxPoint dragStart_;
+    wxStaticText* statusText;
     void OnHeaderLeftDown(const wxMouseEvent& e);
     void OnHeaderLeftUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
