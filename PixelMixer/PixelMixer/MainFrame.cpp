@@ -71,52 +71,22 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     // GUI button controls
     
     //Header buttons
-    // Exit button 
     auto* exitButton = new wxButton(headerPanel, exitButton_ID, "x", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
-    exitButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
-    exitButton->SetForegroundColour("#dbdbdb");
-    exitButton->SetBackgroundColour("#2c2f33");
-    
-
-    // Maximize button
     auto* maximizeButton = new wxButton(headerPanel, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
-    maximizeButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
-    maximizeButton->SetForegroundColour("#dbdbdb");
-    maximizeButton->SetBackgroundColour("#2c2f33");
-
-    // Minimize button
     auto* minimizeButton = new wxButton(headerPanel, minimizeButton_ID, "_", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
-    minimizeButton->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
-    minimizeButton->SetForegroundColour("#dbdbdb");
-    minimizeButton->SetBackgroundColour("#2c2f33");
+
+    wxButton* headerButtons[] = {minimizeButton , maximizeButton, exitButton};
 
     wxBoxSizer* headerSizer = new wxBoxSizer(wxHORIZONTAL);
-    headerSizer->Add(exitButton, 0, 0, 10);
-    headerPanel->SetSizer(headerSizer);
     
-/*
-    // Bind button locations TODO REMOVE THESE BINDS AND REPLACE WITH BOXSIZER OR SOMETHING
-    headerPanel->Bind(wxEVT_SIZE, [exitButton](wxSizeEvent& event) {
-    wxSize newSize = event.GetSize();
-    int buttonX = newSize.GetWidth() - 50;
-    exitButton->Move(wxPoint(buttonX, 0));
-    event.Skip();
-    });
-
-    headerPanel->Bind(wxEVT_SIZE, [maximizeButton](wxSizeEvent& event) {
-    wxSize newSize = event.GetSize();
-    int buttonX = newSize.GetWidth() - 100;
-    maximizeButton->Move(wxPoint(buttonX, 0));
-    event.Skip();
-    });
-
-    headerPanel->Bind(wxEVT_SIZE, [minimizeButton](wxSizeEvent& event) {
-    wxSize newSize = event.GetSize();
-    int buttonX = newSize.GetWidth() - 150;
-    minimizeButton->Move(wxPoint(buttonX, 0));
-    event.Skip();
-    });
-    */
+    headerSizer->AddStretchSpacer();
+    for (wxButton* button : headerButtons) {
+        button->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+        button->SetForegroundColour("#dbdbdb");
+        button->SetBackgroundColour("#2c2f33");
+        headerSizer->Add(button);
+    }
+    headerPanel->SetSizer(headerSizer);
 
     // Bind button hover event
 
