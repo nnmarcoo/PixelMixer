@@ -7,7 +7,7 @@ enum IDs {
     maximizeButton_ID = 4,
     minimizeButton_ID = 5,
     iconButton_ID = 6,
-    fileImportButton_ID = 7
+    fileImportButton_ID = 7 // unused
 };
 
 BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
@@ -27,8 +27,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
 END_EVENT_TABLE()
 
 
-HeaderPanel::HeaderPanel(wxWindow *parent) : wxPanel(parent)
-{
+HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     wxWindowBase::SetBackgroundColour("#2c2f33");
 
     auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);

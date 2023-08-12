@@ -8,11 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PixelMixer/ConfigPanel.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PixelMixer/ConfigPanel.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PixelMixer/StatusBar.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PixelMixer/StatusBar.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/HeaderPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/HeaderPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/HeaderPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/MainFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/MainFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/MainFrame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +26,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/PixelMixer/StatusBar.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/PixelMixer/StatusBar.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$WXWIN$/include/wx/window.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
@@ -126,7 +133,7 @@
       <workItem from="1691688150373" duration="31591000" />
       <workItem from="1691761935540" duration="13868000" />
       <workItem from="1691818203167" duration="623000" />
-      <workItem from="1691841784996" duration="4095000" />
+      <workItem from="1691841784996" duration="5159000" />
     </task>
     <servers />
   </component>
