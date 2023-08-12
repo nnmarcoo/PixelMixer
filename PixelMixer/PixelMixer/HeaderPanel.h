@@ -5,7 +5,7 @@
 class HeaderPanel : public wxPanel {
 public:
     HeaderPanel(wxWindow* parent, wxWindowID winid);
-
+    
 private:
     bool isDragging_;
     wxPoint dragStart_;
@@ -14,5 +14,5 @@ private:
     void OnMouseMove(const wxMouseEvent& e);
     void OnHeaderDoubleClick(wxMouseEvent& e);
 
-    wxFrame* mainFrame = static_cast<wxFrame*>(wxGetTopLevelParent(this));
+    wxFrame* mainFrame = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
 };

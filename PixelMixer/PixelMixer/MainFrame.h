@@ -11,8 +11,6 @@ private:
     wxIcon icon_ = wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico", wxBITMAP_TYPE_ICO);
     wxDECLARE_EVENT_TABLE();
     
-    bool isDragging_;
-    wxPoint dragStart_;
     wxStaticText* statusText;
     void OnExitButtonClick(wxCommandEvent& e);
     void OnMaximizeButtonClick(wxCommandEvent& e);
