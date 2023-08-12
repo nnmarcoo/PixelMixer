@@ -4,15 +4,23 @@
 
 class HeaderPanel : public wxPanel {
 public:
-    HeaderPanel(wxWindow* parent, wxWindowID winid);
+    HeaderPanel(wxWindow* parent);
     
 private:
+    wxDECLARE_EVENT_TABLE();
+    wxIcon icon_ = wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico", wxBITMAP_TYPE_ICO); // duplicate
+    
     bool isDragging_;
     wxPoint dragStart_;
-    void OnHeaderLeftDown(const wxMouseEvent& e);
+    void OnHeaderLeftDown(wxMouseEvent& e);
     void OnHeaderLeftUp(wxMouseEvent& e);
-    void OnMouseMove(const wxMouseEvent& e);
+    void OnMouseMove(wxMouseEvent& e);
     void OnHeaderDoubleClick(wxMouseEvent& e);
+    
+    void OnExitButtonClick(wxCommandEvent& e);
+    void OnMaximizeButtonClick(wxCommandEvent& e);
+    void OnMinimizeButtonClick(wxCommandEvent& e);
+    void OnIconButtonClick(wxCommandEvent& e);
 
     wxFrame* mainFrame = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
 };

@@ -9,13 +9,7 @@ public:
 
 private:
     wxIcon icon_ = wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico", wxBITMAP_TYPE_ICO);
-    wxDECLARE_EVENT_TABLE();
-    
     wxStaticText* statusText;
-    void OnExitButtonClick(wxCommandEvent& e);
-    void OnMaximizeButtonClick(wxCommandEvent& e);
-    void OnMinimizeButtonClick(wxCommandEvent& e);
-    void OnIconButtonClick(wxCommandEvent& e);
     
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area
     WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override
