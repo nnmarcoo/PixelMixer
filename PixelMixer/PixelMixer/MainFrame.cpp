@@ -26,10 +26,10 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     auto* viewportPanel = new ViewportPanel(vSplitter);
     auto* headerPanel = new HeaderPanel(hSplitter);
 
-        vSplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
-        vSplitter->SetSashPosition(GetSize().GetWidth() / 5);
-        hSplitter->SplitHorizontally(headerPanel, vSplitter); // Split the top(header) and bottom(main region)
-        hSplitter->SetSashPosition(30);
+    vSplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
+    vSplitter->SetSashPosition(GetSize().GetWidth() / 5);
+    hSplitter->SplitHorizontally(headerPanel, vSplitter); // Split the top(header) and bottom(main region)
+    hSplitter->SetSashPosition(30);
     
     SetWindowStyle(wxSYSTEM_MENU | wxRESIZE_BORDER| wxCLIP_CHILDREN); // Must be after status bar declaration
     CenterOnScreen();
