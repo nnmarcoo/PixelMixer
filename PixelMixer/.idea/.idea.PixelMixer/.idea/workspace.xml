@@ -8,12 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PixelMixer/FileDropTarget.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/FileDropTarget.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/App.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/App.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/App.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/FileDropTarget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/FileDropTarget.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.Build.CppClean.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +132,7 @@
       <workItem from="1691841784996" duration="6124000" />
       <workItem from="1691869537156" duration="606000" />
       <workItem from="1691934137398" duration="4049000" />
-      <workItem from="1692027137618" duration="3261000" />
+      <workItem from="1692027137618" duration="5747000" />
     </task>
     <servers />
   </component>

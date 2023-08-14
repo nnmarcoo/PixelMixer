@@ -1,29 +1,24 @@
 #include "ViewportPanel.h"
-
 #include "FileDropTarget.h"
 
 ViewportPanel::ViewportPanel(wxWindow* parent) : wxPanel(parent) {
     wxWindowBase::SetBackgroundColour("#36393e");
 
     // Enable drag-and-drop support
-    wxWindow::SetDropTarget(new FileDropTarget(this));
-    
-    // Bind the drop event handler
+    if (canDND)
+        wxWindow::SetDropTarget(new FileDropTarget(this));
     Bind(wxEVT_DROP_FILES, &ViewportPanel::OnDropFiles, this);
 }
 
-void ViewportPanel::OnDropFiles(wxDropFilesEvent& event) {
-    // Get the dropped file path
-    droppedFilePath = event.GetFiles()[0];
-    
-    // Load and display the image
-    LoadAndDisplayImage(droppedFilePath);
-    
-    event.Skip();
+void ViewportPanel::OnDropFiles(wxDropFilesEvent& e) {
+    LoadAndDisplayImage(e.GetFiles()[0]);
+    canDND = false;
+    SetDropTarget(nullptr);
+    e.Skip();
 }
 
 void ViewportPanel::LoadAndDisplayImage(const wxString& filePath) {
-    wxInitAllImageHandlers();
+    if (!canDND) return;
     const wxImage image(filePath, wxBITMAP_TYPE_ANY);
 
     if (image.IsOk()) {
@@ -39,5 +34,6 @@ void ViewportPanel::LoadAndDisplayImage(const wxString& filePath) {
         wxMemoryDC memDC;
         memDC.SelectObject(bitmap);
         dc.Blit(centerX, centerY, image.GetWidth(), image.GetHeight(), &memDC, 0, 0);
+        canDND = false;
     }
 }

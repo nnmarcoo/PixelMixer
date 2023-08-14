@@ -8,6 +8,7 @@ public:
 
 private:
     wxString droppedFilePath;
+    bool canDND = true;
     
     void OnDropFiles(wxDropFilesEvent& event);
     
