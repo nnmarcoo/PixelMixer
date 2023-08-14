@@ -21,6 +21,7 @@
     <ItemGroup>
       <ClInclude Include="App.h" />
       <ClInclude Include="ConfigPanel.h" />
+      <ClInclude Include="FileDropTarget.h" />
       <ClInclude Include="HeaderPanel.h" />
       <ClInclude Include="MainFrame.h" />
       <ClInclude Include="ViewportPanel.h" />
@@ -28,6 +29,7 @@
     <ItemGroup>
       <ClCompile Include="App.cpp" />
       <ClCompile Include="ConfigPanel.cpp" />
+      <ClCompile Include="FileDropTarget.cpp" />
       <ClCompile Include="HeaderPanel.cpp" />
       <ClCompile Include="MainFrame.cpp" />
       <ClCompile Include="ViewportPanel.cpp" />
