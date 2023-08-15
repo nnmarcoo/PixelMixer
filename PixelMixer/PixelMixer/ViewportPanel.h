@@ -14,9 +14,15 @@ private:
     wxBitmap loadedBitmap;
     int imageCenterX;
     int imageCenterY;
+    bool isPanning;
+    wxPoint lastMousePos;
     
-    void OnDropFiles(wxDropFilesEvent& event);
-    void OnPaint(wxPaintEvent& event);
-    void OnSize(wxSizeEvent& event);
+    void OnDropFiles(wxDropFilesEvent& e);
+    void OnPaint(wxPaintEvent& e);
+    void OnSize(wxSizeEvent& e);
+    void OnMouseMove(wxMouseEvent& e);
+    void OnRightMouseUp(wxMouseEvent& e);
+    void OnRightMouseDown(wxMouseEvent& e);
+    
     
 };

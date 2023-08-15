@@ -1,10 +1,16 @@
 #include "ViewportPanel.h"
 #include "FileDropTarget.h"
 
+//todo add checkerboard
+
 wxBEGIN_EVENT_TABLE(ViewportPanel, wxPanel)
     EVT_SIZE(ViewportPanel::OnSize)
     EVT_PAINT(ViewportPanel::OnPaint)
     EVT_DROP_FILES(ViewportPanel::OnDropFiles)
+
+    EVT_RIGHT_DOWN(ViewportPanel::OnRightMouseDown)
+    EVT_RIGHT_UP(ViewportPanel::OnRightMouseUp)
+    EVT_MOTION(ViewportPanel::OnMouseMove)
 wxEND_EVENT_TABLE()
 
 ViewportPanel::ViewportPanel(wxWindow* parent) : wxPanel(parent) {
@@ -44,11 +50,36 @@ void ViewportPanel::OnPaint(wxPaintEvent& event) {
     }
 }
 
-void ViewportPanel::OnSize(wxSizeEvent& event) {
+void ViewportPanel::OnSize(wxSizeEvent& e) {
     // Update center position based on the new panel size
     imageCenterX = (GetSize().GetWidth() - loadedBitmap.GetWidth()) / 2;
     imageCenterY = (GetSize().GetHeight() - loadedBitmap.GetHeight()) / 2;
 
     Refresh();  // Trigger repainting
-    event.Skip();
+    e.Skip();
+}
+
+void ViewportPanel::OnRightMouseDown(wxMouseEvent& e) {
+    isPanning = true;
+    lastMousePos = e.GetPosition();
+}
+
+void ViewportPanel::OnRightMouseUp(wxMouseEvent& e) {
+    if (isPanning) {
+        isPanning = false;
+    }
+}
+
+void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
+    if (isPanning) {
+        wxPoint currentMousePos = e.GetPosition();
+        wxPoint delta = currentMousePos - lastMousePos;
+
+        // Update image position based on mouse movement
+        imageCenterX += delta.x;
+        imageCenterY += delta.y;
+
+        lastMousePos = currentMousePos;
+        Refresh();  // Trigger repainting
+    }
 }
