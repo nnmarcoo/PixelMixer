@@ -12,6 +12,7 @@
 #endif
 
 //todo add checkerboard
+//todo add glew for modern OpenGL
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::render)
