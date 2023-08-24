@@ -25,7 +25,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     SetCurrent(*context);
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
     
-    image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY);
+    image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
 }
 
 ViewportPanel::~ViewportPanel() {
@@ -34,16 +34,10 @@ ViewportPanel::~ViewportPanel() {
 
 void ViewportPanel::render(wxPaintEvent& e) {
     if (!IsShown()) return;
-
-    // Set up OpenGL context
-    SetCurrent(*context);
+    SetCurrent(*context); // unnecessary because there is only 1 context?
 
     // Clear the canvas
     glClear(GL_COLOR_BUFFER_BIT);
-
-    // Render the image
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
     
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex2f(-1, -1);
@@ -51,7 +45,6 @@ void ViewportPanel::render(wxPaintEvent& e) {
     glTexCoord2f(1, 1); glVertex2f(1, 1);
     glTexCoord2f(0, 1); glVertex2f(-1, 1);
     glEnd();
-
-    // Swap buffers
+    
     SwapBuffers();
 }
