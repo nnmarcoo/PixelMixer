@@ -7,7 +7,7 @@ public:
     HeaderPanel(wxWindow* parent);
     
 private:
-    wxDECLARE_EVENT_TABLE();
+    DECLARE_EVENT_TABLE()
     wxIcon icon_ = wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico", wxBITMAP_TYPE_ICO); // duplicate
     
     bool isDragging_;

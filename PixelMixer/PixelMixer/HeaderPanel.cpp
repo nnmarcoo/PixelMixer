@@ -28,6 +28,7 @@ END_EVENT_TABLE()
 
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
+    wxInitAllImageHandlers();
     wxWindowBase::SetBackgroundColour("#2c2f33");
 
     auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);
