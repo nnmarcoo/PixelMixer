@@ -20,6 +20,7 @@ END_EVENT_TABLE()
 
 ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
     wxInitAllImageHandlers();
+    
     context = new wxGLContext(this);
     SetCurrent(*context);
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
@@ -53,18 +54,4 @@ void ViewportPanel::render(wxPaintEvent& e) {
 
     // Swap buffers
     SwapBuffers();
-}
-
-
-void ViewportPanel::prepare2DViewport() {
-    int w, h;
-    GetClientSize(&w, &h);
-
-    // Set up orthogonal view
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-1, 1, -1, 1, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 }

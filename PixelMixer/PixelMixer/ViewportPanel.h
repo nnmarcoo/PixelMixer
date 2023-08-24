@@ -9,8 +9,6 @@ public:
     ~ViewportPanel() override;
 
     void render(wxPaintEvent& e);
-    void prepare2DViewport();
-
     wxImage image;
     
     DECLARE_EVENT_TABLE()

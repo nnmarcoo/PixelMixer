@@ -8,13 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/App.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/HeaderPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/HeaderPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/HeaderPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +140,7 @@
       <workItem from="1692577723719" duration="2013000" />
       <workItem from="1692627173624" duration="7786000" />
       <workItem from="1692664661897" duration="594000" />
-      <workItem from="1692902838482" duration="2219000" />
+      <workItem from="1692902838482" duration="2549000" />
     </task>
     <servers />
   </component>
