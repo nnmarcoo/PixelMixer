@@ -3,22 +3,11 @@
 #include "FileDropTarget.h"
 #include <wx/image.h>
 
-// include OpenGL
-#ifdef __WXMAC__
-#include "OpenGL/glu.h"
-#include "OpenGL/gl.h"
-#else
-#include <GL/glu.h>
-#include <GL/gl.h>
-#endif
-
 //todo add checkerboard
-//todo add glew for modern OpenGL
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::render)
 END_EVENT_TABLE()
-
 
 ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
     wxInitAllImageHandlers();
@@ -32,8 +21,25 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     
     if (glewInit() != GLEW_OK)
         std::cout << "Error!" << std::endl;
+    
 
     std::cout << glGetString(GL_VERSION) << std::endl;
+
+    constexpr float positions[6] = {
+        -0.5f, -0.5f,
+         0.0f,  0.5f,
+         0.5f, -0.5f
+    };
+    unsigned int buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
 }
 
 ViewportPanel::~ViewportPanel() {
@@ -47,12 +53,7 @@ void ViewportPanel::render(wxPaintEvent& e) {
     // Clear the canvas
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex2f(-1, -1);
-    glTexCoord2f(1, 0); glVertex2f(1, -1);
-    glTexCoord2f(1, 1); glVertex2f(1, 1);
-    glTexCoord2f(0, 1); glVertex2f(-1, 1);
-    glEnd();
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     
     SwapBuffers();
 }
