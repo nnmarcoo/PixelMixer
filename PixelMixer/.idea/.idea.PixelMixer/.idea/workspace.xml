@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" afterDir="false" />
     </list>
@@ -21,6 +22,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um/gl/GL.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$WXWIN$/include/wx/window.h" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -48,7 +53,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -142,6 +147,9 @@
       <workItem from="1692627173624" duration="7786000" />
       <workItem from="1692664661897" duration="594000" />
       <workItem from="1692902838482" duration="4119000" />
+      <workItem from="1692910463074" duration="717000" />
+      <workItem from="1692968503131" duration="1065000" />
+      <workItem from="1692969589696" duration="3610000" />
     </task>
     <servers />
   </component>

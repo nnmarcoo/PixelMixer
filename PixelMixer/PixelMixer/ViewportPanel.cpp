@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "ViewportPanel.h"
 #include "FileDropTarget.h"
 #include <wx/image.h>
@@ -23,10 +24,16 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     wxInitAllImageHandlers();
     
     context = new wxGLContext(this);
+
     SetCurrent(*context);
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
     
     image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
+    
+    if (glewInit() != GLEW_OK)
+        std::cout << "Error!" << std::endl;
+
+    std::cout << glGetString(GL_VERSION) << std::endl;
 }
 
 ViewportPanel::~ViewportPanel() {
