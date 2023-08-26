@@ -7,6 +7,7 @@
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::render)
+    EVT_SIZE(ViewportPanel::OnSize)
 END_EVENT_TABLE()
 
 ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
@@ -30,16 +31,16 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
          0.0f,  0.5f,
          0.5f, -0.5f
     };
+    
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
 }
 
 ViewportPanel::~ViewportPanel() {
@@ -48,7 +49,7 @@ ViewportPanel::~ViewportPanel() {
 
 void ViewportPanel::render(wxPaintEvent& e) {
     if (!IsShown()) return;
-    SetCurrent(*context); // unnecessary because there is only 1 context?
+    //SetCurrent(*context); // unnecessary because there is only 1 context?
 
     // Clear the canvas
     glClear(GL_COLOR_BUFFER_BIT);
@@ -56,4 +57,12 @@ void ViewportPanel::render(wxPaintEvent& e) {
     glDrawArrays(GL_TRIANGLES, 0, 3);
     
     SwapBuffers();
+}
+
+void ViewportPanel::OnSize(wxSizeEvent& e) {
+    if (initialized) return;
+    
+    wxSize viewport = GetSize();
+    glViewport(0, 0, viewport.GetWidth(), viewport.GetHeight());
+    if (viewport.GetWidth() > 10) initialized = true;
 }
