@@ -474,7 +474,9 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="res\images\" />
-      <Folder Include="res\shaders\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="res\shaders\Test.shader" />
     </ItemGroup>
     <PropertyGroup Label="Globals">
         <VCProjectVersion>16.0</VCProjectVersion>

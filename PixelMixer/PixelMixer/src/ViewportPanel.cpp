@@ -2,13 +2,48 @@
 #include "ViewportPanel.h"
 #include "FileDropTarget.h"
 #include <wx/image.h>
+#include <fstream>
+#include <string>
+#include <sstream>
 
 //todo add checkerboard
+
+//todo glDeleteProgram(shader somewhere
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::render)
     EVT_SIZE(ViewportPanel::OnSize)
 END_EVENT_TABLE()
+
+struct ShaderProgramSource {
+    std::string VertexSource;
+    std::string FragmentSource;
+};
+
+static ShaderProgramSource ParseShader(const std::string& filepath) { // can be optimized
+    std::ifstream stream(filepath);
+
+    enum class ShaderType {
+        NONE = -1, VERTEX = 0, FRAGMENT = 1
+        
+    };
+
+    std::string line;
+    std::stringstream ss[2];
+    ShaderType type = ShaderType::NONE;
+    while (getline(stream, line)) {
+        if (line.find("#shader") != std::string::npos) {
+            if (line.find("vertex") != std::string::npos)
+                type = ShaderType::VERTEX;
+            else if (line.find("fragment") != std::string::npos)
+                type = ShaderType::FRAGMENT;
+        }
+        else {
+            ss[(int)type] << line << "\n";
+        }
+    }
+    return { ss[0].str(), ss[1].str()};
+}
 
 static unsigned int CompileShader(unsigned int type, const std::string& source) {
     unsigned int id = glCreateShader(type);
@@ -61,38 +96,34 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
         std::cout << "GLEW ERROR!" << std::endl;
     //std::cout << glGetString(GL_VERSION) << std::endl;
 
-    constexpr float positions[6] = {
-        -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f
+    constexpr float positions[] = {
+        -0.5f, -0.5f, // 0
+         0.5f, -0.5f, // 1
+         0.5f,  0.5f, // 2
+        -0.5f,  0.5f, // 3
+    };
+
+    unsigned int indicies[] = { // can be char to save on mem
+        0, 1, 2,
+        2, 3, 0
     };
     
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
+    unsigned int ibo; // index buffer object
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
+
     
-    std::string vertexShader =
-        "#version 330 core\n"
-        "\n"
-        "layout(location = 0) in vec4 position;"
-        "\n"
-        "void main() {\n"
-        "   gl_Position = position;\n"
-        "}";
-    std::string fragmentShader =
-        "#version 330 core\n"
-        "\n"
-        "layout(location = 0) out vec4 color;"
-        "\n"
-        "void main() {\n"
-        "   color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-        "}";
-    unsigned int shader = CreateShader(vertexShader, fragmentShader);
+    ShaderProgramSource source = ParseShader("res/shaders/Test.shader");
+    unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
     glUseProgram(shader);
     
     //glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind
@@ -109,7 +140,7 @@ void ViewportPanel::render(wxPaintEvent& e) {
     // Clear the canvas
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     
     SwapBuffers();
 }
