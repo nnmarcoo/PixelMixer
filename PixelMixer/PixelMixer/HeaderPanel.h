@@ -8,7 +8,7 @@ public:
     
 private:
     DECLARE_EVENT_TABLE()
-    wxIcon icon_ = wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Images/icon2.ico", wxBITMAP_TYPE_ICO); // duplicate
+    wxIcon icon_ = wxIcon("C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/Resources/Images/icon2.ico", wxBITMAP_TYPE_ICO); // duplicate
     
     bool isDragging_;
     wxPoint dragStart_;
