@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/App.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/App.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/ViewportPanel.h" afterDir="false" />
     </list>
@@ -150,7 +149,9 @@
       <workItem from="1692910463074" duration="717000" />
       <workItem from="1692968503131" duration="1065000" />
       <workItem from="1692969589696" duration="9792000" />
-      <workItem from="1693053241937" duration="1651000" />
+      <workItem from="1693053241937" duration="3623000" />
+      <workItem from="1693145980235" duration="2365000" />
+      <workItem from="1693149344625" duration="1083000" />
     </task>
     <servers />
   </component>

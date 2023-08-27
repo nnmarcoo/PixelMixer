@@ -1,7 +1,6 @@
 #pragma once
 #include <wx/wx.h>
 #include <wx/glcanvas.h>
-#include "App.h"
 
 class ViewportPanel : public wxGLCanvas {
     wxGLContext* context;
