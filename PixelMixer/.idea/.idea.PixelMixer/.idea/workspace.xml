@@ -8,7 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +29,7 @@
     <setting file="file://$WXWIN$/include/wx/window.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -150,7 +152,7 @@
       <workItem from="1693053241937" duration="3623000" />
       <workItem from="1693145980235" duration="2365000" />
       <workItem from="1693149344625" duration="2087000" />
-      <workItem from="1693151781127" duration="2906000" />
+      <workItem from="1693151781127" duration="9168000" />
     </task>
     <servers />
   </component>
