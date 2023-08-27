@@ -25,7 +25,7 @@
     <setting file="file://$WXWIN$/include/wx/window.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -147,7 +147,7 @@
       <workItem from="1692969589696" duration="9792000" />
       <workItem from="1693053241937" duration="3623000" />
       <workItem from="1693145980235" duration="2365000" />
-      <workItem from="1693149344625" duration="1836000" />
+      <workItem from="1693149344625" duration="2087000" />
     </task>
     <servers />
   </component>
