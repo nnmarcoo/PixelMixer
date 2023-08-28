@@ -13,7 +13,8 @@
 //todo glDeleteProgram(shader somewhere
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
-    EVT_PAINT(ViewportPanel::render)
+    EVT_PAINT(ViewportPanel::OnPaint)
+    EVT_IDLE(ViewportPanel::OnIdle)
     EVT_SIZE(ViewportPanel::OnSize)
 END_EVENT_TABLE()
 
@@ -117,7 +118,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
         -0.5f,  0.5f, // 3
     };
 
-    unsigned int indicies[] = { // can be char to save on mem
+    const unsigned int indices[] = { // can be char to save on mem
         0, 1, 2,
         2, 3, 0
     };
@@ -125,7 +126,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
@@ -133,39 +134,53 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     unsigned int ibo; // index buffer object
     glGenBuffers(1, &ibo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
     
     ShaderProgramSource source = ParseShader("res/shaders/Test.shader");
     unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
     glUseProgram(shader);
 
-    const int location = glGetUniformLocation(shader, "u_Color");
+    location = glGetUniformLocation(shader, "u_Color");
+    //ASSERT(location != -1)
     glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f);
     
     //glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind
 }
 
-ViewportPanel::~ViewportPanel() {
-    delete context;
-}
-
-void ViewportPanel::render(wxPaintEvent& e) {
+void ViewportPanel::render() {
     if (!IsShown()) return;
     //SetCurrent(*context); // unnecessary because there is only 1 context?
-
-    // Clear the canvas
     glClear(GL_COLOR_BUFFER_BIT);
     
+    glUniform4f(location, r, 0.3f, 0.8f, 1.0f);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+    if (r > 1.0f)
+        increment = -0.05f;
+    else if (r < 0.0f)
+        increment = 0.05f;
+    r += increment;
 
     SwapBuffers();
 }
 
+void ViewportPanel::OnPaint(wxPaintEvent& e) {
+    render();
+}
+
 void ViewportPanel::OnSize(wxSizeEvent& e) {
     if (initialized) return;
-    
-    wxSize viewport = GetSize();
+
+    const wxSize viewport = GetSize();
     glViewport(0, 0, viewport.GetWidth(), viewport.GetHeight());
     if (viewport.GetWidth() > 10) initialized = true;
+}
+
+void ViewportPanel::OnIdle(wxIdleEvent& e) {
+        Refresh();
+}
+
+ViewportPanel::~ViewportPanel() {
+    delete context;
 }

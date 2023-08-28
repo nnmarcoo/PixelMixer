@@ -92,23 +92,25 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
 void HeaderPanel::OnHeaderLeftDown(wxMouseEvent& e) {
     isDragging_ = true; //          todo WTF is the point of isDragging_ if I can just check the mouse state???
     dragStart_ = e.GetPosition();
+    CaptureMouse();
 }
 
 void HeaderPanel::OnHeaderLeftUp(wxMouseEvent& e) {
     isDragging_ = false;
 
-    const wxPoint mousePos = wxGetMousePosition(); // these two lines get the mouse position on the monitor it is on
+    const wxPoint mousePos = wxGetMousePosition();
     const wxPoint rMousePos = mousePos - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
 
-    if (rMousePos.y == 0) { // todo implement docking for side of screen
+    if (rMousePos.y == 0) {
         mainFrame->SetPosition(mainFrame->GetPosition() + wxPoint(0, 50));
         mainFrame->Maximize();
     }
+    ReleaseMouse();
 }
 
 void HeaderPanel::OnMouseMove(wxMouseEvent& e) {
     if (mainFrame->IsMaximized()) isDragging_ = false;
-    if (isDragging_  && wxGetMouseState().LeftIsDown()) {
+    if (isDragging_) {                                              //  && wxGetMouseState().LeftIsDown()
         const wxPoint newPos = e.GetPosition() - dragStart_;
         mainFrame->SetPosition(mainFrame->GetPosition() + newPos);
     }

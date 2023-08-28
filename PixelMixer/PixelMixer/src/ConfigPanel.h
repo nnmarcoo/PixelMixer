@@ -4,7 +4,4 @@
 class ConfigPanel : public wxPanel {
 public:
     ConfigPanel(wxWindow* parent);
-    
-private:
-    
 };

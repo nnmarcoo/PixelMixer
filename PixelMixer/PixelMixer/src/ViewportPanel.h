@@ -7,11 +7,19 @@ class ViewportPanel : public wxGLCanvas {
 public:
     ViewportPanel(wxWindow* parent);
     ~ViewportPanel() override;
+    
+private:
+    DECLARE_EVENT_TABLE()
 
+    void render();
     void OnSize(wxSizeEvent& e);
-    void render(wxPaintEvent& e);
+    void OnPaint(wxPaintEvent& e);
+    void OnIdle(wxIdleEvent& e);
     wxImage image;
     
-    DECLARE_EVENT_TABLE()
     bool initialized;
+    
+    int location;
+    float r = 0.0f;
+    float increment = 0.05f;
 };
