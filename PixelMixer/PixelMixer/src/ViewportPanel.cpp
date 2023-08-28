@@ -1,15 +1,12 @@
 #include <GL/glew.h>
 #include "ViewportPanel.h"
-#include "FileDropTarget.h"
 #include <wx/image.h>
 #include <fstream>
 #include <string>
 #include <sstream>
 
 #define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
-    x;\
-    ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+#define GLCall(x) GLClearError();x;ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
 //todo add checkerboard
 
@@ -126,26 +123,25 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     };
     
     unsigned int buffer;
-    GLCall(glGenBuffers(1, &buffer))
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer))
-    GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW))
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
 
-    GLCall(glEnableVertexAttribArray(0))
-    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr))
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 
     unsigned int ibo; // index buffer object
-    GLCall(glGenBuffers(1, &ibo))
-    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo))
-    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indicies, GL_STATIC_DRAW))
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
 
     
     ShaderProgramSource source = ParseShader("res/shaders/Test.shader");
     unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
-    GLCall(glUseProgram(shader))
+    glUseProgram(shader);
 
-    GLCall(int location = glGetUniformLocation(shader, "u_Color"))
-    ASSERT(location != -1)
-    GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f))
+    const int location = glGetUniformLocation(shader, "u_Color");
+    glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f);
     
     //glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind
 }
@@ -161,7 +157,7 @@ void ViewportPanel::render(wxPaintEvent& e) {
     // Clear the canvas
     glClear(GL_COLOR_BUFFER_BIT);
     
-    GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr))
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
     SwapBuffers();
 }
