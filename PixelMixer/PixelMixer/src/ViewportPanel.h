@@ -2,6 +2,9 @@
 #include <wx/wx.h>
 #include <wx/glcanvas.h>
 
+#include "IndexBuffer.h"
+#include "VertexBuffer.h"
+
 class ViewportPanel : public wxGLCanvas {
     wxGLContext* context;
 public:
@@ -22,4 +25,9 @@ private:
     int location;
     float r = 0.0f;
     float increment = 0.05f;
+    unsigned int shader;
+    unsigned int vao; // vertex array object
+
+    IndexBuffer* ib;
+    VertexBuffer* vb;
 };

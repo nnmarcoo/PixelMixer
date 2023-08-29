@@ -4,9 +4,9 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-
-#define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) GLClearError();x;ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+#include "Renderer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 //todo add checkerboard
 
@@ -17,18 +17,6 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_IDLE(ViewportPanel::OnIdle)
     EVT_SIZE(ViewportPanel::OnSize)
 END_EVENT_TABLE()
-
-static void GLClearError() {
-    while (glGetError() != GL_NO_ERROR);
-}
-
-static bool GLLogCall(const char* function, const char* file, int line) {
-    while (GLenum error = glGetError()) {
-        std::cout << "[OpenGL Error] (" << error << ")" << function << " " << file << ":" << line << std::endl;
-        return false;
-    }
-    return true;
-}
 
 struct ShaderProgramSource {
     std::string VertexSource;
@@ -98,18 +86,22 @@ static unsigned int CreateShader(const std::string& vertexShader, const std::str
     return program;
 }
 
-
+// new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
 ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
-    wxInitAllImageHandlers();
-    image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
+    //wxInitAllImageHandlers();
+    //image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
+    
+    context = new wxGLContext(this);
+    SetCurrent(*context);
+    
+    GLenum glewInitResult = glewInit();
+    if (glewInitResult != GLEW_OK) {
+        std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
+        return;
+    }
+    std::cout << glGetString(GL_VERSION) << "\n" << glGetString(GL_RENDERER) << "\n" << std::endl; // debug
 
-    
-    context = new wxGLContext(this); SetCurrent(*context); // Create/set context
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
-    
-    if (glewInit() != GLEW_OK)
-        std::cout << "GLEW ERROR!" << std::endl;
-    //std::cout << glGetString(GL_VERSION) << std::endl;
 
     constexpr float positions[] = {
         -0.5f, -0.5f, // 0
@@ -123,38 +115,37 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
         2, 3, 0
     };
     
-    unsigned int buffer;
-    glGenBuffers(1, &buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
+    //GLCall(glGenVertexArrays(1, &vao))
+    //GLCall(glBindVertexArray(vao))
 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
+    vb = new VertexBuffer(positions, 4 * 2 * sizeof(float));
 
-    unsigned int ibo; // index buffer object
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+    GLCall(glEnableVertexAttribArray(0))
+    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr))
 
+    ib = new IndexBuffer(indices, 6);
+    ib->Bind();
     
     ShaderProgramSource source = ParseShader("res/shaders/Test.shader");
-    unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
-    glUseProgram(shader);
+    shader = CreateShader(source.VertexSource, source.FragmentSource);
+    GLCall(glUseProgram(shader))
 
-    location = glGetUniformLocation(shader, "u_Color");
+    GLCall(location = glGetUniformLocation(shader, "u_Color"))
     //ASSERT(location != -1)
-    glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f);
-    
-    //glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind
+    GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f))
 }
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
-    //SetCurrent(*context); // unnecessary because there is only 1 context?
+    SetCurrent(*context); // unnecessary because there is only 1 context?
     glClear(GL_COLOR_BUFFER_BIT);
+    wxPaintDC dc(this); // does this do anything?
     
-    glUniform4f(location, r, 0.3f, 0.8f, 1.0f);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+    GLCall(glUseProgram(shader))
+    GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f))
+
+    GLCall(glBindVertexArray(vao))
+    GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr))
 
     if (r > 1.0f)
         increment = -0.05f;
@@ -183,4 +174,6 @@ void ViewportPanel::OnIdle(wxIdleEvent& e) {
 
 ViewportPanel::~ViewportPanel() {
     delete context;
+    delete ib;
+    delete vb;
 }

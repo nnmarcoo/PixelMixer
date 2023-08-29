@@ -2,14 +2,13 @@
 #include <wx/wx.h>
 #include <wx/splitter.h>
 
-class MainFrame final : public wxFrame
-{
+class MainFrame final : public wxFrame {
 public:
     explicit MainFrame(const wxString& title);
 
 private:
     wxIcon icon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in HeaderPanel
-    wxStaticText* statusText;
+    wxStaticText* statusText_;
     
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area
     WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override

@@ -5,11 +5,12 @@
 class HeaderPanel : public wxPanel {
 public:
     HeaderPanel(wxWindow* parent);
+
     
 private:
     DECLARE_EVENT_TABLE()
     wxIcon icon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in MainFrame
-    
+
     bool isDragging_;
     wxPoint dragStart_;
     void OnHeaderLeftDown(wxMouseEvent& e);

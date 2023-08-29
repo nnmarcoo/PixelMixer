@@ -22,7 +22,10 @@
       <ClInclude Include="src\App.h" />
       <ClInclude Include="src\ConfigPanel.h" />
       <ClInclude Include="src\HeaderPanel.h" />
+      <ClInclude Include="src\IndexBuffer.h" />
       <ClInclude Include="src\MainFrame.h" />
+      <ClInclude Include="src\Renderer.h" />
+      <ClInclude Include="src\VertexBuffer.h" />
       <ClInclude Include="src\ViewportPanel.h" />
     </ItemGroup>
     <ItemGroup>
@@ -248,6 +251,7 @@
         <AdditionalIncludeDirectories>C:\libs\wx\include;C:\libs\wx\include\msvc;C:\libs\glew\include</AdditionalIncludeDirectories>
         <LinkCompiled>true</LinkCompiled>
       </ClCompile>
+      <ClCompile Include="src\IndexBuffer.cpp" />
       <ClCompile Include="src\MainFrame.cpp">
         <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
         <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -322,6 +326,8 @@
         <AdditionalIncludeDirectories>C:\libs\wx\include;C:\libs\wx\include\msvc;C:\libs\glew\include</AdditionalIncludeDirectories>
         <LinkCompiled>true</LinkCompiled>
       </ClCompile>
+      <ClCompile Include="src\Renderer.cpp" />
+      <ClCompile Include="src\VertexBuffer.cpp" />
       <ClCompile Include="src\ViewportPanel.cpp">
         <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
         <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
