@@ -115,8 +115,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
         2, 3, 0
     };
     
-    //GLCall(glGenVertexArrays(1, &vao))
-    //GLCall(glBindVertexArray(vao))
+    GLCall(glGenVertexArrays(1, &vao))
+    GLCall(glBindVertexArray(vao))
 
     vb = new VertexBuffer(positions, 4 * 2 * sizeof(float));
 
@@ -137,9 +137,9 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
-    SetCurrent(*context); // unnecessary because there is only 1 context?
+    //SetCurrent(*context); // unnecessary because there is only 1 context?
     glClear(GL_COLOR_BUFFER_BIT);
-    wxPaintDC dc(this); // does this do anything?
+    //wxPaintDC dc(this); // does this do anything?
     
     GLCall(glUseProgram(shader))
     GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f))
@@ -173,7 +173,7 @@ void ViewportPanel::OnIdle(wxIdleEvent& e) {
 }
 
 ViewportPanel::~ViewportPanel() {
-    delete context;
     delete ib;
     delete vb;
+    delete context;
 }
