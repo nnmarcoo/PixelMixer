@@ -4,6 +4,7 @@
 #include <wx/glcanvas.h>
 
 #include "IndexBuffer.h"
+#include "Renderer.h"
 #include "Shader.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
@@ -36,4 +37,5 @@ private:
     IndexBuffer* ib_;
     VertexBufferLayout* layout_;
     Shader* shader_;
+    Renderer* renderer_;
 };

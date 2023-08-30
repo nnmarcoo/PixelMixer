@@ -1,13 +1,10 @@
 #include "ViewportPanel.h"
 #include <wx/image.h>
 
-#include <fstream>
-#include <string>
-#include <sstream>
-
 #include "Renderer.h"
 
 #include "VertexBuffer.h"
+#include "VertexBufferLayout.h"
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
@@ -70,12 +67,11 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
 void ViewportPanel::render() {
     if (!IsShown()) return;
     //SetCurrent(*context); // unnecessary because there is only 1 context?
-    glClear(GL_COLOR_BUFFER_BIT);
+    renderer_->Clear();
     
     shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
+    renderer_->Draw(*va_, *ib_, *shader_);
     
-    GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr))
-
     if (r_ > 1.0f)
         increment_ = -0.05f;
     else if (r_ < 0.0f)
@@ -107,5 +103,6 @@ ViewportPanel::~ViewportPanel() {
     delete va_;
     delete layout_;
     delete shader_;
+    delete renderer_;
     delete context_; // delete context last to avoid error loop
 }
