@@ -178,5 +178,5 @@ ViewportPanel::~ViewportPanel() {
     delete vb_;
     delete va_;
     delete layout_;
-    delete context_; // lol
+    delete context_; // delete context last to avoid error loop
 }

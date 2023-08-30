@@ -26,7 +26,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     // Button hover events // todo put into table?
 END_EVENT_TABLE()
 
-
+//todo fix window drag bugs / errors
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     wxInitAllImageHandlers();
     wxWindowBase::SetBackgroundColour("#2c2f33");
