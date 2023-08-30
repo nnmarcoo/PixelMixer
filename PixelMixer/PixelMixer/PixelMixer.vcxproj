@@ -25,7 +25,9 @@
       <ClInclude Include="src\IndexBuffer.h" />
       <ClInclude Include="src\MainFrame.h" />
       <ClInclude Include="src\Renderer.h" />
+      <ClInclude Include="src\VertexArray.h" />
       <ClInclude Include="src\VertexBuffer.h" />
+      <ClInclude Include="src\VertexBufferLayout.h" />
       <ClInclude Include="src\ViewportPanel.h" />
     </ItemGroup>
     <ItemGroup>
@@ -327,6 +329,7 @@
         <LinkCompiled>true</LinkCompiled>
       </ClCompile>
       <ClCompile Include="src\Renderer.cpp" />
+      <ClCompile Include="src\VertexArray.cpp" />
       <ClCompile Include="src\VertexBuffer.cpp" />
       <ClCompile Include="src\ViewportPanel.cpp">
         <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>

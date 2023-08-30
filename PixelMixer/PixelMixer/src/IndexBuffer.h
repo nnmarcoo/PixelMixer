@@ -1,6 +1,7 @@
 #pragma once
 
-class IndexBuffer {
+// Holds indices that point to specific vertices in a vertex buffer 
+class IndexBuffer { // ibo
 public:
     IndexBuffer(const unsigned int* data, unsigned int count); // can use other data types
     IndexBuffer() = default;

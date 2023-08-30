@@ -1,12 +1,15 @@
-#include <GL/glew.h>
 #include "ViewportPanel.h"
 #include <wx/image.h>
+
 #include <fstream>
 #include <string>
 #include <sstream>
+
 #include "Renderer.h"
+
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
 
 //todo add checkerboard
 
@@ -91,8 +94,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
     //wxInitAllImageHandlers();
     //image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
     
-    context = new wxGLContext(this);
-    SetCurrent(*context);
+    context_ = new wxGLContext(this);
+    SetCurrent(*context_);
     
     GLenum glewInitResult = glewInit();
     if (glewInitResult != GLEW_OK) {
@@ -115,44 +118,42 @@ ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nu
         2, 3, 0
     };
     
-    GLCall(glGenVertexArrays(1, &vao))
-    GLCall(glBindVertexArray(vao))
+    vb_ = new VertexBuffer(positions, 4 * 2 * sizeof(float));
+    va_ = new VertexArray();
+    layout_ = new VertexBufferLayout();
+    
+    layout_->Push<float>(2);
+    va_->AddBuffer(*vb_, *layout_);
+    va_->Bind();
 
-    vb = new VertexBuffer(positions, 4 * 2 * sizeof(float));
-
-    GLCall(glEnableVertexAttribArray(0))
-    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr))
-
-    ib = new IndexBuffer(indices, 6);
-    ib->Bind();
+    ib_ = new IndexBuffer(indices, 6);
+    ib_->Bind();
     
     ShaderProgramSource source = ParseShader("res/shaders/Test.shader");
-    shader = CreateShader(source.VertexSource, source.FragmentSource);
-    GLCall(glUseProgram(shader))
+    shader_ = CreateShader(source.VertexSource, source.FragmentSource);
+    GLCall(glUseProgram(shader_))
 
-    GLCall(location = glGetUniformLocation(shader, "u_Color"))
+    GLCall(location_ = glGetUniformLocation(shader_, "u_Color"))
     //ASSERT(location != -1)
-    GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f))
+    GLCall(glUniform4f(location_, 0.2f, 0.3f, 0.8f, 1.0f))
 }
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
     //SetCurrent(*context); // unnecessary because there is only 1 context?
     glClear(GL_COLOR_BUFFER_BIT);
-    //wxPaintDC dc(this); // does this do anything?
     
-    GLCall(glUseProgram(shader))
-    GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f))
-
-    GLCall(glBindVertexArray(vao))
+    GLCall(glUseProgram(shader_))
+    GLCall(glUniform4f(location_, r_, 0.3f, 0.8f, 1.0f))
+    
     GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr))
 
-    if (r > 1.0f)
-        increment = -0.05f;
-    else if (r < 0.0f)
-        increment = 0.05f;
-    r += increment;
-
+    if (r_ > 1.0f)
+        increment_ = -0.05f;
+    else if (r_ < 0.0f)
+        increment_ = 0.05f;
+    r_ += increment_;
+    
     SwapBuffers();
 }
 
@@ -161,11 +162,11 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
 }
 
 void ViewportPanel::OnSize(wxSizeEvent& e) {
-    if (initialized) return;
+    if (initialized_) return;
 
     const wxSize viewport = GetSize();
     glViewport(0, 0, viewport.GetWidth(), viewport.GetHeight());
-    if (viewport.GetWidth() > 10) initialized = true;
+    if (viewport.GetWidth() > 10) initialized_ = true;
 }
 
 void ViewportPanel::OnIdle(wxIdleEvent& e) {
@@ -173,7 +174,9 @@ void ViewportPanel::OnIdle(wxIdleEvent& e) {
 }
 
 ViewportPanel::~ViewportPanel() {
-    delete ib;
-    delete vb;
-    delete context;
+    delete ib_;
+    delete vb_;
+    delete va_;
+    delete layout_;
+    delete context_; // lol
 }

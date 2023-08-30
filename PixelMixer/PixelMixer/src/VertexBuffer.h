@@ -1,6 +1,7 @@
 #pragma once
 
-class VertexBuffer {
+// Holds 
+class VertexBuffer { // vbo
 public:
     VertexBuffer(const void* data, unsigned int size);
     VertexBuffer() = default;
