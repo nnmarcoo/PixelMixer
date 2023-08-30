@@ -8,13 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PixelMixer/src/Texture.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PixelMixer/src/Texture.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PixelMixer/res/textures/test.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Shader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Shader.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Texture.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Texture.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um/gl/GL.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/include/vector" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/vendor/stb_image/stb_image.cpp.h" root0="SKIP_HIGHLIGHTING" />
@@ -168,7 +186,7 @@
       <workItem from="1693362242885" duration="4929000" />
       <workItem from="1693373872242" duration="5342000" />
       <workItem from="1693409537929" duration="10914000" />
-      <workItem from="1693433029723" duration="2793000" />
+      <workItem from="1693433029723" duration="5589000" />
     </task>
     <servers />
   </component>
@@ -177,5 +195,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/PixelMixer/src/Texture.cpp</url>
+          <line>5</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

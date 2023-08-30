@@ -6,6 +6,7 @@
 #include "IndexBuffer.h"
 #include "Renderer.h"
 #include "Shader.h"
+#include "Texture.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 
@@ -40,4 +41,5 @@ private:
     VertexBufferLayout* layout_;
     Shader* shader_;
     Renderer* renderer_;
+    Texture* texture_;
 };

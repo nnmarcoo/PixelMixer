@@ -417,6 +417,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="res\shaders\Test.shader" />
+      <Content Include="res\textures\test.png" />
     </ItemGroup>
     <PropertyGroup Label="Globals">
         <VCProjectVersion>16.0</VCProjectVersion>

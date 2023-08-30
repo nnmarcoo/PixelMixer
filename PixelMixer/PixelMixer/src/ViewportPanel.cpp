@@ -8,6 +8,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Texture.h"
 
 //todo add checkerboard
 
@@ -36,21 +37,25 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
 
     constexpr float positions[] = {
-        -0.5f, -0.5f, // 0
-         0.5f, -0.5f, // 1
-         0.5f,  0.5f, // 2
-        -0.5f,  0.5f, // 3
+        -0.5f, -0.5f, 0.0f, 0.0f, // 0
+         0.5f, -0.5f, 1.0f, 0.0f, // 1
+         0.5f,  0.5f, 1.0f, 1.0f, // 2
+        -0.5f,  0.5f, 0.0f, 1.0f// 3
     };
 
     const unsigned int indices[] = { // can be char to save on mem
         0, 1, 2,
         2, 3, 0
     };
+
+    GLCall(glEnable(GL_BLEND))
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))
     
-    vb_ = new VertexBuffer(positions, 4 * 2 * sizeof(float));
+    vb_ = new VertexBuffer(positions, 4 * 4 * sizeof(float));
     va_ = new VertexArray();
     layout_ = new VertexBufferLayout();
     
+    layout_->Push<float>(2);
     layout_->Push<float>(2);
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
@@ -61,6 +66,10 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     shader_ = new Shader("res/shaders/Test.shader");
     shader_->Bind();
     shader_->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+    
+    texture_ = new Texture("res/textures/test.png");
+    texture_->Bind();
+    shader_->SetUniform1i("u_Texture", 0);
 }
 
 void ViewportPanel::render() {
@@ -68,7 +77,7 @@ void ViewportPanel::render() {
     //SetCurrent(*context); // unnecessary because there is only 1 context?
     renderer_->Clear();
     
-    shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
+    //shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
     renderer_->Draw(*va_, *ib_, *shader_);
     
     if (r_ > 1.0f)
