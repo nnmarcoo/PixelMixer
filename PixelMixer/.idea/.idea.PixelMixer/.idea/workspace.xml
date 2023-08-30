@@ -9,15 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/IndexBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/IndexBuffer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Shader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/VertexArray.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/VertexArray.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/VertexBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/VertexBuffer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/VertexBufferLayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/VertexBufferLayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +161,7 @@
       <workItem from="1693309791776" duration="13000000" />
       <workItem from="1693362242885" duration="4929000" />
       <workItem from="1693373872242" duration="5342000" />
-      <workItem from="1693409537929" duration="8265000" />
+      <workItem from="1693409537929" duration="9107000" />
     </task>
     <servers />
   </component>
