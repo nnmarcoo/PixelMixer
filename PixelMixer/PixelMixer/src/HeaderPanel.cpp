@@ -33,15 +33,15 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
 
     auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);
     
-    auto* exitButton = new wxButton(this, exitButton_ID, "x", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
-    auto* maximizeButton = new wxButton(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
-    auto* minimizeButton = new wxButton(this, minimizeButton_ID, "_", wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
-    auto* iconButton = new wxButton(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20));
-          iconButton->SetBitmap(icon_);
+    exitbutton_ = new wxButton(this, exitButton_ID, wxString(wxT("\U0001F5D9")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    maximizebutton_ = new wxButton(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    minimizebutton_ = new wxButton(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
+    iconbutton_ = new wxButton(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20));
+          iconbutton_->SetBitmap(icon_);
 
-    wxButton* headerButtons[] = {minimizeButton , maximizeButton, exitButton};
+    wxButton* headerButtons[] = {minimizebutton_ , maximizebutton_, exitbutton_};
 
-    headerSizer->Add(iconButton, 0, wxALIGN_CENTER | wxLEFT, 5);
+    headerSizer->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT, 5);
     
     headerSizer->AddStretchSpacer();
     for (wxButton* button : headerButtons) {
@@ -67,12 +67,12 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     };
     
     // Bind the common event handlers to each button
-    exitButton->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
-        ButtonHoverHandler(event, exitButton, "#ff3333"); // Hover color for exitButton
+    exitbutton_->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
+        ButtonHoverHandler(event, exitbutton_, "#ff3333"); // Hover color for exitButton
     });
 
-    exitButton->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
-        ButtonLeaveHandler(event, exitButton, "#2c2f33"); // Default color for exitButton
+    exitbutton_->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
+        ButtonLeaveHandler(event, exitbutton_, "#2c2f33"); // Default color for exitButton
     });
     
     for (wxButton* button : headerButtons) { // Change the rest of the buttons
@@ -101,44 +101,50 @@ void HeaderPanel::OnHeaderLeftUp(wxMouseEvent& e) {
     const wxPoint mousePos = wxGetMousePosition();
     const wxPoint rMousePos = mousePos - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
 
-    if (rMousePos.y == 0 && !mainFrame->IsMaximized()) {
-        mainFrame->SetPosition(mainFrame->GetPosition() + wxPoint(0, 50));
-        mainFrame->Maximize();
+    if (rMousePos.y == 0 && !mainframe_->IsMaximized()) {
+        mainframe_->SetPosition(mainframe_->GetPosition() + wxPoint(0, 50));
+        ToggleMaximize();
     }
     if (HasCapture())
         ReleaseMouse();
 }
 
 void HeaderPanel::OnMouseMove(wxMouseEvent& e) {
-    if (mainFrame->IsMaximized()) isDragging_ = false;
+    if (mainframe_->IsMaximized()) isDragging_ = false;
     if (isDragging_) {                                              //  && wxGetMouseState().LeftIsDown()
         const wxPoint newPos = e.GetPosition() - dragStart_;
-        mainFrame->SetPosition(mainFrame->GetPosition() + newPos);
+        mainframe_->SetPosition(mainframe_->GetPosition() + newPos);
     }
 }
 
 void HeaderPanel::OnHeaderDoubleClick(wxMouseEvent& e) {
-    if (mainFrame->IsMaximized()) 
-        mainFrame->Restore();
-    else 
-        mainFrame->Maximize();
+    ToggleMaximize();
 }
 
 void HeaderPanel::OnExitButtonClick(wxCommandEvent& e) {
-    mainFrame->Destroy();
+    mainframe_->Destroy();
 }
 
 void HeaderPanel::OnMaximizeButtonClick(wxCommandEvent& e) {
-    if (mainFrame->IsMaximized())
-        mainFrame->Restore();
-    else
-        mainFrame->Maximize();
+    ToggleMaximize();
 }
 
 void HeaderPanel::OnMinimizeButtonClick(wxCommandEvent& e) {
-    mainFrame->Iconize(true);
+    mainframe_->Iconize(true);
 }
 
 void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
     wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
 }
+
+void HeaderPanel::ToggleMaximize() const
+{
+    if (mainframe_->IsMaximized()) {
+        mainframe_->Restore();
+        maximizebutton_->SetLabel(wxString(wxT("\U0001F5D6")));
+    }
+    else { 
+        mainframe_->Maximize();
+        maximizebutton_->SetLabel(wxString(wxT("\U0001F5D7")));
+    }
+} 

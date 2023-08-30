@@ -24,5 +24,12 @@ private:
     void OnMinimizeButtonClick(wxCommandEvent& e);
     void OnIconButtonClick(wxCommandEvent& e);
 
-    wxFrame* mainFrame = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
+    wxButton* exitbutton_;
+    wxButton* maximizebutton_;
+    wxButton* minimizebutton_;
+    wxButton* iconbutton_;
+
+    void ToggleMaximize() const;
+
+    wxFrame* mainframe_ = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
 };
