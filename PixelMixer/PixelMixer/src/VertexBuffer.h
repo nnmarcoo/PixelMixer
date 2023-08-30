@@ -1,6 +1,6 @@
 #pragma once
 
-// Holds 
+// Holds a list of vertices to create geometry with
 class VertexBuffer { // vbo
 public:
     VertexBuffer(const void* data, unsigned int size);

@@ -12,10 +12,6 @@ Shader::Shader(const std::string& filepath) : FilePath_(filepath), RendererID_(0
     RendererID_ = CreateShader(source.VertexSource, source.FragmentSource);
 }
 
-Shader::~Shader() {
-    GLCall(glDeleteProgram(RendererID_))
-}
-
 void Shader::Bind() const {
     GLCall(glUseProgram(RendererID_))
 }
@@ -100,4 +96,8 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
     glDetachShader(program, fs);
 
     return program;
+}
+
+Shader::~Shader() {
+    GLCall(glDeleteProgram(RendererID_))
 }

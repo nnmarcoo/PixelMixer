@@ -12,7 +12,7 @@
 class ViewportPanel : public wxGLCanvas {
     
 public:
-    ViewportPanel(wxWindow* parent);
+    ViewportPanel(wxWindow* parent, bool* DragState);
     ~ViewportPanel() override;
 
     wxGLContext* context_;
@@ -20,6 +20,8 @@ public:
 private:
     DECLARE_EVENT_TABLE()
 
+    bool* dragstate_;
+    
     void render();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);

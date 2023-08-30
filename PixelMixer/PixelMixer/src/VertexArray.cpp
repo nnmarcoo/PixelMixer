@@ -6,10 +6,6 @@ VertexArray::VertexArray() {
     
 }
 
-VertexArray::~VertexArray() {
-    GLCall(glDeleteVertexArrays(1, &RendererID_))
-}
-
 void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout) {
     Bind();
     vb.Bind();
@@ -31,4 +27,8 @@ void VertexArray::Bind() const {
 
 void VertexArray::Unbind() const {
     GLCall(glBindVertexArray(0))
+}
+
+VertexArray::~VertexArray() {
+    GLCall(glDeleteVertexArrays(1, &RendererID_))
 }

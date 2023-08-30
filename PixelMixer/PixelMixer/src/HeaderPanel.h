@@ -2,16 +2,17 @@
 #include <wx/wx.h>
 #include <wx/display.h>
 
+#include "ViewportPanel.h"
+
 class HeaderPanel : public wxPanel {
 public:
     HeaderPanel(wxWindow* parent);
-
+    bool isDragging_;
     
 private:
     DECLARE_EVENT_TABLE()
     wxIcon icon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in MainFrame
-
-    bool isDragging_;
+    
     wxPoint dragStart_;
     void OnHeaderLeftDown(wxMouseEvent& e);
     void OnHeaderLeftUp(wxMouseEvent& e);

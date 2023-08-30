@@ -23,8 +23,8 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     auto* vSplitter = new wxSplitterWindow(hSplitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_NOSASH);
     
     auto* configPanel = new ConfigPanel(vSplitter);
-    auto* viewportPanel = new ViewportPanel(vSplitter);
     auto* headerPanel = new HeaderPanel(hSplitter);
+    auto* viewportPanel = new ViewportPanel(vSplitter, &headerPanel->isDragging_);
 
     vSplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
     vSplitter->SetSashPosition(GetSize().GetWidth() / 5);

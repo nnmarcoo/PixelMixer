@@ -20,10 +20,9 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
 END_EVENT_TABLE()
 
 // new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
-ViewportPanel::ViewportPanel(wxWindow* parent) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
+ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), dragstate_(DragState) {
     //wxInitAllImageHandlers();
     //image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
-    
     context_ = new wxGLContext(this);
     SetCurrent(*context_);
     
@@ -82,6 +81,7 @@ void ViewportPanel::render() {
 }
 
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
+    if (*dragstate_) return;
     render();
 }
 
