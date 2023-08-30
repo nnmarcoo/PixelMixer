@@ -90,7 +90,7 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
 
 // must put 'mainFrame->' in front of all controls for the parent frame. Harder to read here but cleans up MainFrame.cpp
 void HeaderPanel::OnHeaderLeftDown(wxMouseEvent& e) {
-    isDragging_ = true; //          todo WTF is the point of isDragging_ if I can just check the mouse state???
+    isDragging_ = true;
     dragStart_ = e.GetPosition();
     CaptureMouse();
 }
@@ -101,11 +101,12 @@ void HeaderPanel::OnHeaderLeftUp(wxMouseEvent& e) {
     const wxPoint mousePos = wxGetMousePosition();
     const wxPoint rMousePos = mousePos - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
 
-    if (rMousePos.y == 0) {
+    if (rMousePos.y == 0 && !mainFrame->IsMaximized()) {
         mainFrame->SetPosition(mainFrame->GetPosition() + wxPoint(0, 50));
         mainFrame->Maximize();
     }
-    ReleaseMouse();
+    if (HasCapture())
+        ReleaseMouse();
 }
 
 void HeaderPanel::OnMouseMove(wxMouseEvent& e) {
