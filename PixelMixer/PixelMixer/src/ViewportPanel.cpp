@@ -22,12 +22,10 @@ END_EVENT_TABLE()
 
 // new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
 ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), dragstate_(DragState) {
-    //wxInitAllImageHandlers();
-    //image.LoadFile("C:/Users/marco/Desktop/ahdjahda.png", wxBITMAP_TYPE_ANY); // test
     context_ = new wxGLContext(this);
     SetCurrent(*context_);
-    
-    GLenum glewInitResult = glewInit();
+
+    const GLenum glewInitResult = glewInit();
     if (glewInitResult != GLEW_OK) {
         std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
         return;
@@ -77,7 +75,7 @@ void ViewportPanel::render() {
     //SetCurrent(*context); // unnecessary because there is only 1 context?
     renderer_->Clear();
     
-    //shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
+    shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
     renderer_->Draw(*va_, *ib_, *shader_);
     
     if (r_ > 1.0f)
@@ -113,5 +111,6 @@ ViewportPanel::~ViewportPanel() {
     delete layout_;
     delete shader_;
     delete renderer_;
+    delete texture_;
     delete context_; // delete context last to avoid error loop
 }
