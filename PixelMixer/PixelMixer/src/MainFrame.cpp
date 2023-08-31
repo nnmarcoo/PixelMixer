@@ -10,7 +10,7 @@
 
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize) {
     SetClientSize(wxGetDisplaySize() * 0.8);
-    SetIcon(icon_);
+    SetIcon(logoicon_);
     wxTopLevelWindowBase::SetMinSize(wxSize((GetSize().GetWidth() / 5) * 2, (GetSize().GetHeight() / 5) * 2)); // Min size is double the config column
     
     wxStatusBar* statusBar = wxFrameBase::CreateStatusBar();

@@ -7,7 +7,7 @@ public:
     explicit MainFrame(const wxString& title);
 
 private:
-    wxIcon icon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in HeaderPanel
+    wxIcon logoicon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in HeaderPanel
     wxStaticText* statusText_;
     
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area

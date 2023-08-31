@@ -7,7 +7,7 @@ enum IDs {
     maximizeButton_ID = 4,
     minimizeButton_ID = 5,
     iconButton_ID = 6,
-    fileImportButton_ID = 7 // unused
+    dropdown_ID = 7
 };
 
 BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
@@ -37,18 +37,24 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     maximizebutton_ = new wxButton(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
     minimizebutton_ = new wxButton(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
     iconbutton_ = new wxButton(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20));
-          iconbutton_->SetBitmap(icon_);
+          iconbutton_->SetBitmap(logoicon_);
 
-    wxButton* headerButtons[] = {minimizebutton_ , maximizebutton_, exitbutton_};
+    dropdownbutton_ = new wxButton(this, dropdown_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER);
+        dropdownbutton_->SetBitmap(dropdownicon_);
 
-    headerSizer->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT, 5);
+    headerSizer->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
+    headerSizer->Add(dropdownbutton_);
+    
+
+    wxButton* headerButtons[] = { dropdownbutton_, minimizebutton_ , maximizebutton_, exitbutton_ };
     
     headerSizer->AddStretchSpacer();
     for (wxButton* button : headerButtons) {
         button->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
         button->SetForegroundColour("#bfbfbf");
         button->SetBackgroundColour("#2c2f33");
-        headerSizer->Add(button);
+        if (button->GetId() != dropdown_ID) //todo fix botch
+            headerSizer->Add(button);
     }
     SetSizer(headerSizer);
     
@@ -134,7 +140,9 @@ void HeaderPanel::OnMinimizeButtonClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
-    wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
+    auto* test = new wxFrame(this, wxID_ANY, "test", wxDefaultPosition, wxDefaultSize);
+    test->Show();
+    //wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
 }
 
 void HeaderPanel::ToggleMaximize() const

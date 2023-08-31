@@ -1,4 +1,6 @@
 #include "ViewportPanel.h"
+
+#include <wx/display.h>
 #include <wx/image.h>
 
 #include "Renderer.h"
@@ -35,8 +37,10 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     std::cout << glGetString(GL_VERSION) << "\n" << glGetString(GL_RENDERER) << "\n" << std::endl; // debug
 
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
+    
+    const wxSize displaysize = wxDisplay(wxDisplay::GetFromPoint(wxGetMousePosition())).GetGeometry().GetSize();
 
-    const float s = 500.0f; // todo make relative to screen size instead of constant
+    const float s = 500; // todo make relative to screen size instead of constant
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
           1.0f*s, -1.0f*s, 1.0f, 0.0f, // 1 bottom-right

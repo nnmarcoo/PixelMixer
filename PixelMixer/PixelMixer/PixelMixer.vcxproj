@@ -1269,9 +1269,11 @@
       </ClCompile>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="res\images\" />
-    </ItemGroup>
-    <ItemGroup>
+      <Content Include="res\images\file.png" />
+      <Content Include="res\images\icon.ico" />
+      <Content Include="res\images\icon.png" />
+      <Content Include="res\images\icon2.ico" />
+      <Content Include="res\images\icon2.png" />
       <Content Include="res\shaders\Test.shader" />
       <Content Include="res\textures\test.png" />
       <Content Include="src\vendor\glm\CMakeLists.txt" />

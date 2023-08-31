@@ -11,7 +11,8 @@ public:
     
 private:
     DECLARE_EVENT_TABLE()
-    wxIcon icon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in MainFrame
+    wxIcon logoicon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in MainFrame
+    wxIcon dropdownicon_ = wxIcon("res/images/dropdown.ico", wxBITMAP_TYPE_ICO);
     
     wxPoint dragStart_;
     void OnHeaderLeftDown(wxMouseEvent& e);
@@ -28,6 +29,7 @@ private:
     wxButton* maximizebutton_;
     wxButton* minimizebutton_;
     wxButton* iconbutton_;
+    wxButton* dropdownbutton_;
 
     void ToggleMaximize() const;
 
