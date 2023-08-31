@@ -1,6 +1,8 @@
 #include "HeaderPanel.h"
 #include "MainFrame.h"
 
+//todo make custom button class
+
 enum IDs {
     header_ID = 2,
     exitButton_ID = 3,
@@ -22,6 +24,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     EVT_BUTTON(maximizeButton_ID, HeaderPanel::OnMaximizeButtonClick)
     EVT_BUTTON(minimizeButton_ID, HeaderPanel::OnMinimizeButtonClick)
     EVT_BUTTON(iconButton_ID, HeaderPanel::OnIconButtonClick)
+    EVT_BUTTON(dropdown_ID, HeaderPanel::OnDropDownButtonClick)
 
     // Button hover events // todo put into table?
 END_EVENT_TABLE()
@@ -37,7 +40,7 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     maximizebutton_ = new wxButton(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
     minimizebutton_ = new wxButton(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
     iconbutton_ = new wxButton(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20));
-          iconbutton_->SetBitmap(logoicon_);
+        iconbutton_->SetBitmap(logoicon_);
 
     dropdownbutton_ = new wxButton(this, dropdown_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER);
         dropdownbutton_->SetBitmap(dropdownicon_);
@@ -101,7 +104,7 @@ void HeaderPanel::OnHeaderLeftDown(wxMouseEvent& e) {
     CaptureMouse();
 }
 
-void HeaderPanel::OnHeaderLeftUp(wxMouseEvent& e) {
+void HeaderPanel::OnHeaderLeftUp(wxMouseEvent& e) { // todo add docking ?
     isDragging_ = false;
 
     const wxPoint mousePos = wxGetMousePosition();
@@ -140,9 +143,13 @@ void HeaderPanel::OnMinimizeButtonClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
-    auto* test = new wxFrame(this, wxID_ANY, "test", wxDefaultPosition, wxDefaultSize);
+    wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
+}
+
+void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
+    auto* test = new wxFrame(this, wxID_ANY, wxEmptyString, mainframe_->GetPosition() + wxPoint(36, 30), wxSize(230, 200), wxFRAME_NO_TASKBAR | wxFRAME_SHAPED);
+    test->SetBackgroundColour("#2f3238");
     test->Show();
-    //wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
 }
 
 void HeaderPanel::ToggleMaximize() const

@@ -24,6 +24,7 @@ private:
     void OnMaximizeButtonClick(wxCommandEvent& e);
     void OnMinimizeButtonClick(wxCommandEvent& e);
     void OnIconButtonClick(wxCommandEvent& e);
+    void OnDropDownButtonClick(wxCommandEvent& e);
 
     wxButton* exitbutton_;
     wxButton* maximizebutton_;
