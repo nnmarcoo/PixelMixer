@@ -29,8 +29,6 @@ private:
     void OnIdle(wxIdleEvent& e);
     wxImage image_;
     
-    bool initialized_;
-    
     int location_;
     float r_ = 0.0f;
     float increment_ = 0.05f;

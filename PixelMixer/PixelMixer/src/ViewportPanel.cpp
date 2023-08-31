@@ -14,8 +14,7 @@
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
 //todo add checkerboard
-
-//todo glDeleteProgram(shader somewhere
+//todo is it bad to reinitialize proj?
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
@@ -37,7 +36,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0);  // Set clear color to #36393e
 
-    const float s = 500.0f;
+    const float s = 500.0f; // todo make relative to screen size instead of constant
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
           1.0f*s, -1.0f*s, 1.0f, 0.0f, // 1 bottom-right
@@ -106,11 +105,8 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
 }
 
 void ViewportPanel::OnSize(wxSizeEvent& e) {
-    //if (initialized_) return;
-
     const wxSize viewport = GetSize();
     glViewport(0, 0, viewport.GetWidth(), viewport.GetHeight());
-    //if (viewport.GetWidth() > 10) initialized_ = true;
 }
 
 void ViewportPanel::OnIdle(wxIdleEvent& e) {
