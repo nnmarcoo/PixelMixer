@@ -16,7 +16,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     wxStatusBar* statusBar = wxFrameBase::CreateStatusBar();
                  statusBar->SetForegroundColour("#bfbfbf");
                  statusBar->SetBackgroundColour("#2c2f33");
-    statusText_ = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.2.1-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // Set colored StatusBar text
+    statusText_ = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.3.0-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // Set colored StatusBar text
 
     // Create splitters to organize the frame
     auto* hSplitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_NOSASH);

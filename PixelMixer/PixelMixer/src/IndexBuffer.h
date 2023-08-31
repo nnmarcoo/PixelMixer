@@ -8,7 +8,7 @@ public:
     ~IndexBuffer();
     void Bind() const;
     void Unbind() const;
-    inline unsigned int GetCount() const { return Count_; }
+    unsigned int GetCount() const { return Count_; }
 
 private:
     unsigned int RendererID_;
