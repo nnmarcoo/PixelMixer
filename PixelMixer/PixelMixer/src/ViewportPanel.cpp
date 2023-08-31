@@ -10,6 +10,9 @@
 #include "Shader.h"
 #include "Texture.h"
 
+#include "vendor/glm/glm.hpp"
+#include "vendor/glm/gtc/matrix_transform.hpp"
+
 //todo add checkerboard
 
 //todo glDeleteProgram(shader somewhere
@@ -61,9 +64,12 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
 
+    const glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    
     shader_ = new Shader("res/shaders/Test.shader");
     shader_->Bind();
     shader_->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+    shader_->SetUniformMat4f("u_MVP", proj);
     
     texture_ = new Texture("res/textures/test.png");
     texture_->Bind();

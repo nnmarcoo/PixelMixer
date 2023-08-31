@@ -9,6 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Shader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Shader.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +182,7 @@
       <workItem from="1693362242885" duration="4929000" />
       <workItem from="1693373872242" duration="5342000" />
       <workItem from="1693409537929" duration="10914000" />
-      <workItem from="1693433029723" duration="7732000" />
+      <workItem from="1693433029723" duration="9023000" />
     </task>
     <servers />
   </component>
@@ -188,16 +191,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/PixelMixer/src/Texture.cpp</url>
-          <line>5</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
