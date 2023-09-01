@@ -57,6 +57,9 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         0, 1, 2,
         2, 3, 0
     };
+
+    modl_ = translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+    prevpos_ = glm::vec2(0.0, 0.0);
     
     vb_ = new VertexBuffer(positions, 4 * 4 * sizeof(float)); // points * components * how big each component is
     va_ = new VertexArray();
@@ -77,7 +80,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     texture_ = new Texture("res/textures/test.png");
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
-    
+
+    shader_->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
 }
 
 void ViewportPanel::render() {
@@ -85,16 +89,9 @@ void ViewportPanel::render() {
     //SetCurrent(*context); // unnecessary because there is only 1 context?
     renderer_->Clear();
     
-    shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
     shader_->SetUniformMat4f("u_MVP", mvp_);
     
     renderer_->Draw(*va_, *ib_, *shader_);
-    
-    if (r_ > 1.0f)
-        increment_ = -0.05f;
-    else if (r_ < 0.0f)
-        increment_ = 0.05f;
-    r_ += increment_;
     
     SwapBuffers();
 }
@@ -109,35 +106,42 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
 }
 
 void ViewportPanel::OnSize(wxSizeEvent& e) { // calculate pan as ratio 
-    const wxSize viewport = GetSize();
-    proj_ = glm::ortho(-static_cast<float>(viewport.GetWidth()), static_cast<float>(viewport.GetWidth()), -static_cast<float>(viewport.GetHeight()), static_cast<float>(viewport.GetHeight()), -1.0f, 1.0f);
+    viewport_ = GetSize();
+    glViewport(0, 0, viewport_.x, viewport_.y);
+    proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
-    glViewport(0, 0, viewport.GetWidth(), viewport.GetHeight());
 }
 
 void ViewportPanel::OnIdle(wxIdleEvent& e) {
         Refresh();
 }
 
-void ViewportPanel::OnRightDown(wxMouseEvent& e) {
+void ViewportPanel::OnRightDown(wxMouseEvent& e) { // todo instead of changing the mouse icon, should I make the mouse invisible, and set it back to where it was after the drag?
+    SetCursor(wxCursor(wxCURSOR_SIZING));
     isDragging_ = true;
     dragStart_ = e.GetPosition();
     CaptureMouse();
 }
 
 void ViewportPanel::OnRightUp(wxMouseEvent& e) {
+    SetCursor(wxCursor(wxCURSOR_DEFAULT));
     isDragging_ = false;
     if (HasCapture())
         ReleaseMouse();
+    prevpos_ = loc_;
 }
 
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
-    if (isDragging_) {                                              //  && wxGetMouseState().LeftIsDown()
-        const wxPoint newPos = e.GetPosition() - dragStart_;
-        modl_ = translate(glm::mat4(1.0f), glm::vec3(newPos.x*2,-newPos.y*2,0));
-        UpdateMVP();
-        render();
-    }
+    if (!isDragging_) return;                                            //  && wxGetMouseState().LeftIsDown()
+    
+    const wxPoint delta = e.GetPosition() - dragStart_;
+    const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
+    const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
+    loc_ = glm::vec2(ratiox + prevpos_.x, ratioy + prevpos_.y);
+
+    modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
+    UpdateMVP();
+    render();
 }
 
 ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?

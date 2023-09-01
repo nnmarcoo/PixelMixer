@@ -120,10 +120,9 @@ void HeaderPanel::OnLeftUp(wxMouseEvent& e) { // todo add docking ?
 
 void HeaderPanel::OnMouseMove(wxMouseEvent& e) {
     if (mainframe_->IsMaximized()) isDragging_ = false;
-    if (isDragging_) {                                              //  && wxGetMouseState().LeftIsDown()
-        const wxPoint newPos = e.GetPosition() - dragStart_;
-        mainframe_->SetPosition(mainframe_->GetPosition() + newPos);
-    }
+    if (!isDragging_) return;                                              //  && wxGetMouseState().LeftIsDown()
+    const wxPoint newPos = e.GetPosition() - dragStart_;
+    mainframe_->SetPosition(mainframe_->GetPosition() + newPos);
 }
 
 void HeaderPanel::OnDoubleClick(wxMouseEvent& e) {
