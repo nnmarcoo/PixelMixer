@@ -1,7 +1,7 @@
 #include "ViewportPanel.h"
 
 #include <wx/display.h>
-#include <wx/image.h>
+//#include <wx/image.h>
 
 #include "Renderer.h"
 
@@ -27,6 +27,7 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_RIGHT_DOWN(ViewportPanel::OnRightDown)
     EVT_RIGHT_UP(ViewportPanel::OnRightUp)
     EVT_MOTION(ViewportPanel::OnMouseMove)
+    EVT_MOUSEWHEEL(ViewportPanel::OnMouseWheel)
 END_EVENT_TABLE()
 
 // new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
@@ -57,9 +58,6 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         0, 1, 2,
         2, 3, 0
     };
-
-    modl_ = translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-    prevpos_ = glm::vec2(0.0, 0.0);
     
     vb_ = new VertexBuffer(positions, 4 * 4 * sizeof(float)); // points * components * how big each component is
     va_ = new VertexArray();
@@ -95,6 +93,7 @@ void ViewportPanel::render() {
 }
 
 void ViewportPanel::UpdateMVP() {
+    modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
     mvp_ = proj_ * modl_;
 }
 
@@ -103,7 +102,7 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
     render();
 }
 
-void ViewportPanel::OnSize(wxSizeEvent& e) { // calculate pan as ratio 
+void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
     glViewport(0, 0, viewport_.x, viewport_.y);
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
@@ -136,16 +135,32 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
     const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
 
-    const float newposx = ratiox + prevpos_.x;
-    const float newposy = ratioy + prevpos_.y;
-
-    //if (newposx*2 > 1.0) return; // todo implement
+    float newposx = ratiox + prevpos_.x;
+    float newposy = ratioy + prevpos_.y;
+    
+    if (newposx*2*static_cast<float>(viewport_.x) > static_cast<float>(viewport_.x)) newposx = 0.5;
+    if (newposx*2*static_cast<float>(viewport_.x) < -static_cast<float>(viewport_.x)) newposx = -0.5;
+    if (newposy*2*static_cast<float>(viewport_.y) > static_cast<float>(viewport_.y)) newposy = 0.5;
+    if (newposy*2*static_cast<float>(viewport_.y) < -static_cast<float>(viewport_.y)) newposy = -0.5;
     
     loc_ = glm::vec2(newposx, newposy);
-    modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
+
     UpdateMVP();
     render();
 }
+
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
+    int scrollDelta = e.GetWheelRotation();
+    
+    if (scrollDelta < 0) 
+        zoomfactor_ *= 1.1f;
+     else
+        zoomfactor_ *= 0.9f;
+    
+    UpdateMVP();
+    render();
+}
+
 
 ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
     delete ib_;

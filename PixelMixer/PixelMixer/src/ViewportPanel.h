@@ -37,6 +37,7 @@ private:
     void OnRightDown(wxMouseEvent& e);
     void OnRightUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
+    void OnMouseWheel(wxMouseEvent& e);
     
     wxImage image_;
 
@@ -48,6 +49,8 @@ private:
     Renderer* renderer_;
     Texture* texture_;
 
+    float zoomfactor_;
+    
     glm::vec2 loc_; // Current position of image on canvas as a ratio
     glm::vec2 prevpos_; // Previous position of image on canvas as a ratio (initialized in center of screen)
     glm::mat4 modl_; // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
