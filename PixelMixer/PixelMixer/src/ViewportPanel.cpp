@@ -111,7 +111,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) { // calculate pan as ratio
 }
 
 void ViewportPanel::OnIdle(wxIdleEvent& e) {
-        Refresh();
+    Refresh();
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) { // todo instead of changing the mouse icon, should I make the mouse invisible, and set it back to where it was after the drag?

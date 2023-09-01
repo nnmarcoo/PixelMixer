@@ -29,7 +29,6 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     // Button hover events // todo put into table?
 END_EVENT_TABLE()
 
-//todo fix window drag bugs / errors
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     wxInitAllImageHandlers();
     wxWindowBase::SetBackgroundColour("#2c2f33");
@@ -145,7 +144,7 @@ void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
     wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
 }
 
-void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
+void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) { // fit to media, import, 
     auto* test = new wxFrame(this, wxID_ANY, wxEmptyString, mainframe_->GetPosition() + wxPoint(36, 30), wxSize(230, 200), wxFRAME_NO_TASKBAR | wxFRAME_SHAPED);
     test->SetBackgroundColour("#2f3238");
     test->Show();
