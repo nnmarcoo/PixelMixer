@@ -13,7 +13,7 @@
 #include "Texture.h"
 
 #include "vendor/glm/glm.hpp"
-#include "vendor/glm/gtc/matrix_transform.hpp"
+
 
 //todo add checkerboard
 //todo is it bad to reinitialize proj?
@@ -23,10 +23,14 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
     //EVT_IDLE(ViewportPanel::OnIdle)
     EVT_SIZE(ViewportPanel::OnSize)
+
+    EVT_RIGHT_DOWN(ViewportPanel::OnRightDown)
+    EVT_RIGHT_UP(ViewportPanel::OnRightUp)
+    EVT_MOTION(ViewportPanel::OnMouseMove)
 END_EVENT_TABLE()
 
 // new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
-ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), dragstate_(DragState) {
+ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), wdragstate_(DragState) {
     context_ = new wxGLContext(this);
     SetCurrent(*context_);
 
@@ -73,6 +77,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     texture_ = new Texture("res/textures/test.png");
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
+    
 }
 
 void ViewportPanel::render() {
@@ -82,6 +87,7 @@ void ViewportPanel::render() {
     
     shader_->SetUniform4f("u_Color", r_, 0.3f, 0.8f, 1.0f);
     shader_->SetUniformMat4f("u_MVP", mvp_);
+    
     renderer_->Draw(*va_, *ib_, *shader_);
     
     if (r_ > 1.0f)
@@ -93,21 +99,45 @@ void ViewportPanel::render() {
     SwapBuffers();
 }
 
+void ViewportPanel::UpdateMVP() {
+    mvp_ = proj_ * modl_;
+}
+
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
-    if (*dragstate_) return;
+    if (*wdragstate_) return;
     render();
 }
 
 void ViewportPanel::OnSize(wxSizeEvent& e) { // calculate pan as ratio 
     const wxSize viewport = GetSize();
     proj_ = glm::ortho(-static_cast<float>(viewport.GetWidth()), static_cast<float>(viewport.GetWidth()), -static_cast<float>(viewport.GetHeight()), static_cast<float>(viewport.GetHeight()), -1.0f, 1.0f);
-    modl_ = translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-    mvp_ = proj_ * modl_;
+    UpdateMVP();
     glViewport(0, 0, viewport.GetWidth(), viewport.GetHeight());
 }
 
 void ViewportPanel::OnIdle(wxIdleEvent& e) {
         Refresh();
+}
+
+void ViewportPanel::OnRightDown(wxMouseEvent& e) {
+    isDragging_ = true;
+    dragStart_ = e.GetPosition();
+    CaptureMouse();
+}
+
+void ViewportPanel::OnRightUp(wxMouseEvent& e) {
+    isDragging_ = false;
+    if (HasCapture())
+        ReleaseMouse();
+}
+
+void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
+    if (isDragging_) {                                              //  && wxGetMouseState().LeftIsDown()
+        const wxPoint newPos = e.GetPosition() - dragStart_;
+        modl_ = translate(glm::mat4(1.0f), glm::vec3(newPos.x*2,-newPos.y*2,0));
+        UpdateMVP();
+        render();
+    }
 }
 
 ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?

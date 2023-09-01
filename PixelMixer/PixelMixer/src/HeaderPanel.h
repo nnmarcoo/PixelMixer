@@ -15,10 +15,10 @@ private:
     wxIcon dropdownicon_ = wxIcon("res/images/dropdown.ico", wxBITMAP_TYPE_ICO);
     
     wxPoint dragStart_;
-    void OnHeaderLeftDown(wxMouseEvent& e);
-    void OnHeaderLeftUp(wxMouseEvent& e);
+    void OnLeftDown(wxMouseEvent& e);
+    void OnLeftUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
-    void OnHeaderDoubleClick(wxMouseEvent& e);
+    void OnDoubleClick(wxMouseEvent& e);
     
     void OnExitButtonClick(wxCommandEvent& e);
     void OnMaximizeButtonClick(wxCommandEvent& e);

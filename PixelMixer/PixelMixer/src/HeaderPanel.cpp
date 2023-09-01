@@ -14,10 +14,10 @@ enum IDs {
 
 BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     // Empty header space controls
-    EVT_LEFT_DOWN(HeaderPanel::OnHeaderLeftDown)
-    EVT_LEFT_UP(HeaderPanel::OnHeaderLeftUp)
+    EVT_LEFT_DOWN(HeaderPanel::OnLeftDown)
+    EVT_LEFT_UP(HeaderPanel::OnLeftUp)
     EVT_MOTION(HeaderPanel::OnMouseMove)
-    EVT_LEFT_DCLICK(HeaderPanel::OnHeaderDoubleClick)
+    EVT_LEFT_DCLICK(HeaderPanel::OnDoubleClick)
 
     // Button controls
     EVT_BUTTON(exitButton_ID, HeaderPanel::OnExitButtonClick)
@@ -98,13 +98,13 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
 }
 
 // must put 'mainFrame->' in front of all controls for the parent frame. Harder to read here but cleans up MainFrame.cpp
-void HeaderPanel::OnHeaderLeftDown(wxMouseEvent& e) {
+void HeaderPanel::OnLeftDown(wxMouseEvent& e) {
     isDragging_ = true;
     dragStart_ = e.GetPosition();
     CaptureMouse();
 }
 
-void HeaderPanel::OnHeaderLeftUp(wxMouseEvent& e) { // todo add docking ?
+void HeaderPanel::OnLeftUp(wxMouseEvent& e) { // todo add docking ?
     isDragging_ = false;
 
     const wxPoint mousePos = wxGetMousePosition();
@@ -126,7 +126,7 @@ void HeaderPanel::OnMouseMove(wxMouseEvent& e) {
     }
 }
 
-void HeaderPanel::OnHeaderDoubleClick(wxMouseEvent& e) {
+void HeaderPanel::OnDoubleClick(wxMouseEvent& e) {
     ToggleMaximize();
 }
 
