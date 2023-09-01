@@ -1269,7 +1269,8 @@
       </ClCompile>
     </ItemGroup>
     <ItemGroup>
-      <Content Include="res\images\file.png" />
+      <Content Include="res\images\dropdown.ico" />
+      <Content Include="res\images\dropdown.png" />
       <Content Include="res\images\icon.ico" />
       <Content Include="res\images\icon.png" />
       <Content Include="res\images\icon2.ico" />
