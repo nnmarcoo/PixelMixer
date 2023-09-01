@@ -80,8 +80,6 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     texture_ = new Texture("res/textures/test.png");
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
-
-    shader_->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
 }
 
 void ViewportPanel::render() {
@@ -137,8 +135,13 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     const wxPoint delta = e.GetPosition() - dragStart_;
     const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
     const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
-    loc_ = glm::vec2(ratiox + prevpos_.x, ratioy + prevpos_.y);
 
+    const float newposx = ratiox + prevpos_.x;
+    const float newposy = ratioy + prevpos_.y;
+
+    //if (newposx*2 > 1.0) return; // todo implement
+    
+    loc_ = glm::vec2(newposx, newposy);
     modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
     UpdateMVP();
     render();
