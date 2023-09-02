@@ -16,7 +16,8 @@
 #include "vendor/glm/glm.hpp"
 
 //todo add checkerboard
-//todo is it bad to reinitialize proj?
+//todo fix zoomed pan speed
+//todo fix zoom border restrictions
 //todo waiting for media and animation when no media
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
@@ -98,7 +99,7 @@ void ViewportPanel::render() {
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
+    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)*(2+(1-zoomfactor_)), -loc_.y*static_cast<float>(viewport_.y)*(2+(1-zoomfactor_)), 0));
     mvp_ = proj_ * view_ * modl_;
 }
 
