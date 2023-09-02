@@ -2,6 +2,7 @@
 
 #include <wx/display.h>
 //#include <wx/image.h>
+#include <thread>
 
 #include "Renderer.h"
 
@@ -13,7 +14,6 @@
 #include "Texture.h"
 
 #include "vendor/glm/glm.hpp"
-
 
 //todo add checkerboard
 //todo is it bad to reinitialize proj?
@@ -46,6 +46,12 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
     GLCall(glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0))  // Set clear color to #36393e
 
+    zoomfactor_ = 1.0f;
+    base_ = glm::mat4(1.0f);
+    view_ = scale(base_, glm::vec3(1, 1, 0));
+    
+    /* REST OF CONSTRUCTOR IS FOR TESTING */
+
     const float s = 500; // todo make relative to screen size instead of constant
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
@@ -74,7 +80,6 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     shader_ = new Shader("res/shaders/Test.shader");
     shader_->Bind();
     
-    
     texture_ = new Texture("res/textures/test.png");
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
@@ -93,8 +98,8 @@ void ViewportPanel::render() {
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
-    mvp_ = proj_ * modl_;
+    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)*2, -loc_.y*static_cast<float>(viewport_.y)*2, 0));
+    mvp_ = proj_ * view_ * modl_;
 }
 
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
@@ -129,33 +134,39 @@ void ViewportPanel::OnRightUp(wxMouseEvent& e) {
 }
 
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
-    if (!isDragging_) return;                                            //  && wxGetMouseState().LeftIsDown()
-    
-    const wxPoint delta = e.GetPosition() - dragStart_;
-    const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
-    const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
+    if (!isDragging_) return;
 
-    float newposx = ratiox + prevpos_.x;
-    float newposy = ratioy + prevpos_.y;
-    
-    if (newposx*2*static_cast<float>(viewport_.x) > static_cast<float>(viewport_.x)) newposx = 0.5;
-    if (newposx*2*static_cast<float>(viewport_.x) < -static_cast<float>(viewport_.x)) newposx = -0.5;
-    if (newposy*2*static_cast<float>(viewport_.y) > static_cast<float>(viewport_.y)) newposy = 0.5;
-    if (newposy*2*static_cast<float>(viewport_.y) < -static_cast<float>(viewport_.y)) newposy = -0.5;
-    
-    loc_ = glm::vec2(newposx, newposy);
+    std::thread calc([this, e] { //                 does this make a difference
+        const wxPoint delta = e.GetPosition() - dragStart_;
+        const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
+        const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
 
-    UpdateMVP();
+        float newposx = ratiox + prevpos_.x;
+        float newposy = ratioy + prevpos_.y;
+    
+        if (newposx*2*static_cast<float>(viewport_.x) > static_cast<float>(viewport_.x)) newposx = 0.5; // if image pos is greater than viewport size..
+        if (newposx*2*static_cast<float>(viewport_.x) < -static_cast<float>(viewport_.x)) newposx = -0.5;
+        if (newposy*2*static_cast<float>(viewport_.y) > static_cast<float>(viewport_.y)) newposy = 0.5;
+        if (newposy*2*static_cast<float>(viewport_.y) < -static_cast<float>(viewport_.y)) newposy = -0.5;
+    
+        loc_ = glm::vec2(newposx, newposy);
+        UpdateMVP();
+    });
+    calc.detach();
     render();
 }
 
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
-    int scrollDelta = e.GetWheelRotation();
+    if (isDragging_) return;
+    const int scrolldelta = e.GetWheelRotation();
     
-    if (scrollDelta < 0) 
+    if (scrolldelta > 0) 
         zoomfactor_ *= 1.1f;
      else
         zoomfactor_ *= 0.9f;
+
+    std::cout << zoomfactor_ << std::endl;
+    view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     
     UpdateMVP();
     render();

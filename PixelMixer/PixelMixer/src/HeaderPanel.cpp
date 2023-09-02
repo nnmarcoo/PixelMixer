@@ -119,7 +119,7 @@ void HeaderPanel::OnLeftUp(wxMouseEvent& e) { // todo add docking ?
 
 void HeaderPanel::OnMouseMove(wxMouseEvent& e) {
     if (mainframe_->IsMaximized()) isDragging_ = false;
-    if (!isDragging_) return;                                              //  && wxGetMouseState().LeftIsDown()
+    if (!isDragging_) return;
     const wxPoint newPos = e.GetPosition() - dragStart_;
     mainframe_->SetPosition(mainframe_->GetPosition() + newPos);
 }
