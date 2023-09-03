@@ -157,6 +157,13 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     render();
 }
 
+
+/* calculate distance the image will move 1 time
+ * find pos of mouse on func call
+ * calculate difference
+ * apply transform
+*/
+
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
     if (isDragging_) return;
     const int scrolldelta = e.GetWheelRotation();
@@ -174,8 +181,6 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
 
     float offsetx = static_cast<float>(e.GetPosition().x) * dposx / prevpos_.x;
     float offsety = static_cast<float>(e.GetPosition().y) * dposy / prevpos_.y;
-
-    std::cout <<  zoomfactor_ << std::endl;
 
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
