@@ -36,9 +36,12 @@ private:
     wxPoint dragStart_;
     void OnRightDown(wxMouseEvent& e);
     void OnRightUp(wxMouseEvent& e);
+    void OnDoubleLeftClick(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
     double zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
+
+    void CenterMedia();
 
     VertexBuffer* vb_;
     VertexArray* va_;

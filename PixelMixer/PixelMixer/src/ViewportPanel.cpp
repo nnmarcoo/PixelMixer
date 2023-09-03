@@ -13,6 +13,7 @@
 #include "Shader.h"
 #include "Texture.h"
 
+#include "vendor/glm/gtx/string_cast.hpp"
 #include "vendor/glm/glm.hpp"
 
 //todo add checkerboard
@@ -27,6 +28,7 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
 
     EVT_RIGHT_DOWN(ViewportPanel::OnRightDown)
     EVT_RIGHT_UP(ViewportPanel::OnRightUp)
+    EVT_LEFT_DCLICK(ViewportPanel::OnDoubleLeftClick)
     EVT_MOTION(ViewportPanel::OnMouseMove)
     EVT_MOUSEWHEEL(ViewportPanel::OnMouseWheel)
 END_EVENT_TABLE()
@@ -78,10 +80,10 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    shader_ = new Shader("res/shaders/Test.shader");
+    shader_ = new Shader("res/shaders/Test.glsl");
     shader_->Bind();
     
-    texture_ = new Texture("res/textures/test.png");
+    texture_ = new Texture("res/textures/debug.jpg");
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
 }
@@ -134,6 +136,10 @@ void ViewportPanel::OnRightUp(wxMouseEvent& e) {
     prevpos_ = loc_;
 }
 
+void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
+    CenterMedia();
+}
+
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
 
@@ -157,40 +163,26 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     render();
 }
 
-
-/* calculate distance the image will move 1 time
- * find pos of mouse on func call
- * calculate difference
- * apply transform
-*/
-
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate by the difference
     if (isDragging_) return;
     const int scrolldelta = e.GetWheelRotation();
     
-    if (scrolldelta > 0) 
+    if (scrolldelta > 0)
         zoomfactor_ *= 11.0 / 10.0;
      else
-        zoomfactor_ *= 10.0 / 11.0;
-    
-    float newposx = prevpos_.x * zoomfactor_;
-    float newposy = prevpos_.y * zoomfactor_;
-
-    float dposx = newposx - prevpos_.x;
-    float dposy = newposy - prevpos_.y;
-
-    float offsetx = static_cast<float>(e.GetPosition().x) * dposx / prevpos_.x;
-    float offsety = static_cast<float>(e.GetPosition().y) * dposy / prevpos_.y;
-
+         zoomfactor_ *= 10.0 / 11.0;
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
-    view_ = translate(view_, glm::vec3(0, 0, 0));
-    
-    
     UpdateMVP();
     render();
 }
 
+void ViewportPanel::CenterMedia() {
+    loc_ = glm::vec2(0,0);
+    prevpos_ = loc_;
+    UpdateMVP();
+    render();
+}
 
 ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
     delete ib_;
