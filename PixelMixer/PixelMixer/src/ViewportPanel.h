@@ -37,7 +37,7 @@ private:
     void OnRightDown(wxMouseEvent& e);
     void OnRightUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
-    float zoomfactor_;
+    double zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
 
     VertexBuffer* vb_;
@@ -49,8 +49,8 @@ private:
     Texture* texture_;
 
     
-    glm::vec2 loc_;     // Current position of image on canvas as a ratio
-    glm::vec2 prevpos_; // Previous position of image on canvas as a ratio (initialized in center of screen)
+    glm::vec2 loc_;     // Temporary variable to store previous position during pan
+    glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan(initialized in center of screen)
 
     glm::mat4 base_;
     

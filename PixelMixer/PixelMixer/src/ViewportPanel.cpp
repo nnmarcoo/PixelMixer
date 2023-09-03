@@ -99,7 +99,7 @@ void ViewportPanel::render() {
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)*(2+(1-zoomfactor_)), -loc_.y*static_cast<float>(viewport_.y)*(2+(1-zoomfactor_)), 0));
+    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)* 2 * (1 / zoomfactor_), -loc_.y*static_cast<float>(viewport_.y)* 2 * (1 / zoomfactor_), 0));
     mvp_ = proj_ * view_ * modl_;
 }
 
@@ -162,12 +162,25 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
     const int scrolldelta = e.GetWheelRotation();
     
     if (scrolldelta > 0) 
-        zoomfactor_ *= 1.1f;
+        zoomfactor_ *= 11.0 / 10.0;
      else
-        zoomfactor_ *= 0.9f;
+        zoomfactor_ *= 10.0 / 11.0;
+    
+    float newposx = prevpos_.x * zoomfactor_;
+    float newposy = prevpos_.y * zoomfactor_;
 
-    std::cout << zoomfactor_ << std::endl;
+    float dposx = newposx - prevpos_.x;
+    float dposy = newposy - prevpos_.y;
+
+    float offsetx = static_cast<float>(e.GetPosition().x) * dposx / prevpos_.x;
+    float offsety = static_cast<float>(e.GetPosition().y) * dposy / prevpos_.y;
+
+    std::cout <<  zoomfactor_ << std::endl;
+
+    
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
+    view_ = translate(view_, glm::vec3(0, 0, 0));
+    
     
     UpdateMVP();
     render();
