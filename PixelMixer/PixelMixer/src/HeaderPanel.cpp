@@ -125,16 +125,22 @@ void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
 
 void HeaderPanel::CreateDropDown() {
     const wxFont font(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
-    wxPoint dropdownPosition = mainframe_->GetPosition() + wxPoint(36, 30);
-    dropdown_ = new wxFrame(this, dropdownFrame_ID, wxEmptyString, dropdownPosition, wxDefaultSize, wxFRAME_NO_TASKBAR | wxFRAME_SHAPED | wxBORDER_SIMPLE);
+    dropdown_ = new wxFrame(this, dropdownFrame_ID, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxFRAME_NO_TASKBAR | wxFRAME_SHAPED | wxBORDER_SIMPLE);
     dropdown_->SetBackgroundColour("#2f3238");
+
+    auto* line = new wxStaticBox(dropdown_, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(230, 1));
+    line->SetBackgroundColour("#646464");
+    
     // 1F5AB save icon
     auto* importmedia = new Button(dropdown_, wxID_ANY, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exportmedia = new Button(dropdown_, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
-
+    auto* centermedia = new Button(dropdown_, wxID_ANY, "   Fit Media                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    
     wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(importmedia, 0, wxALL, 5);
     sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(line, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(centermedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     
     dropdown_->SetSizerAndFit(sizer);
 }
