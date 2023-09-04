@@ -1,4 +1,7 @@
 #include "HeaderPanel.h"
+
+#include <thread>
+
 #include "MainFrame.h"
 
 enum IDs {
@@ -7,7 +10,8 @@ enum IDs {
     maximizeButton_ID = 4,
     minimizeButton_ID = 5,
     iconButton_ID = 6,
-    dropdown_ID = 7
+    dropdownButton_ID = 7,
+    dropdownFrame_ID = 8
 };
 
 BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
@@ -22,9 +26,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     EVT_BUTTON(maximizeButton_ID, HeaderPanel::OnMaximizeButtonClick)
     EVT_BUTTON(minimizeButton_ID, HeaderPanel::OnMinimizeButtonClick)
     EVT_BUTTON(iconButton_ID, HeaderPanel::OnIconButtonClick)
-    EVT_BUTTON(dropdown_ID, HeaderPanel::OnDropDownButtonClick)
-
-    // Button hover events // todo put into table?
+    EVT_BUTTON(dropdownButton_ID, HeaderPanel::OnDropDownButtonClick)
 END_EVENT_TABLE()
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
@@ -37,7 +39,7 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     maximizebutton_ = new Button(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30));
     minimizebutton_ = new Button(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
     iconbutton_ = new Button(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20), wxNO_BORDER, logoicon_);
-    dropdownbutton_ = new Button(this, dropdown_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER, dropdownicon_);
+    dropdownbutton_ = new Button(this, dropdownButton_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER, dropdownicon_);
 
     headerSizer_->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
     headerSizer_->Add(dropdownbutton_);
@@ -47,6 +49,8 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     headerSizer_->Add(exitbutton_);
     
     SetSizer(headerSizer_);
+
+    CreateDropDown();
 }
 
 void HeaderPanel::ToggleMaximize() const
@@ -110,23 +114,27 @@ void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
+    dropdown_->SetPosition(mainframe_->GetPosition() + wxPoint(36, 30));
+    dropdown_->Show();
+    dropdown_->Raise();
+    
+    while (dropdown_->IsActive())
+        wxYield();
+    dropdown_->Hide();
+}
+
+void HeaderPanel::CreateDropDown() {
     const wxFont font(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
     wxPoint dropdownPosition = mainframe_->GetPosition() + wxPoint(36, 30);
-
-    int buttons = 2;
-    auto* dropdownFrame = new wxFrame(this, wxID_ANY, wxEmptyString, dropdownPosition, wxSize(230, buttons*30), wxFRAME_NO_TASKBAR | wxFRAME_SHAPED);
-    dropdownFrame->SetBackgroundColour("#2f3238");
-
-    auto* dropdownPanel = new wxPanel(dropdownFrame);
-    dropdownPanel->SetBackgroundColour("#2f3238");
-    
-    auto* importmedia = new Button(dropdownPanel, wxID_ANY, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
-    auto* exportmedia = new Button(dropdownPanel, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    dropdown_ = new wxFrame(this, dropdownFrame_ID, wxEmptyString, dropdownPosition, wxDefaultSize, wxFRAME_NO_TASKBAR | wxFRAME_SHAPED | wxBORDER_SIMPLE);
+    dropdown_->SetBackgroundColour("#2f3238");
+    // 1F5AB save icon
+    auto* importmedia = new Button(dropdown_, wxID_ANY, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* exportmedia = new Button(dropdown_, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
 
     wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-    sizer->Add(importmedia, 0, wxALL | wxEXPAND);
-    sizer->Add(exportmedia, 0, wxALL | wxEXPAND );
+    sizer->Add(importmedia, 0, wxALL, 5);
+    sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     
-    dropdownPanel->SetSizerAndFit(sizer);
-    dropdownFrame->Show();
+    dropdown_->SetSizerAndFit(sizer);
 }

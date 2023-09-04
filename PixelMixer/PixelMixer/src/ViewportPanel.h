@@ -31,7 +31,6 @@ private:
     void render();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);
-    void OnIdle(wxIdleEvent& e);
     
     bool isDragging_;
     wxPoint dragStart_;

@@ -35,5 +35,9 @@ private:
     Button* dropdownbutton_;
     wxSizer* headerSizer_;
 
+    wxFrame* dropdown_;
+    void CreateDropDown();
+    bool indropdown_;
+
     wxFrame* mainframe_ = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
 };

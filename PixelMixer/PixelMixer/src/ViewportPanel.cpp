@@ -100,6 +100,10 @@ void ViewportPanel::render() {
     SwapBuffers();
 }
 
+
+
+/* MEDIA CONTROLS */
+
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
     if (*wdragstate_) return;
     render();
@@ -110,10 +114,6 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     glViewport(0, 0, viewport_.x, viewport_.y);
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
-}
-
-void ViewportPanel::OnIdle(wxIdleEvent& e) {
-    Refresh();
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) { // todo instead of changing the mouse icon, should I make the mouse invisible, and set it back to where it was after the drag?
