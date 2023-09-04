@@ -169,8 +169,11 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate by the dif
     
     if (scrolldelta > 0)
         zoomfactor_ *= 11.0 / 10.0;
-     else
-         zoomfactor_ *= 10.0 / 11.0;
+    else
+        zoomfactor_ *= 10.0 / 11.0;
+
+    // Clamp
+    zoomfactor_ = std::max(.5, std::min(2.0, zoomfactor_));
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();

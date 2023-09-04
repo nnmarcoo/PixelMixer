@@ -18,6 +18,8 @@ public:
     ViewportPanel(wxWindow* parent, bool* DragState);
     ~ViewportPanel() override;
 
+    void CenterMedia();
+
     wxGLContext* context_;
     
 private:
@@ -40,8 +42,7 @@ private:
     void OnMouseMove(wxMouseEvent& e);
     double zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
-
-    void CenterMedia();
+    
 
     VertexBuffer* vb_;
     VertexArray* va_;

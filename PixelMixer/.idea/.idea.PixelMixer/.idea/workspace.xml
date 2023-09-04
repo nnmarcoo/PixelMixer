@@ -8,10 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/res/shaders/Test.shader" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" afterDir="false" />
     </list>
@@ -234,7 +231,9 @@
       <workItem from="1693713955165" duration="4291000" />
       <workItem from="1693718372882" duration="4352000" />
       <workItem from="1693723805580" duration="651000" />
-      <workItem from="1693760477417" duration="5264000" />
+      <workItem from="1693760477417" duration="5431000" />
+      <workItem from="1693769096453" duration="1061000" />
+      <workItem from="1693781285711" duration="2100000" />
     </task>
     <servers />
   </component>
