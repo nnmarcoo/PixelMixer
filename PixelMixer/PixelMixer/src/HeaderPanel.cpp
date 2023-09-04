@@ -1,8 +1,6 @@
 #include "HeaderPanel.h"
 #include "MainFrame.h"
 
-//todo make custom button class
-
 enum IDs {
     header_ID = 2,
     exitButton_ID = 3,
@@ -33,24 +31,34 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     wxInitAllImageHandlers();
     wxWindowBase::SetBackgroundColour("#2c2f33");
 
-    auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);
+    headerSizer_ = new wxBoxSizer(wxHORIZONTAL);
     
     exitbutton_ = new Button(this, exitButton_ID, wxString(wxT("\U0001F5D9")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER, wxNullBitmap, "#ff3333");
-    maximizebutton_ = new Button(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    maximizebutton_ = new Button(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30));
     minimizebutton_ = new Button(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
     iconbutton_ = new Button(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20), wxNO_BORDER, logoicon_);
     dropdownbutton_ = new Button(this, dropdown_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER, dropdownicon_);
 
-    headerSizer->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
-    headerSizer->Add(dropdownbutton_);
-
-    headerSizer->AddStretchSpacer();
-
-    headerSizer->Add(minimizebutton_);
-    headerSizer->Add(maximizebutton_);
-    headerSizer->Add(exitbutton_);
+    headerSizer_->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
+    headerSizer_->Add(dropdownbutton_);
+    headerSizer_->AddStretchSpacer();
+    headerSizer_->Add(minimizebutton_);
+    headerSizer_->Add(maximizebutton_);
+    headerSizer_->Add(exitbutton_);
     
-    SetSizer(headerSizer);
+    SetSizer(headerSizer_);
+}
+
+void HeaderPanel::ToggleMaximize() const
+{
+    if (mainframe_->IsMaximized()) {
+        mainframe_->Restore();
+        maximizebutton_->SetLabel(wxString(wxT("\U0001F5D6")));
+    }
+    else { 
+        mainframe_->Maximize();
+        maximizebutton_->SetLabel(wxString(wxT("\U0001F5D7")));
+    }
 }
 
 // must put 'mainFrame->' in front of all controls for the parent frame. Harder to read here but cleans up MainFrame.cpp
@@ -101,20 +109,24 @@ void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
     wxLaunchDefaultBrowser("https://github.com/nnmarcoo");
 }
 
-void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) { // fit to media, import, 
-    auto* test = new wxFrame(this, wxID_ANY, wxEmptyString, mainframe_->GetPosition() + wxPoint(36, 30), wxSize(230, 200), wxFRAME_NO_TASKBAR | wxFRAME_SHAPED);
-    test->SetBackgroundColour("#2f3238");
-    test->Show();
-}
+void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
+    const wxFont font(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
+    wxPoint dropdownPosition = mainframe_->GetPosition() + wxPoint(36, 30);
 
-void HeaderPanel::ToggleMaximize() const
-{
-    if (mainframe_->IsMaximized()) {
-        mainframe_->Restore();
-        maximizebutton_->SetLabel(wxString(wxT("\U0001F5D6")));
-    }
-    else { 
-        mainframe_->Maximize();
-        maximizebutton_->SetLabel(wxString(wxT("\U0001F5D7")));
-    }
-} 
+    int buttons = 2;
+    auto* dropdownFrame = new wxFrame(this, wxID_ANY, wxEmptyString, dropdownPosition, wxSize(230, buttons*30), wxFRAME_NO_TASKBAR | wxFRAME_SHAPED);
+    dropdownFrame->SetBackgroundColour("#2f3238");
+
+    auto* dropdownPanel = new wxPanel(dropdownFrame);
+    dropdownPanel->SetBackgroundColour("#2f3238");
+    
+    auto* importmedia = new Button(dropdownPanel, wxID_ANY, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* exportmedia = new Button(dropdownPanel, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+
+    wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    sizer->Add(importmedia, 0, wxALL | wxEXPAND);
+    sizer->Add(exportmedia, 0, wxALL | wxEXPAND );
+    
+    dropdownPanel->SetSizerAndFit(sizer);
+    dropdownFrame->Show();
+}

@@ -9,6 +9,7 @@ class HeaderPanel : public wxPanel {
 public:
     HeaderPanel(wxWindow* parent);
     bool isDragging_;
+    void ToggleMaximize() const;
     
 private:
     DECLARE_EVENT_TABLE()
@@ -32,8 +33,7 @@ private:
     Button* minimizebutton_;
     Button* iconbutton_;
     Button* dropdownbutton_;
-
-    void ToggleMaximize() const;
+    wxSizer* headerSizer_;
 
     wxFrame* mainframe_ = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
 };
