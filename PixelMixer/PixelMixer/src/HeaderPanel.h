@@ -2,6 +2,7 @@
 #include <wx/wx.h>
 #include <wx/display.h>
 
+#include "Button.h"
 #include "ViewportPanel.h"
 
 class HeaderPanel : public wxPanel {
@@ -26,11 +27,11 @@ private:
     void OnIconButtonClick(wxCommandEvent& e);
     void OnDropDownButtonClick(wxCommandEvent& e);
 
-    wxButton* exitbutton_;
-    wxButton* maximizebutton_;
-    wxButton* minimizebutton_;
-    wxButton* iconbutton_;
-    wxButton* dropdownbutton_;
+    Button* exitbutton_;
+    Button* maximizebutton_;
+    Button* minimizebutton_;
+    Button* iconbutton_;
+    Button* dropdownbutton_;
 
     void ToggleMaximize() const;
 

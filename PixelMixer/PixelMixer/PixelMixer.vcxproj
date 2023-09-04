@@ -20,6 +20,7 @@
     </ItemGroup>
     <ItemGroup>
       <ClInclude Include="src\App.h" />
+      <ClInclude Include="src\Button.h" />
       <ClInclude Include="src\ConfigPanel.h" />
       <ClInclude Include="src\HeaderPanel.h" />
       <ClInclude Include="src\IndexBuffer.h" />
@@ -526,6 +527,7 @@
         <AdditionalIncludeDirectories>C:\libs\wx\include;C:\libs\wx\include\msvc;C:\libs\glew\include</AdditionalIncludeDirectories>
         <LinkCompiled>true</LinkCompiled>
       </ClCompile>
+      <ClCompile Include="src\Button.cpp" />
       <ClCompile Include="src\ConfigPanel.cpp">
         <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
         <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

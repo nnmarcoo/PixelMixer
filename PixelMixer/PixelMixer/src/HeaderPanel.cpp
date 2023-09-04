@@ -35,65 +35,22 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
 
     auto* headerSizer = new wxBoxSizer(wxHORIZONTAL);
     
-    exitbutton_ = new wxButton(this, exitButton_ID, wxString(wxT("\U0001F5D9")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
-    maximizebutton_ = new wxButton(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
-    minimizebutton_ = new wxButton(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
-    iconbutton_ = new wxButton(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20));
-        iconbutton_->SetBitmap(logoicon_);
-
-    dropdownbutton_ = new wxButton(this, dropdown_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER);
-        dropdownbutton_->SetBitmap(dropdownicon_);
+    exitbutton_ = new Button(this, exitButton_ID, wxString(wxT("\U0001F5D9")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER, wxNullBitmap, "#ff3333");
+    maximizebutton_ = new Button(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER);
+    minimizebutton_ = new Button(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
+    iconbutton_ = new Button(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20), wxNO_BORDER, logoicon_);
+    dropdownbutton_ = new Button(this, dropdown_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER, dropdownicon_);
 
     headerSizer->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
     headerSizer->Add(dropdownbutton_);
-    
 
-    wxButton* headerButtons[] = { dropdownbutton_, minimizebutton_ , maximizebutton_, exitbutton_ };
-    
     headerSizer->AddStretchSpacer();
-    for (wxButton* button : headerButtons) {
-        button->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
-        button->SetForegroundColour("#bfbfbf");
-        button->SetBackgroundColour("#2c2f33");
-        if (button->GetId() != dropdown_ID) //todo fix botch
-            headerSizer->Add(button);
-    }
+
+    headerSizer->Add(minimizebutton_);
+    headerSizer->Add(maximizebutton_);
+    headerSizer->Add(exitbutton_);
+    
     SetSizer(headerSizer);
-    
-    // Bind button hover event
-    // Define a common event handler function for hover and leave events
-    auto ButtonHoverHandler = [](wxMouseEvent& event, wxButton* button, const wxString& hoverColor) {
-        button->SetBackgroundColour(hoverColor);  // Change the background color on hover
-        button->Refresh();
-        event.Skip();
-    };
-
-    auto ButtonLeaveHandler = [](wxMouseEvent& event, wxButton* button, const wxString& defaultColor) {
-        button->SetBackgroundColour(defaultColor);  // Change the background color back when leaving hover
-        button->Refresh();
-        event.Skip();
-    };
-    
-    // Bind the common event handlers to each button
-    exitbutton_->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
-        ButtonHoverHandler(event, exitbutton_, "#ff3333"); // Hover color for exitButton
-    });
-
-    exitbutton_->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
-        ButtonLeaveHandler(event, exitbutton_, "#2c2f33"); // Default color for exitButton
-    });
-    
-    for (wxButton* button : headerButtons) { // Change the rest of the buttons
-        if (button->GetId() == exitButton_ID) continue;
-        
-        button->Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& event) {
-        ButtonHoverHandler(event, button, "#3c3f43");
-        });
-
-        button->Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& event) {
-            ButtonLeaveHandler(event, button, "#2c2f33");
-        });
-    }
 }
 
 // must put 'mainFrame->' in front of all controls for the parent frame. Harder to read here but cleans up MainFrame.cpp

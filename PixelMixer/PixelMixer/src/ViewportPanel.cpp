@@ -100,11 +100,6 @@ void ViewportPanel::render() {
     SwapBuffers();
 }
 
-void ViewportPanel::UpdateMVP() {
-    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)* 2 * (1 / zoomfactor_), -loc_.y*static_cast<float>(viewport_.y)* 2 * (1 / zoomfactor_), 0));
-    mvp_ = proj_ * view_ * modl_;
-}
-
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
     if (*wdragstate_) return;
     render();
@@ -178,6 +173,12 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate by the dif
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
     render();
+}
+
+void ViewportPanel::UpdateMVP() {
+    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)* 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
+                                           -loc_.y*static_cast<float>(viewport_.y)* 2 * (1 / zoomfactor_), 0));
+    mvp_ = proj_ * view_ * modl_;
 }
 
 void ViewportPanel::CenterMedia() {

@@ -29,7 +29,6 @@ private:
     wxSize viewport_;
     
     void render();
-    void UpdateMVP();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);
     void OnIdle(wxIdleEvent& e);
@@ -58,9 +57,11 @@ private:
 
     glm::mat4 base_;
     
-    glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
-    glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".
-    glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
+    glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
+    glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)
+    glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (ortho)
 
     glm::mat4 mvp_; // modl_ * proj_ * view_
+    
+    void UpdateMVP();
 };
