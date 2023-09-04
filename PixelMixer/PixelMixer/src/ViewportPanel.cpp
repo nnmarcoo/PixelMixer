@@ -132,6 +132,7 @@ void ViewportPanel::OnRightUp(wxMouseEvent& e) {
 }
 
 void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
+    if (modl_[3][0] == 0.0 && modl_[3][1] == 0.0) return;
     CenterMedia();
 }
 
