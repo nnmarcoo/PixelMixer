@@ -7,20 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/30ad5f45-ff43-4c79-a4b0-6da40571e1d1.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/4da6684d-d0ad-44fb-a1ac-06cf6b0c806e.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/81386ed6-b8eb-4469-b8cd-eea6beffa602.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/read.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/Browse.VC.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/v17/fileList.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/fileList.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.vcxproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.vcxproj.FileListAbsolute.txt" afterDir="false" />
-    </list>
+    <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -334,7 +321,7 @@
       <workItem from="1693888808744" duration="2807000" />
       <workItem from="1693892167010" duration="1679000" />
       <workItem from="1693897711974" duration="48000" />
-      <workItem from="1693933631623" duration="831000" />
+      <workItem from="1693933631623" duration="1149000" />
     </task>
     <servers />
   </component>
