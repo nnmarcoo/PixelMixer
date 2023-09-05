@@ -116,7 +116,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     UpdateMVP();
 }
 
-void ViewportPanel::OnRightDown(wxMouseEvent& e) { // todo instead of changing the mouse icon, should I make the mouse invisible, and set it back to where it was after the drag?
+void ViewportPanel::OnRightDown(wxMouseEvent& e) {
     SetCursor(wxCursor(wxCURSOR_SIZING));
     isDragging_ = true;
     dragStart_ = e.GetPosition();

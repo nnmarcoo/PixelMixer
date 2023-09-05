@@ -9,21 +9,17 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/CL.command.1.tlog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/CL.read.1.tlog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/CL.write.1.tlog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/PixelMixer.lastbuildstate" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/link.command.1.tlog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/link.read.1.tlog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/Debug/PixelMixer.tlog/link.write.1.tlog" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/30ad5f45-ff43-4c79-a4b0-6da40571e1d1.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/4da6684d-d0ad-44fb-a1ac-06cf6b0c806e.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/81386ed6-b8eb-4469-b8cd-eea6beffa602.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/FileContentIndex/read.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/PixelMixer/v17/fileList.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/PixelMixer/v17/fileList.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/App.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/App.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Button.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Button.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Renderer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Renderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Renderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.Build.CppClean.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.Build.CppClean.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.log" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Debug/PixelMixer.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.vcxproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/x64/Release/PixelMixer.vcxproj.FileListAbsolute.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +198,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;web.server&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -332,7 +328,13 @@
       <workItem from="1693781285711" duration="19538000" />
       <workItem from="1693839790310" duration="2224000" />
       <workItem from="1693853907517" duration="2592000" />
-      <workItem from="1693876116015" duration="5523000" />
+      <workItem from="1693876116015" duration="6842000" />
+      <workItem from="1693883693840" duration="73000" />
+      <workItem from="1693883990936" duration="2300000" />
+      <workItem from="1693888808744" duration="2807000" />
+      <workItem from="1693892167010" duration="1679000" />
+      <workItem from="1693897711974" duration="48000" />
+      <workItem from="1693933631623" duration="831000" />
     </task>
     <servers />
   </component>
