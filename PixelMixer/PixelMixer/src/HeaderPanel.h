@@ -3,13 +3,26 @@
 #include <wx/display.h>
 
 #include "Button.h"
+#include "MainFrame.h"
 #include "ViewportPanel.h"
+
+enum IDs {
+    header_ID = 2,
+    exitButton_ID = 3,
+    maximizeButton_ID = 4,
+    minimizeButton_ID = 5,
+    iconButton_ID = 6,
+    dropdownButton_ID = 7,
+    dropdownFrame_ID = 8,
+    fitmediaButton_ID = 9
+};
 
 class HeaderPanel : public wxPanel {
 public:
     HeaderPanel(wxWindow* parent);
     bool isDragging_;
     void ToggleMaximize() const;
+    void BindViewport(ViewportPanel* viewport) {viewport_ = viewport;}
     
 private:
     DECLARE_EVENT_TABLE()
@@ -37,7 +50,8 @@ private:
 
     wxFrame* dropdown_;
     void CreateDropDown();
-    bool indropdown_;
+    void OnCenterMediaClick(wxCommandEvent& e);
 
-    wxFrame* mainframe_ = dynamic_cast<wxFrame*>(wxGetTopLevelParent(this));
+    MainFrame* mainframe_ = dynamic_cast<MainFrame*>(wxGetTopLevelParent(this));
+    ViewportPanel* viewport_;
 };

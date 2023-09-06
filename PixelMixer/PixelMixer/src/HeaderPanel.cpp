@@ -4,16 +4,6 @@
 
 #include "MainFrame.h"
 
-enum IDs {
-    header_ID = 2,
-    exitButton_ID = 3,
-    maximizeButton_ID = 4,
-    minimizeButton_ID = 5,
-    iconButton_ID = 6,
-    dropdownButton_ID = 7,
-    dropdownFrame_ID = 8
-};
-
 BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     // Empty header space controls
     EVT_LEFT_DOWN(HeaderPanel::OnLeftDown)
@@ -21,12 +11,15 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     EVT_MOTION(HeaderPanel::OnMouseMove)
     EVT_LEFT_DCLICK(HeaderPanel::OnDoubleClick)
 
-    // Button controls
+    // Header button controls
     EVT_BUTTON(exitButton_ID, HeaderPanel::OnExitButtonClick)
     EVT_BUTTON(maximizeButton_ID, HeaderPanel::OnMaximizeButtonClick)
     EVT_BUTTON(minimizeButton_ID, HeaderPanel::OnMinimizeButtonClick)
     EVT_BUTTON(iconButton_ID, HeaderPanel::OnIconButtonClick)
     EVT_BUTTON(dropdownButton_ID, HeaderPanel::OnDropDownButtonClick)
+
+    // Dropdown button controls
+    EVT_BUTTON(fitmediaButton_ID, HeaderPanel::OnCenterMediaClick)
 END_EVENT_TABLE()
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
@@ -134,13 +127,20 @@ void HeaderPanel::CreateDropDown() {
     // 1F5AB save icon
     auto* importmedia = new Button(dropdown_, wxID_ANY, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exportmedia = new Button(dropdown_, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
-    auto* centermedia = new Button(dropdown_, wxID_ANY, "   Fit Media                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* fitmedia = new Button(dropdown_, fitmediaButton_ID, "   Fit Media                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     
     wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(importmedia, 0, wxALL, 5);
     sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(line, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
-    sizer->Add(centermedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(fitmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     
     dropdown_->SetSizerAndFit(sizer);
+    
+}
+
+void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) {
+    viewport_->CenterMedia();
+    wxSize viewportsize = viewport_->GetSize();
+    mainframe_->SetSize(mainframe_->configpanelwidth_ + 500,530);
 }

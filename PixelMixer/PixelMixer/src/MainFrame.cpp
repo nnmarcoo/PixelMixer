@@ -12,11 +12,12 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     SetClientSize(wxGetDisplaySize() * 0.8);
     SetIcon(logoicon_);
     wxTopLevelWindowBase::SetMinSize(wxSize((GetSize().GetWidth() / 5) * 2, (GetSize().GetHeight() / 5) * 2)); // Min size is double the config column
+    configpanelwidth_ = GetSize().GetWidth() / 5;
     
     wxStatusBar* statusBar = wxFrameBase::CreateStatusBar();
                  statusBar->SetForegroundColour("#bfbfbf");
                  statusBar->SetBackgroundColour("#2c2f33");
-    statusText_ = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.4.0-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // Set colored StatusBar text
+    statustext_ = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.4.0-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // Set colored StatusBar text
 
     // Create splitters to organize the frame
     auto* hSplitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_NOSASH);
@@ -25,9 +26,10 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     auto* configPanel = new ConfigPanel(vSplitter);
     auto* headerPanel = new HeaderPanel(hSplitter);
     auto* viewportPanel = new ViewportPanel(vSplitter, &headerPanel->isDragging_);
+    headerPanel->BindViewport(viewportPanel);
 
     vSplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
-    vSplitter->SetSashPosition(GetSize().GetWidth() / 5);
+    vSplitter->SetSashPosition(configpanelwidth_);
     hSplitter->SplitHorizontally(headerPanel, vSplitter); // Split the top(header) and bottom(main region)
     hSplitter->SetSashPosition(30);
     

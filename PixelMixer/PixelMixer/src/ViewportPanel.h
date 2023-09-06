@@ -19,6 +19,8 @@ public:
     ~ViewportPanel() override;
 
     void CenterMedia();
+    void GetImageHeightInPreview();
+    void GetImageWidthInPreview();
 
     wxGLContext* context_;
     

@@ -5,10 +5,11 @@
 class MainFrame final : public wxFrame {
 public:
     explicit MainFrame(const wxString& title);
+    int configpanelwidth_;
 
 private:
     wxIcon logoicon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in HeaderPanel
-    wxStaticText* statusText_;
+    wxStaticText* statustext_;
     
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area
     WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override
