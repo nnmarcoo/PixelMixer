@@ -19,8 +19,7 @@ public:
     ~ViewportPanel() override;
 
     void CenterMedia();
-    void GetImageHeightInPreview();
-    void GetImageWidthInPreview();
+    void SetMedia(const std::string& path);
 
     wxGLContext* context_;
     
@@ -33,6 +32,9 @@ private:
     void render();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);
+
+    int width_;
+    int height_;
     
     bool isDragging_;
     wxPoint dragStart_;
@@ -65,4 +67,5 @@ private:
     glm::mat4 mvp_; // modl_ * proj_ * view_
     
     void UpdateMVP();
+    void ResetMVP();
 };

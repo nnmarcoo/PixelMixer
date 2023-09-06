@@ -14,7 +14,8 @@ enum IDs {
     iconButton_ID = 6,
     dropdownButton_ID = 7,
     dropdownFrame_ID = 8,
-    fitmediaButton_ID = 9
+    fitmediaButton_ID = 9,
+    importmediaButton_ID = 10
 };
 
 class HeaderPanel : public wxPanel {
@@ -51,6 +52,7 @@ private:
     wxFrame* dropdown_;
     void CreateDropDown();
     void OnCenterMediaClick(wxCommandEvent& e);
+    void OnImportMediaClick(wxCommandEvent& e);
 
     MainFrame* mainframe_ = dynamic_cast<MainFrame*>(wxGetTopLevelParent(this));
     ViewportPanel* viewport_;

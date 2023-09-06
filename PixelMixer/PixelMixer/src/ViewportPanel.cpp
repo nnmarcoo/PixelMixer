@@ -182,10 +182,59 @@ void ViewportPanel::UpdateMVP() {
     mvp_ = proj_ * view_ * modl_;
 }
 
+void ViewportPanel::ResetMVP() {
+    zoomfactor_ = 1.0f;
+    view_ = base_;
+    CenterMedia();
+}
+
 void ViewportPanel::CenterMedia() {
     loc_ = glm::vec2(0,0);
     prevpos_ = loc_;
     UpdateMVP();
+    render();
+}
+
+void ViewportPanel::SetMedia(const std::string& path) {
+    const wxSize img = wxImage(path).GetSize(); // todo bad
+    auto distx = static_cast<float>(img.x >> 1);
+    auto disty = static_cast<float>(img.y >> 1);
+
+    while (distx < viewport_.x-40.0 && disty < viewport_.y-40.0) {
+        distx+=40;
+        disty+=40;
+    }
+    while (distx > viewport_.x-40.0 && disty > viewport_.y-40.0) {
+        distx-=40;
+        disty-=40;
+    }
+    
+    float positions[] = {
+        -1.0f*distx, -1.0f*disty, 0.0f, 0.0f, // 0 bottom-left
+         1.0f*distx, -1.0f*disty, 1.0f, 0.0f, // 1 bottom-right
+         1.0f*distx,  1.0f*disty, 1.0f, 1.0f, // 2 top-right
+        -1.0f*distx,  1.0f*disty, 0.0f, 1.0f  // 3 top-left
+   };
+
+    const unsigned int indices[] = { // can be char to save on mem
+        0, 1, 2,
+        2, 3, 0
+    };
+
+    vb_ = new VertexBuffer(positions, 4 * 4 * sizeof(float)); // points * components * how big each component is
+    va_ = new VertexArray();
+    layout_ = new VertexBufferLayout();
+    
+    layout_->Push<float>(2);
+    layout_->Push<float>(2);
+    va_->AddBuffer(*vb_, *layout_);
+    va_->Bind();
+
+    texture_ = new Texture(path);
+    texture_->Bind();
+    shader_->SetUniform1i("u_Texture", 0);
+
+    ResetMVP();
     render();
 }
 

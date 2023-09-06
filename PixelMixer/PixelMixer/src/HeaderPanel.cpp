@@ -20,6 +20,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
 
     // Dropdown button controls
     EVT_BUTTON(fitmediaButton_ID, HeaderPanel::OnCenterMediaClick)
+    EVT_BUTTON(importmediaButton_ID, HeaderPanel::OnImportMediaClick)
 END_EVENT_TABLE()
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
@@ -125,7 +126,7 @@ void HeaderPanel::CreateDropDown() {
     line->SetBackgroundColour("#646464");
     
     // 1F5AB save icon
-    auto* importmedia = new Button(dropdown_, wxID_ANY, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* importmedia = new Button(dropdown_, importmediaButton_ID, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exportmedia = new Button(dropdown_, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* fitmedia = new Button(dropdown_, fitmediaButton_ID, "   Fit Media                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     
@@ -139,8 +140,15 @@ void HeaderPanel::CreateDropDown() {
     
 }
 
-void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) {
+void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) { // todo implement
     viewport_->CenterMedia();
     wxSize viewportsize = viewport_->GetSize();
-    mainframe_->SetSize(mainframe_->configpanelwidth_ + 500,530);
+    mainframe_->SetSize(mainframe_->configpanelwidth_,23 + 30);
+}
+
+void HeaderPanel::OnImportMediaClick(wxCommandEvent& e) {
+    wxFileDialog importmedia(this, "Import Media", "", "", "Image files (*.png;*.jpg;*.bmp)|*.png;*.jpg;*.bmp|All files (*.*)|*.*", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+
+    if (importmedia.ShowModal() == wxID_CANCEL) return;
+    viewport_->SetMedia(static_cast<std::string>(importmedia.GetPath()));
 }
