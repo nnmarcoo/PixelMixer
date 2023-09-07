@@ -19,7 +19,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     EVT_BUTTON(dropdownButton_ID, HeaderPanel::OnDropDownButtonClick)
 
     // Dropdown button controls
-    EVT_BUTTON(fitmediaButton_ID, HeaderPanel::OnCenterMediaClick)
+    EVT_BUTTON(centermediaButton_ID, HeaderPanel::OnCenterMediaClick)
     EVT_BUTTON(importmediaButton_ID, HeaderPanel::OnImportMediaClick)
 END_EVENT_TABLE()
 
@@ -128,13 +128,13 @@ void HeaderPanel::CreateDropDown() {
     // 1F5AB save icon
     auto* importmedia = new Button(dropdown_, importmediaButton_ID, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exportmedia = new Button(dropdown_, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
-    auto* fitmedia = new Button(dropdown_, fitmediaButton_ID, "   Fit Media                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* centermedia = new Button(dropdown_, centermediaButton_ID, "     Center Media                              ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     
     wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(importmedia, 0, wxALL, 5);
     sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(line, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
-    sizer->Add(fitmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(centermedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     
     dropdown_->SetSizerAndFit(sizer);
     
@@ -142,8 +142,7 @@ void HeaderPanel::CreateDropDown() {
 
 void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) { // todo implement
     viewport_->CenterMedia();
-    wxSize viewportsize = viewport_->GetSize();
-    mainframe_->SetSize(mainframe_->configpanelwidth_,23 + 30);
+    mainframe_->Raise();
 }
 
 void HeaderPanel::OnImportMediaClick(wxCommandEvent& e) {

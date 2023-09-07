@@ -14,7 +14,7 @@ enum IDs {
     iconButton_ID = 6,
     dropdownButton_ID = 7,
     dropdownFrame_ID = 8,
-    fitmediaButton_ID = 9,
+    centermediaButton_ID = 9,
     importmediaButton_ID = 10
 };
 
