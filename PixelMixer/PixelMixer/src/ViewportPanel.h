@@ -17,11 +17,14 @@ class ViewportPanel : public wxGLCanvas {
 public:
     ViewportPanel(wxWindow* parent, bool* DragState);
     ~ViewportPanel() override;
+    wxGLContext* context_;
 
     void CenterMedia();
     void SetMedia(const std::string& path);
 
-    wxGLContext* context_;
+    void SetThreshold(float value);
+
+    
     
 private:
     DECLARE_EVENT_TABLE()
@@ -44,7 +47,6 @@ private:
     void OnMouseMove(wxMouseEvent& e);
     double zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
-    
 
     VertexBuffer* vb_;
     VertexArray* va_;
@@ -53,7 +55,6 @@ private:
     Shader* shader_;
     Renderer* renderer_;
     Texture* texture_;
-
     
     glm::vec2 loc_;     // Temporary variable to store previous position during pan
     glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan(initialized in center of screen)
@@ -63,9 +64,10 @@ private:
     glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
     glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)
     glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (ortho)
-
     glm::mat4 mvp_; // modl_ * proj_ * view_
     
     void UpdateMVP();
     void ResetMVP();
+
+    float threshold_;
 };

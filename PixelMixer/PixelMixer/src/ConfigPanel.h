@@ -9,4 +9,7 @@ public:
     void BindViewport(ViewportPanel* viewport) {viewport_ = viewport;}
 private:
     ViewportPanel* viewport_;
+
+    int threshold_;
+    void OnThresholdSliderChange(wxScrollEvent& event);
 };

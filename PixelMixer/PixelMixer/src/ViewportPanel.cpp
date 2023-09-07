@@ -94,6 +94,8 @@ void ViewportPanel::render() {
     renderer_->Clear();
     
     shader_->SetUniformMat4f("u_MVP", mvp_);
+
+    shader_->SetUniform1f("u_Threshold", threshold_);
     
     renderer_->Draw(*va_, *ib_, *shader_);
     
@@ -189,6 +191,7 @@ void ViewportPanel::ResetMVP() {
 }
 
 void ViewportPanel::CenterMedia() {
+    if (loc_ == glm::vec2(0,0)) return;
     loc_ = glm::vec2(0,0);
     prevpos_ = loc_;
     UpdateMVP();
@@ -235,6 +238,11 @@ void ViewportPanel::SetMedia(const std::string& path) {
     shader_->SetUniform1i("u_Texture", 0);
 
     ResetMVP();
+    render();
+}
+
+void ViewportPanel::SetThreshold(float value) {
+    threshold_ = value;
     render();
 }
 
