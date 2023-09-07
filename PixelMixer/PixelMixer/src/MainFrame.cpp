@@ -27,6 +27,7 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     auto* headerPanel = new HeaderPanel(hSplitter);
     auto* viewportPanel = new ViewportPanel(vSplitter, &headerPanel->isDragging_);
     headerPanel->BindViewport(viewportPanel);
+    configPanel->BindViewport(viewportPanel);
 
     vSplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
     vSplitter->SetSashPosition(configpanelwidth_);
