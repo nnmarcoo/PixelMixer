@@ -15,5 +15,4 @@ ConfigPanel::ConfigPanel(wxWindow* parent) : wxPanel(parent) {
 
 void ConfigPanel::OnThresholdSliderChange(wxScrollEvent& event) {
      viewport_->SetThreshold(static_cast<float>(event.GetPosition()) / static_cast<float>(255.0));
-    std::cout << static_cast<float>(event.GetPosition()) / static_cast<float>(255.0) << std::endl;
 }

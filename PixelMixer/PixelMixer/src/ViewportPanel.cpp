@@ -49,9 +49,13 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
     GLCall(glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0))  // Set clear color to #36393e
 
+    glGenQueries(1, &shaderQueryObject);
+
     zoomfactor_ = 1.0f;
     base_ = glm::mat4(1.0f);
     view_ = scale(base_, glm::vec3(1, 1, 0));
+
+    threshold_ = 0.5;
     
     /* REST OF CONSTRUCTOR IS FOR TESTING */
 
@@ -90,17 +94,28 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
-    //SetCurrent(*context); // unnecessary because there is only 1 context?
+    // SetCurrent(*context); // unnecessary because there is only 1 context?
     renderer_->Clear();
     
-    shader_->SetUniformMat4f("u_MVP", mvp_);
+    glBeginQuery(GL_TIME_ELAPSED, shaderQueryObject);
 
+    shader_->SetUniformMat4f("u_MVP", mvp_);
     shader_->SetUniform1f("u_Threshold", threshold_);
-    
+
     renderer_->Draw(*va_, *ib_, *shader_);
     
+    glEndQuery(GL_TIME_ELAPSED);
+    
+    glGetQueryObjectuiv(shaderQueryObject, GL_QUERY_RESULT_AVAILABLE, &shaderElapsedTime);
+    GLuint64 shaderExecutionTime;
+    glGetQueryObjectui64v(shaderQueryObject, GL_QUERY_RESULT, &shaderExecutionTime);
+    
+    double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
+    std::cout << renderinms << " ms " << std::endl;
+
     SwapBuffers();
 }
+
 
 
 

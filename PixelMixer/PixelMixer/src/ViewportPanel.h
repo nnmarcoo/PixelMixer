@@ -70,4 +70,10 @@ private:
     void ResetMVP();
 
     float threshold_;
+
+
+
+    GLuint shaderQueryObject;
+    GLuint shaderElapsedTime;
+
 };
