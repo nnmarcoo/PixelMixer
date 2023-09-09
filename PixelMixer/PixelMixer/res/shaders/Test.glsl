@@ -27,13 +27,10 @@ uniform sampler2D u_Texture;
 
 uniform float u_Threshold;
 
-float Lum(vec4 color) { // Get luminance of color
-    return dot(color.rgb, vec3(0.299, 0.587, 0.114));
-}
-
-float Average(vec4 color) { // Get average of R G B of color
-    return (color.r + color.g + color.b) / 3;
-}
+ // Get luminance of color
+float Lum(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }
+ // Get average of R G B of color
+float Average(vec4 c) { return (c.r + c.g + c.b) / 3; }
 
 void main() {
     vec4 texColor = texture(u_Texture, v_TexCoord);

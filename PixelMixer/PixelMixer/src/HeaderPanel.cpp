@@ -21,6 +21,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     // Dropdown button controls
     EVT_BUTTON(centermediaButton_ID, HeaderPanel::OnCenterMediaClick)
     EVT_BUTTON(importmediaButton_ID, HeaderPanel::OnImportMediaClick)
+    EVT_BUTTON(exitdropdownButton_ID, HeaderPanel::OnExitButtonClick)
 END_EVENT_TABLE()
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
@@ -91,7 +92,7 @@ void HeaderPanel::OnDoubleClick(wxMouseEvent& e) {
     ToggleMaximize();
 }
 
-void HeaderPanel::OnExitButtonClick(wxCommandEvent& e) {
+void HeaderPanel::OnExitButtonClick(wxCommandEvent& e) { // todo ask to save
     mainframe_->Destroy();
 }
 
@@ -124,17 +125,22 @@ void HeaderPanel::CreateDropDown() {
 
     auto* line = new wxStaticBox(dropdown_, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(230, 1));
     line->SetBackgroundColour("#646464");
+    auto* line2 = new wxStaticBox(dropdown_, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(230, 1));
+    line2->SetBackgroundColour("#646464");
     
     // 1F5AB save icon
     auto* importmedia = new Button(dropdown_, importmediaButton_ID, "   Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exportmedia = new Button(dropdown_, wxID_ANY, "   Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* centermedia = new Button(dropdown_, centermediaButton_ID, "     Center Media                              ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* exit = new Button(dropdown_, exitdropdownButton_ID, "    Exit                                            ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     
     wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(importmedia, 0, wxALL, 5);
     sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(line, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(centermedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(line2, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(exit, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     
     dropdown_->SetSizerAndFit(sizer);
     

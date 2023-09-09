@@ -15,7 +15,8 @@ enum IDs {
     dropdownButton_ID = 7,
     dropdownFrame_ID = 8,
     centermediaButton_ID = 9,
-    importmediaButton_ID = 10
+    importmediaButton_ID = 10,
+    exitdropdownButton_ID = 11
 };
 
 class HeaderPanel : public wxPanel {
