@@ -8,9 +8,10 @@ ConfigPanel::ConfigPanel(wxWindow* parent) : wxPanel(parent) {
     thresholdLabel->SetForegroundColour("#bfbfbf");
     thresholdLabel->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
     
-    wxSlider* thresholdSlider = new wxSlider(this, wxID_ANY, 127, 0, 255, wxPoint(30, 60), wxSize(200, -1), wxSL_HORIZONTAL);
+    wxSlider* thresholdSlider = new wxSlider(this, wxID_ANY, 127, 0, 255, wxPoint(30, 60), wxSize(200, -1));
     
     thresholdSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &ConfigPanel::OnThresholdSliderChange, this);
+    
 }
 
 void ConfigPanel::OnThresholdSliderChange(wxScrollEvent& event) {

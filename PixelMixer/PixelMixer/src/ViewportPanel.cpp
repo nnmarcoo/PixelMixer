@@ -256,6 +256,9 @@ void ViewportPanel::SetMedia(const std::string& path) {
     render();
 }
 
+void ViewportPanel::ExportMedia(const std::string& path) {
+}
+
 void ViewportPanel::SetThreshold(float value) {
     threshold_ = value;
     render();

@@ -21,6 +21,7 @@ public:
 
     void CenterMedia();
     void SetMedia(const std::string& path);
+    void ExportMedia(const std::string& path);
 
     void SetThreshold(float value);
 

@@ -22,6 +22,7 @@
       <ClInclude Include="src\App.h" />
       <ClInclude Include="src\Button.h" />
       <ClInclude Include="src\ConfigPanel.h" />
+      <ClInclude Include="src\DropdownLineBreak.h" />
       <ClInclude Include="src\HeaderPanel.h" />
       <ClInclude Include="src\IndexBuffer.h" />
       <ClInclude Include="src\MainFrame.h" />

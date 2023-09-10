@@ -30,7 +30,7 @@ uniform float u_Threshold;
  // Get luminance of color
 float Lum(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }
  // Get average of R G B of color
-float Average(vec4 c) { return (c.r + c.g + c.b) / 3; }
+float Ave(vec4 c) { return (c.r + c.g + c.b) / 3; }
 
 void main() {
     vec4 texColor = texture(u_Texture, v_TexCoord);
@@ -45,4 +45,3 @@ void main() {
     outColor.a = texColor.a;
     gl_FragColor = mix(texColor, outColor, texColor.a);
 }
-
