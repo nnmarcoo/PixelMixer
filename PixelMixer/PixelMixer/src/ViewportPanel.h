@@ -36,6 +36,7 @@ private:
     void render();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);
+    void OnIdle(wxIdleEvent& e);
 
     int width_;
     int height_;
@@ -48,7 +49,7 @@ private:
     void OnMouseMove(wxMouseEvent& e);
     double zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
-
+    
     VertexBuffer* vb_;
     VertexArray* va_;
     IndexBuffer* ib_;
@@ -70,11 +71,14 @@ private:
     void UpdateMVP();
     void ResetMVP();
 
+    int frame_;
     float threshold_;
+    
+    GLuint sqo_; // shader query object
+    GLuint elapsedtime_;
 
 
-
-    GLuint shaderQueryObject;
-    GLuint shaderElapsedTime;
+    GLuint framebuffer;
+    GLuint texture;
 
 };

@@ -23,7 +23,7 @@
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
-    //EVT_IDLE(ViewportPanel::OnIdle)
+    EVT_IDLE(ViewportPanel::OnIdle)
     EVT_SIZE(ViewportPanel::OnSize)
 
     EVT_RIGHT_DOWN(ViewportPanel::OnRightDown)
@@ -49,7 +49,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
     GLCall(glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0))  // Set clear color to #36393e
 
-    glGenQueries(1, &shaderQueryObject);
+    glGenQueries(1, &sqo_);
 
     zoomfactor_ = 1.0f;
     base_ = glm::mat4(1.0f);
@@ -94,30 +94,25 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
-    // SetCurrent(*context); // unnecessary because there is only 1 context?
-    renderer_->Clear();
-    
-    glBeginQuery(GL_TIME_ELAPSED, shaderQueryObject);
+    frame_++;
 
+    glBeginQuery(GL_TIME_ELAPSED, sqo_);
+    
+    renderer_->Clear();
     shader_->SetUniformMat4f("u_MVP", mvp_);
     shader_->SetUniform1f("u_Threshold", threshold_);
-
+    shader_->SetUniform1i("u_Frame", frame_);
     renderer_->Draw(*va_, *ib_, *shader_);
     
     glEndQuery(GL_TIME_ELAPSED);
-    
-    glGetQueryObjectuiv(shaderQueryObject, GL_QUERY_RESULT_AVAILABLE, &shaderElapsedTime);
+    glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
     GLuint64 shaderExecutionTime;
-    glGetQueryObjectui64v(shaderQueryObject, GL_QUERY_RESULT, &shaderExecutionTime);
-    
+    glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
     std::cout << renderinms << " ms " << std::endl;
-
+    
     SwapBuffers();
 }
-
-
-
 
 /* MEDIA CONTROLS */
 
@@ -126,11 +121,35 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
     render();
 }
 
+void ViewportPanel::OnIdle(wxIdleEvent& e) {
+    render();
+}
+
 void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
     glViewport(0, 0, viewport_.x, viewport_.y);
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
+
+    // Create FBO
+    glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    // Create and attach a texture as the color buffer
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, viewport_.x, viewport_.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+
+    // Check if the framebuffer is complete
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        std::cerr << "Framebuffer not complete!" << std::endl;
+    }
+
+    // Unbind the framebuffer
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
@@ -214,6 +233,7 @@ void ViewportPanel::CenterMedia() {
 }
 
 void ViewportPanel::SetMedia(const std::string& path) {
+    frame_ = 0;
     const wxSize img = wxImage(path).GetSize(); // todo bad
     auto distx = static_cast<float>(img.x >> 1);
     auto disty = static_cast<float>(img.y >> 1);

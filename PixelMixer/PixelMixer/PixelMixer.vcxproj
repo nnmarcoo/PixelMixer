@@ -1424,7 +1424,7 @@
       <Content Include="res\images\icon.png" />
       <Content Include="res\images\icon2.ico" />
       <Content Include="res\images\icon2.png" />
-      <Content Include="res\shaders\Test.glsl" />
+      <Content Include="res\shaders\SimpleSort.glsl" />
       <Content Include="res\textures\test.png" />
       <Content Include="src\vendor\glm\CMakeLists.txt" />
     </ItemGroup>
