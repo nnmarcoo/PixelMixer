@@ -15,10 +15,11 @@
 
 #include "vendor/glm/gtx/string_cast.hpp"
 #include "vendor/glm/glm.hpp"
+#include "vendor/stb_image/stb_image.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "vendor/stb_image/stb_image_write.h"
 
-//todo add checkerboard
-//todo fix zoomed pan speed
-//todo fix zoom border restrictions
+//todo fix zoom border restrictions ?
 //todo waiting for media and animation when no media
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
@@ -110,7 +111,7 @@ void ViewportPanel::render() {
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
-    std::cout << renderinms << " ms " << std::endl;
+    //std::cout << renderinms << " ms " << std::endl;
     
     SwapBuffers();
 }
@@ -258,7 +259,15 @@ void ViewportPanel::SetMedia(const std::string& path) {
     render();
 }
 
-void ViewportPanel::ExportMedia(const std::string& path) {
+void ViewportPanel::ExportMedia(const std::string& path)
+{
+    std::vector<unsigned char> data(viewport_.x * viewport_.y * 4);
+    
+    glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+
+    stbi_flip_vertically_on_write(1);
+    stbi_write_png(path.c_str(), viewport_.x, viewport_.y, 4, data.data(), 4 * viewport_.x);
+    stbi_flip_vertically_on_write(0);
 }
 
 void ViewportPanel::SetThreshold(float value) {
