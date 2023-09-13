@@ -14,7 +14,7 @@ bool GLLogCall(const char* function, const char* file, int line);
 
 class Renderer
 {
-public:
+public: // todo move elapsed time here
     void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
     void Clear() const;
 };

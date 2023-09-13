@@ -73,7 +73,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         2, 3, 0
     };
     
-    vb_ = new VertexBuffer(positions, 4 * 4 * sizeof(float)); // points * components * how big each component is
+    vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is // WHY AM I CASTING
     va_ = new VertexArray();
     layout_ = new VertexBufferLayout();
     
@@ -111,7 +111,7 @@ void ViewportPanel::render() {
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
-    //std::cout << renderinms << " ms " << std::endl;
+    std::cout << renderinms << " ms " << std::endl;
     
     SwapBuffers();
 }
@@ -237,12 +237,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
         -1.0f*distx,  1.0f*disty, 0.0f, 1.0f  // 3 top-left
    };
 
-    const unsigned int indices[] = { // can be char to save on mem
-        0, 1, 2,
-        2, 3, 0
-    };
-
-    vb_ = new VertexBuffer(positions, 4 * 4 * sizeof(float)); // points * components * how big each component is
+    vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is // why am I casting
     va_ = new VertexArray();
     layout_ = new VertexBufferLayout();
     
@@ -260,11 +255,12 @@ void ViewportPanel::SetMedia(const std::string& path) {
 }
 
 void ViewportPanel::ExportMedia(const std::string& path) {
+    
 }
 
-void ViewportPanel::Screenshot(const std::string& path) const
-{
-    std::vector<unsigned char> data(viewport_.x * viewport_.y * 4);
+void ViewportPanel::Screenshot(const std::string& path) const { // todo put in clipboard?
+    std::vector<unsigned char> data(static_cast<unsigned long long>(viewport_.x) * static_cast<unsigned long long>(viewport_.y) * 4); // why am I casting
+
     glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     stbi_flip_vertically_on_write(1);
