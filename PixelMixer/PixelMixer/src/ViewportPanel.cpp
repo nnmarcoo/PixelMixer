@@ -259,10 +259,12 @@ void ViewportPanel::SetMedia(const std::string& path) {
     render();
 }
 
-void ViewportPanel::ExportMedia(const std::string& path)
+void ViewportPanel::ExportMedia(const std::string& path) {
+}
+
+void ViewportPanel::Screenshot(const std::string& path) const
 {
     std::vector<unsigned char> data(viewport_.x * viewport_.y * 4);
-    
     glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     stbi_flip_vertically_on_write(1);

@@ -19,7 +19,8 @@ enum IDs {
     exitdropdownButton_ID = 11,
     settingsButton_ID = 12,
     helpButton_ID = 13,
-    exportmediaButton_ID = 14
+    exportmediaButton_ID = 14,
+    screenshotButton_ID = 15
 };
 
 class HeaderPanel : public wxPanel {
@@ -58,6 +59,7 @@ private:
     void OnCenterMediaClick(wxCommandEvent& e);
     void OnImportMediaClick(wxCommandEvent& e);
     void OnExportMediaClick(wxCommandEvent& e);
+    void OnScreenshotClick(wxCommandEvent& e);
     void OnSettingsClick(wxCommandEvent& e);
     void OnHelpClick(wxCommandEvent& e);
 

@@ -26,6 +26,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     EVT_BUTTON(settingsButton_ID, HeaderPanel::OnSettingsClick)
     EVT_BUTTON(helpButton_ID, HeaderPanel::OnHelpClick)
     EVT_BUTTON(exportmediaButton_ID, HeaderPanel::OnExportMediaClick)
+    EVT_BUTTON(screenshotButton_ID, HeaderPanel::OnScreenshotClick)
 END_EVENT_TABLE()
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
@@ -131,6 +132,7 @@ void HeaderPanel::CreateDropDown() {
     auto* importmedia = new Button(dropdown_, importmediaButton_ID, "Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exportmedia = new Button(dropdown_, exportmediaButton_ID, "Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* centermedia = new Button(dropdown_, centermediaButton_ID, "Center Media                           ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
+    auto* screenshot = new Button(dropdown_, screenshotButton_ID, "Screenshot                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* settings = new Button(dropdown_, settingsButton_ID, "Settings                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* help = new Button(dropdown_, helpButton_ID, "Help                                        ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
     auto* exit = new Button(dropdown_, exitdropdownButton_ID, "Exit                                         ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, "#2e436e", "#2f3238", font);
@@ -140,6 +142,7 @@ void HeaderPanel::CreateDropDown() {
     sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(new DropdownLineBreak(dropdown_), 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(centermedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(screenshot, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(new DropdownLineBreak(dropdown_), 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(settings, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(help, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
@@ -166,6 +169,13 @@ void HeaderPanel::OnExportMediaClick(wxCommandEvent& e) {
 
     if (exportmedia.ShowModal() == wxID_CANCEL) return;
     viewport_->ExportMedia(static_cast<std::string>(exportmedia.GetPath()));
+}
+
+void HeaderPanel::OnScreenshotClick(wxCommandEvent& e) {
+    wxFileDialog screenshot(this, "Save Screenshot", "", "", "Image files (*.png;*.jpg;*.bmp)|*.png;*.jpg;*.bmp|All files (*.*)|*.*", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+
+    if (screenshot.ShowModal() == wxID_CANCEL) return;
+    viewport_->Screenshot(static_cast<std::string>(screenshot.GetPath()));
 }
 
 void HeaderPanel::OnSettingsClick(wxCommandEvent& e) {
