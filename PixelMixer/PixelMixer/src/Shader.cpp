@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include "Renderer.h"
+#include "vendor/glm/gtc/type_ptr.hpp"
 
 Shader::Shader(const std::string& filepath) : FilePath_(filepath), RendererID_(0) {
     ShaderProgramSource source = ParseShader(filepath);
@@ -34,6 +35,10 @@ void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2,
 
 void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix) {
     GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]))
+}
+
+void Shader::SetUniform2f(const std::string& name, const glm::vec2& vec) {
+    GLCall(glUniform2fv(GetUniformLocation(name), 1, glm::value_ptr(vec)))
 }
 
 int Shader::GetUniformLocation(const std::string& name) {

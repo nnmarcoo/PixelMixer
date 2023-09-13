@@ -72,13 +72,9 @@ private:
     void ResetMVP();
 
     int frame_;
+    glm::vec2 resolution_;
     float threshold_;
     
     GLuint sqo_; // shader query object
     GLuint elapsedtime_;
-
-
-    GLuint framebuffer;
-    GLuint texture;
-
 };
