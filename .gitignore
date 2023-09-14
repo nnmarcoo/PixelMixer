@@ -32,3 +32,6 @@
 *.app
 
 *.tlog
+*.ilk
+*.pdb
+*.idb
