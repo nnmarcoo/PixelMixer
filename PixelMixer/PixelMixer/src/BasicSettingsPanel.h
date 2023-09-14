@@ -1,13 +1,12 @@
 #pragma once
-#include "BasicSettingsPanel.h"
-#include "ConfigTabs.h"
-
 #include "ViewportPanel.h"
+#include "wx/wx.h"
 
-class ConfigPanel : public wxPanel {
+class BasicSettingsPanel : public wxPanel{
 public:
-    ConfigPanel(wxWindow* parent);
+    BasicSettingsPanel(wxWindow* parent);
     void BindViewport(ViewportPanel* viewport) {viewport_ = viewport;}
 private:
+    void OnThresholdSliderChange(wxScrollEvent& e);
     ViewportPanel* viewport_;
 };

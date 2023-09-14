@@ -1,7 +1,7 @@
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "ViewportPanel.h"
 
 #include <wx/display.h>
-//#include <wx/image.h>
 #include <thread>
 
 #include "Renderer.h"
@@ -16,11 +16,11 @@
 #include "vendor/glm/gtx/string_cast.hpp"
 #include "vendor/glm/glm.hpp"
 #include "vendor/stb_image/stb_image.h"
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "vendor/stb_image/stb_image_write.h"
 
 //todo fix zoom border restrictions ?
 //todo waiting for media and animation when no media
+//todo if a button is held, it will show the original iamge
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)

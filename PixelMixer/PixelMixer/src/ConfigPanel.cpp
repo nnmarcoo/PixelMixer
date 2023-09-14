@@ -1,19 +1,17 @@
 #include "ConfigPanel.h"
 
 ConfigPanel::ConfigPanel(wxWindow* parent) : wxPanel(parent) {
-    wxWindowBase::SetBackgroundColour("#282b30");
 
-    // Create a StaticText label for the slider
-    wxStaticText* thresholdLabel = new wxStaticText(this, wxID_ANY, "Threshold", wxPoint(30, 30));
-    thresholdLabel->SetForegroundColour("#bfbfbf");
-    thresholdLabel->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+    wxBoxSizer* mainSizer = new wxBoxSizer(wxHORIZONTAL);
     
-    wxSlider* thresholdSlider = new wxSlider(this, wxID_ANY, 127, 0, 255, wxPoint(30, 60), wxSize(200, -1));
-    
-    thresholdSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &ConfigPanel::OnThresholdSliderChange, this);
-    
-}
+    auto* configtabs = new ConfigTabs(this);
 
-void ConfigPanel::OnThresholdSliderChange(wxScrollEvent& event) {
-     viewport_->SetThreshold(static_cast<float>(event.GetPosition()) / static_cast<float>(255.0));
+    // Create a right panel (larger)
+    auto* basicsettings = new BasicSettingsPanel(this); basicsettings->BindViewport(viewport_);
+
+    // Add the left and right panels to the main sizer
+    mainSizer->Add(configtabs, 0, wxEXPAND);
+    mainSizer->Add(basicsettings, 1, wxEXPAND);
+    
+    SetSizerAndFit(mainSizer);
 }

@@ -172,7 +172,7 @@ void HeaderPanel::OnExportMediaClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnScreenshotClick(wxCommandEvent& e) {
-    wxFileDialog screenshot(this, "Save Screenshot", "", "", "Image files (*.png)|*.png|All files (*.*)|*.*", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+    wxFileDialog screenshot(this, "Save Screenshot", "", "ss", "Image files (*.png)|*.png|All files (*.*)|*.*", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
     if (screenshot.ShowModal() == wxID_CANCEL) return;
     viewport_->Screenshot(static_cast<std::string>(screenshot.GetPath()));
