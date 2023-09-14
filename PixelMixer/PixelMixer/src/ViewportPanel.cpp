@@ -24,7 +24,7 @@
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
-    EVT_IDLE(ViewportPanel::OnIdle)
+    //EVT_IDLE(ViewportPanel::OnIdle)
     EVT_SIZE(ViewportPanel::OnSize)
 
     EVT_RIGHT_DOWN(ViewportPanel::OnRightDown)

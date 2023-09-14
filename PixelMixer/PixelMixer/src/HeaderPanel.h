@@ -6,7 +6,7 @@
 #include "MainFrame.h"
 #include "ViewportPanel.h"
 
-enum IDs {
+enum Header_IDs {
     header_ID = 2,
     exitButton_ID = 3,
     maximizeButton_ID = 4,
@@ -52,7 +52,7 @@ private:
     Button* minimizebutton_;
     Button* iconbutton_;
     Button* dropdownbutton_;
-    wxSizer* headerSizer_;
+    
 
     wxFrame* dropdown_;
     void CreateDropDown();

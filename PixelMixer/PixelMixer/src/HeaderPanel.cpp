@@ -33,22 +33,22 @@ HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
     wxInitAllImageHandlers();
     wxWindowBase::SetBackgroundColour("#2c2f33");
 
-    headerSizer_ = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* headersizer = new wxBoxSizer(wxHORIZONTAL);
     
     exitbutton_ = new Button(this, exitButton_ID, wxString(wxT("\U0001F5D9")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER, wxNullBitmap, "#ff3333");
     maximizebutton_ = new Button(this, maximizeButton_ID, wxString(wxT("\U0001F5D6")), wxDefaultPosition, wxSize(50, 30));
     minimizebutton_ = new Button(this, minimizeButton_ID, wxString(wxT("\U0001F5D5")), wxDefaultPosition, wxSize(50, 30), wxNO_BORDER | wxBU_TOP);
     iconbutton_ = new Button(this, iconButton_ID, wxEmptyString, wxDefaultPosition, wxSize(20, 20), wxNO_BORDER, logoicon_);
-    dropdownbutton_ = new Button(this, dropdownButton_ID, wxString(wxT("\U00002263")), wxDefaultPosition, wxSize(32, 30), wxNO_BORDER, dropdownicon_);
+    dropdownbutton_ = new Button(this, dropdownButton_ID, wxEmptyString, wxDefaultPosition, wxSize(32, 30), wxNO_BORDER, dropdownicon_); // U00002263
 
-    headerSizer_->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
-    headerSizer_->Add(dropdownbutton_);
-    headerSizer_->AddStretchSpacer();
-    headerSizer_->Add(minimizebutton_);
-    headerSizer_->Add(maximizebutton_);
-    headerSizer_->Add(exitbutton_);
+    headersizer->Add(iconbutton_, 0, wxALIGN_CENTER | wxLEFT | wxRIGHT, 5);
+    headersizer->Add(dropdownbutton_);
+    headersizer->AddStretchSpacer();
+    headersizer->Add(minimizebutton_);
+    headersizer->Add(maximizebutton_);
+    headersizer->Add(exitbutton_);
     
-    SetSizer(headerSizer_);
+    SetSizer(headersizer);
 
     CreateDropDown();
 }
