@@ -111,7 +111,7 @@ void ViewportPanel::render() {
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
-    std::cout << renderinms << " ms " << std::endl;
+    //std::cout << renderinms << " ms " << std::endl;
     
     SwapBuffers();
 }

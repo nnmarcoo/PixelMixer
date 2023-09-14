@@ -15,4 +15,5 @@ BasicSettingsPanel::BasicSettingsPanel(wxWindow* parent) : wxPanel(parent) {
 
 void BasicSettingsPanel::OnThresholdSliderChange(wxScrollEvent& e) {
     viewport_->SetThreshold(static_cast<float>(e.GetPosition()) / static_cast<float>(255.0));
+    
 }

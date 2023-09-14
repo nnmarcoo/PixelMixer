@@ -7,11 +7,11 @@ ConfigPanel::ConfigPanel(wxWindow* parent) : wxPanel(parent) {
     auto* configtabs = new ConfigTabs(this);
 
     // Create a right panel (larger)
-    auto* basicsettings = new BasicSettingsPanel(this); basicsettings->BindViewport(viewport_);
+     basicsettings_ = new BasicSettingsPanel(this);
 
     // Add the left and right panels to the main sizer
     mainSizer->Add(configtabs, 0, wxEXPAND);
-    mainSizer->Add(basicsettings, 1, wxEXPAND);
+    mainSizer->Add(basicsettings_, 1, wxEXPAND);
     
     SetSizerAndFit(mainSizer);
 }
