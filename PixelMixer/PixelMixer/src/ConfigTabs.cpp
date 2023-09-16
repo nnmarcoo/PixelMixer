@@ -14,10 +14,10 @@ ConfigTabs::ConfigTabs(wxWindow* parent) : wxPanel(parent) {
 
     tabsizer_ = new wxBoxSizer(wxVERTICAL);
 
-    sourcebutton_ = new Button(this, SourceButton_ID, wxString(wxT("\U0001F4C1")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43", "#282b30"); // brighter "#36393e"
-    operationbutton_ = new Button(this, OperationButton_ID, wxString(wxT("\U00002699")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43");
-    outputbutton_ = new Button(this, OutputButton_ID, wxString(wxT("\U0001F4C2")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43");
-    statsbutton_ = new Button(this, StatsButton_ID, wxString(wxT("\U0001F41B")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43");
+    sourcebutton_ = new Button(this, SourceButton_ID, wxString(wxT("\U0001F4C1")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/source.ico", wxBITMAP_TYPE_ICO), "#3c3f43", "#282b30");
+    operationbutton_ = new Button(this, OperationButton_ID, wxString(wxT("\U00002699")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43", "#2c2f33", wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+    outputbutton_ = new Button(this, OutputButton_ID, wxString(wxT("\U0001F4C2")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/output.ico", wxBITMAP_TYPE_ICO), "#3c3f43");
+    statsbutton_ = new Button(this, StatsButton_ID, wxString(wxT("\U0001F41B")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/stats.ico", wxBITMAP_TYPE_ICO), "#3c3f43");
     tabsizer_->Add(sourcebutton_, 0, wxBOTTOM, 5);
     tabsizer_->Add(operationbutton_, 0, wxBOTTOM, 5);
     tabsizer_->Add(outputbutton_, 0, wxBOTTOM, 5);
