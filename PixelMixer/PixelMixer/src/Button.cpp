@@ -6,17 +6,24 @@ Button::Button(wxWindow* parent, wxWindowID id, const wxString& label, const wxP
     wxAnyButton::SetBackgroundColour(defaultcolor);
 
     Bind(wxEVT_ENTER_WINDOW, [=](wxMouseEvent& e) {
-        SetBackgroundColour(hovercolor);  // Change the background color on hover
+        SetBackgroundColour(hovercolor);
         Refresh();
-        e.Skip();
     });
 
     Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& e) {
-        SetBackgroundColour(defaultcolor);  // Change the background color back when leaving hover
+        SetBackgroundColour(defaultcolor);
         Refresh();
-        e.Skip();
     });
 
     if (bitmap.IsOk())
         SetBitmap(bitmap);
+}
+
+void Button::SetDefaultColor(wxColour c) {
+    SetBackgroundColour(c);
+    
+    Bind(wxEVT_LEAVE_WINDOW, [=](wxMouseEvent& e) {
+        SetBackgroundColour(c);
+        Refresh();
+    });
 }

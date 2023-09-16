@@ -12,4 +12,6 @@ public:
                  wxColour hovercolor = "#3c3f43",
                  wxColour defaultcolor = "#2c2f33",
                  wxFont font = wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+
+    void SetDefaultColor(wxColour c);
 };
