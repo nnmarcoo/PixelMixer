@@ -2,7 +2,6 @@
 #include "ViewportPanel.h"
 
 #include <wx/display.h>
-#include <thread>
 
 #include "Renderer.h"
 
@@ -157,24 +156,26 @@ void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
 
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
+    /*
+    std::thread calc([this, e] {
 
-    std::thread calc([this, e] { //                 does this make a difference
-        const wxPoint delta = e.GetPosition() - dragStart_;
-        const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
-        const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
-
-        float newposx = ratiox + prevpos_.x;
-        float newposy = ratioy + prevpos_.y;
-    
-        if (newposx*2*static_cast<float>(viewport_.x) > static_cast<float>(viewport_.x)) newposx = 0.5; // if image pos is greater than viewport size..
-        if (newposx*2*static_cast<float>(viewport_.x) < -static_cast<float>(viewport_.x)) newposx = -0.5;
-        if (newposy*2*static_cast<float>(viewport_.y) > static_cast<float>(viewport_.y)) newposy = 0.5;
-        if (newposy*2*static_cast<float>(viewport_.y) < -static_cast<float>(viewport_.y)) newposy = -0.5;
-    
-        loc_ = glm::vec2(newposx, newposy);
-        UpdateMVP();
     });
     calc.detach();
+    */
+    const wxPoint delta = e.GetPosition() - dragStart_;
+    const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
+    const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
+
+    float newposx = ratiox + prevpos_.x;
+    float newposy = ratioy + prevpos_.y;
+
+    if (newposx*2*static_cast<float>(viewport_.x) > static_cast<float>(viewport_.x)) newposx = 0.5; // if image pos is greater than viewport size..
+    if (newposx*2*static_cast<float>(viewport_.x) < -static_cast<float>(viewport_.x)) newposx = -0.5;
+    if (newposy*2*static_cast<float>(viewport_.y) > static_cast<float>(viewport_.y)) newposy = 0.5;
+    if (newposy*2*static_cast<float>(viewport_.y) < -static_cast<float>(viewport_.y)) newposy = -0.5;
+
+    loc_ = glm::vec2(newposx, newposy);
+    UpdateMVP();
     render();
 }
 
