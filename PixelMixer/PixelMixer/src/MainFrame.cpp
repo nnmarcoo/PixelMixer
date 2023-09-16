@@ -5,7 +5,6 @@
 #include "ViewportPanel.h"
 
 //todo make the vertical splitter sash a custom color
-//todo add pallette header for all the gui colors
 // File -> Open, save, export, import, settings
 
 MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize) {

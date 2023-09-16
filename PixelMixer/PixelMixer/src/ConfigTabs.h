@@ -18,10 +18,12 @@ private:
     void OnExportButtonClick(wxCommandEvent& e);
     void OnDebugButtonClick(wxCommandEvent& e);
 
+    wxBoxSizer* tabsizer_;
     Button* sourcebutton_;
     Button* operationbutton_;
     Button* outputbutton_;
     Button* statsbutton_;
     int tabcycle_;
-    void SetTabColors() const;
+    int prevtab_;
+    void SetTabColors(const int tab);
 };

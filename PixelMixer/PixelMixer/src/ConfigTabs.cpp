@@ -12,58 +12,38 @@ ConfigTabs::ConfigTabs(wxWindow* parent) : wxPanel(parent) {
     wxWindowBase::SetBackgroundColour("#2c2f33");
     wxWindowBase::SetMinSize(wxSize(30, -1)); // Is this necessary?
 
-    wxBoxSizer* tabsizer = new wxBoxSizer(wxVERTICAL);
+    tabsizer_ = new wxBoxSizer(wxVERTICAL);
 
     sourcebutton_ = new Button(this, SourceButton_ID, wxString(wxT("\U0001F4C1")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43", "#282b30"); // brighter "#36393e"
     operationbutton_ = new Button(this, OperationButton_ID, wxString(wxT("\U00002699")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43");
     outputbutton_ = new Button(this, OutputButton_ID, wxString(wxT("\U0001F4C2")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43");
     statsbutton_ = new Button(this, StatsButton_ID, wxString(wxT("\U0001F41B")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, "#3c3f43");
-    tabsizer->Add(sourcebutton_, 0, wxBOTTOM, 5);
-    tabsizer->Add(operationbutton_, 0, wxBOTTOM, 5);
-    tabsizer->Add(outputbutton_, 0, wxBOTTOM, 5);
-    tabsizer->Add(statsbutton_);
+    tabsizer_->Add(sourcebutton_, 0, wxBOTTOM, 5);
+    tabsizer_->Add(operationbutton_, 0, wxBOTTOM, 5);
+    tabsizer_->Add(outputbutton_, 0, wxBOTTOM, 5);
+    tabsizer_->Add(statsbutton_);
     
-    SetSizerAndFit(tabsizer);
+    SetSizerAndFit(tabsizer_);
 }
 
 void ConfigTabs::OnSourceButtonClick(wxCommandEvent& e) {
-    sourcebutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 0; SetTabColors();
+    SetTabColors(0);
 }
 void ConfigTabs::OnOperationButtonClick(wxCommandEvent& e) {
-    operationbutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 1; SetTabColors();
+    SetTabColors(1);
 }
 void ConfigTabs::OnExportButtonClick(wxCommandEvent& e) {
-    outputbutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 2; SetTabColors();
+    SetTabColors(2);
 }
 void ConfigTabs::OnDebugButtonClick(wxCommandEvent& e) {
-    statsbutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 3; SetTabColors();
+    SetTabColors(3);
 }
 
-void ConfigTabs::SetTabColors() const {
-    switch(tabcycle_) {
-    case 0:
-        operationbutton_->SetDefaultColor("#2c2f33");
-        outputbutton_->SetDefaultColor("#2c2f33");
-        statsbutton_->SetDefaultColor("#2c2f33");
-        break;
-    case 1:
-        sourcebutton_->SetDefaultColor("#2c2f33");
-        outputbutton_->SetDefaultColor("#2c2f33");
-        statsbutton_->SetDefaultColor("#2c2f33");
-        break;
-    case 2:
-        sourcebutton_->SetDefaultColor("#2c2f33");
-        operationbutton_->SetDefaultColor("#2c2f33");
-        statsbutton_->SetDefaultColor("#2c2f33");
-        break;
-    case 3:
-        sourcebutton_->SetDefaultColor("#2c2f33");
-        operationbutton_->SetDefaultColor("#2c2f33");
-        outputbutton_->SetDefaultColor("#2c2f33");
-        break;
-    default:;}
+void ConfigTabs::SetTabColors(const int tab) {
+    prevtab_ = tabcycle_; tabcycle_ = tab;
+    
+    Button* buttons[] = {sourcebutton_, operationbutton_, outputbutton_, statsbutton_};
+    buttons[tabcycle_]->SetDefaultColor("#282b30");
+    buttons[prevtab_]->SetDefaultColor("#2c2f33");
 }
+
