@@ -23,5 +23,5 @@ private:
     Button* outputbutton_;
     Button* statsbutton_;
     int tabcycle_;
-    void SetTabColors();
+    void SetTabColors() const;
 };

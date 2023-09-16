@@ -114,6 +114,7 @@ void HeaderPanel::OnIconButtonClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
+    dropdownbutton_->SetDefaultColor("#3c3f43");
     dropdown_->SetPosition(mainframe_->GetPosition() + wxPoint(36, 30));
     dropdown_->Show();
     dropdown_->Raise();
@@ -121,6 +122,7 @@ void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
     while (dropdown_->IsActive())
         wxYield();
     dropdown_->Hide();
+    dropdownbutton_->SetDefaultColor("#2c2f33");
 }
 
 void HeaderPanel::CreateDropDown() {

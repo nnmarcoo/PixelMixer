@@ -28,27 +28,22 @@ ConfigTabs::ConfigTabs(wxWindow* parent) : wxPanel(parent) {
 
 void ConfigTabs::OnSourceButtonClick(wxCommandEvent& e) {
     sourcebutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 0;
-    SetTabColors();
+    tabcycle_ = 0; SetTabColors();
 }
 void ConfigTabs::OnOperationButtonClick(wxCommandEvent& e) {
     operationbutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 1;
-    SetTabColors();
+    tabcycle_ = 1; SetTabColors();
 }
 void ConfigTabs::OnExportButtonClick(wxCommandEvent& e) {
     outputbutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 2;
-    SetTabColors();
+    tabcycle_ = 2; SetTabColors();
 }
 void ConfigTabs::OnDebugButtonClick(wxCommandEvent& e) {
     statsbutton_->SetDefaultColor("#282b30");
-    tabcycle_ = 3;
-    SetTabColors();
+    tabcycle_ = 3; SetTabColors();
 }
 
-void ConfigTabs::SetTabColors() {
-    std::cout << tabcycle_ << std::endl;
+void ConfigTabs::SetTabColors() const {
     switch(tabcycle_) {
     case 0:
         operationbutton_->SetDefaultColor("#2c2f33");
@@ -70,6 +65,5 @@ void ConfigTabs::SetTabColors() {
         operationbutton_->SetDefaultColor("#2c2f33");
         outputbutton_->SetDefaultColor("#2c2f33");
         break;
-    default:;
-    }
+    default:;}
 }
