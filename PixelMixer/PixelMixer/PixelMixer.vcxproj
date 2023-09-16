@@ -28,6 +28,7 @@
       <ClInclude Include="src\HeaderPanel.h" />
       <ClInclude Include="src\IndexBuffer.h" />
       <ClInclude Include="src\MainFrame.h" />
+      <ClInclude Include="src\Palette.h" />
       <ClInclude Include="src\Renderer.h" />
       <ClInclude Include="src\Shader.h" />
       <ClInclude Include="src\Texture.h" />

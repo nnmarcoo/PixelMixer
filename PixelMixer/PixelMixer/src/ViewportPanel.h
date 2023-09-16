@@ -25,8 +25,6 @@ public:
     void Screenshot(const std::string& path) const;
     void SetThreshold(float value);
 
-    
-    
 private:
     DECLARE_EVENT_TABLE()
 
