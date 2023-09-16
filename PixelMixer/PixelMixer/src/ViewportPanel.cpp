@@ -111,7 +111,7 @@ void ViewportPanel::render() {
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
-    //std::cout << renderinms << " ms " << std::endl;
+    std::cout << renderinms << " ms " << std::endl;
     
     SwapBuffers();
 }
@@ -258,7 +258,7 @@ void ViewportPanel::ExportMedia(const std::string& path) {
     
 }
 
-void ViewportPanel::Screenshot(const std::string& path) const { // todo put in clipboard?
+void ViewportPanel::Screenshot(const std::string& path) const { // todo put in clipboard? // todo its fucking broken (some value isn't updated if the image isn't panned)
     std::vector<unsigned char> data(static_cast<unsigned long long>(viewport_.x) * static_cast<unsigned long long>(viewport_.y) * 4); // why am I casting
 
     glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());

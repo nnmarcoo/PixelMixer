@@ -9,12 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Button.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Button.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/res/shaders/SimpleSort.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/SimpleSort.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
@@ -243,7 +239,9 @@
       <workItem from="1694658841421" duration="4187000" />
       <workItem from="1694693257984" duration="1869000" />
       <workItem from="1694695689711" duration="573000" />
-      <workItem from="1694703282548" duration="5793000" />
+      <workItem from="1694703282548" duration="5843000" />
+      <workItem from="1694742665964" duration="392000" />
+      <workItem from="1694808883852" duration="9377000" />
     </task>
     <servers />
   </component>
