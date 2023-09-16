@@ -22,7 +22,7 @@ public:
     void CenterMedia();
     void SetMedia(const std::string& path);
     void ExportMedia(const std::string& path);
-    void Screenshot(const std::string& path) const;
+    void Screenshot(const std::string& path);
     void SetThreshold(float value);
 
 private:

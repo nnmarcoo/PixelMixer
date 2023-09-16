@@ -258,9 +258,10 @@ void ViewportPanel::ExportMedia(const std::string& path) {
     
 }
 
-void ViewportPanel::Screenshot(const std::string& path) const { // todo put in clipboard? // todo its fucking broken (some value isn't updated if the image isn't panned)
+void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboard? // todo its fucking broken (some value isn't updated if the image isn't panned)
     std::vector<unsigned char> data(static_cast<unsigned long long>(viewport_.x) * static_cast<unsigned long long>(viewport_.y) * 4); // why am I casting
 
+    render();
     glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     stbi_flip_vertically_on_write(1);
