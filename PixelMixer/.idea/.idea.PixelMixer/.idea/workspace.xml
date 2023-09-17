@@ -9,16 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/BasicSettingsPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/BasicSettingsPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Button.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Button.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Button.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Button.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/DropdownLineBreak.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/DropdownLineBreak.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/Palette.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Palette.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
@@ -249,7 +241,8 @@
       <workItem from="1694833925015" duration="491000" />
       <workItem from="1694842489530" duration="4716000" />
       <workItem from="1694880557688" duration="753000" />
-      <workItem from="1694890511891" duration="18529000" />
+      <workItem from="1694890511891" duration="18894000" />
+      <workItem from="1694962551072" duration="296000" />
     </task>
     <servers />
   </component>

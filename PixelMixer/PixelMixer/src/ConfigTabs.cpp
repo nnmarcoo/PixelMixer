@@ -1,7 +1,6 @@
 #include "ConfigTabs.h"
 #include "Palette.h"
 
-
 wxBEGIN_EVENT_TABLE(ConfigTabs, wxPanel)
     EVT_BUTTON(SourceButton_ID, ConfigTabs::OnSourceButtonClick)
     EVT_BUTTON(OperationButton_ID, ConfigTabs::OnOperationButtonClick)

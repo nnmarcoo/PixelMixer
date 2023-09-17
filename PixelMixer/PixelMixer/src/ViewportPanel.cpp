@@ -47,7 +47,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     GLCall(glEnable(GL_BLEND))                                      // Enable blending
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
-    GLCall(glClearColor(0.2109375f, 0.22265625f, 0.2421875f, 1.0))  // Set clear color to Palette::viewport
+    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))  // Set clear color to Palette::viewport
 
     glGenQueries(1, &sqo_);
 
