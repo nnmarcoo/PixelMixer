@@ -1,7 +1,14 @@
 #pragma once
-
 #include <wx/colour.h>
 
-namespace Palette { // todo fill in
-    const wxColour Red(wxT("#FF0000"));
+// https://www.color-hex.com/color-palette/28549
+namespace Palette {
+    const wxColour text("#bfbfbf");         // off-white
+    const wxColour border("#1e2124");       // edges      (darkest)
+    const wxColour bhover("#2e436e");       // blue hover
+    const wxColour ghover("#424549");       // gray hover (brightest)
+    const wxColour red("#ff3333");          // red
+    const wxColour viewport("#36393e");     // lightest color
+    const wxColour config("#282b30");
+    const wxColour linebreak("#646464");
 }

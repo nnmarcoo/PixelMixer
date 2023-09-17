@@ -1571,15 +1571,9 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="res\images\dropdown.ico" />
-      <Content Include="res\images\dropdown.png" />
-      <Content Include="res\images\icon2.ico" />
-      <Content Include="res\images\icon2.png" />
       <Content Include="res\images\output.ico" />
-      <Content Include="res\images\output.png" />
       <Content Include="res\images\source.ico" />
-      <Content Include="res\images\source.png" />
       <Content Include="res\images\stats.ico" />
-      <Content Include="res\images\stats.png" />
       <Content Include="res\shaders\SimpleSort.glsl" />
       <Content Include="res\textures\test.png" />
       <Content Include="src\vendor\glm\CMakeLists.txt" />

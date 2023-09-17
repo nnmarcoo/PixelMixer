@@ -1,8 +1,10 @@
 #include "MainFrame.h"
+#include "Palette.h"
 
 #include "ConfigPanel.h"
 #include "HeaderPanel.h"
 #include "ViewportPanel.h"
+
 
 //todo make the vertical splitter sash a custom color
 // File -> Open, save, export, import, settings
@@ -14,8 +16,8 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     configpanelwidth_ = GetSize().GetWidth() / 5;
     
     wxStatusBar* statusBar = wxFrameBase::CreateStatusBar();
-                 statusBar->SetForegroundColour("#bfbfbf");
-                 statusBar->SetBackgroundColour("#2c2f33");
+                 statusBar->SetForegroundColour(Palette::text);
+                 statusBar->SetBackgroundColour(Palette::border);
     statustext_ = new wxStaticText( statusBar, wxID_ANY,wxT("Version 1.6.2-alpha"), wxPoint(5, 5), wxDefaultSize, 0); // Set colored StatusBar text
 
     // Create splitters to organize the frame

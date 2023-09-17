@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include "Palette.h"
 
 class Button : public wxButton {
 public:
@@ -9,9 +10,10 @@ public:
                  const wxSize& size = wxDefaultSize,
                  long style = wxNO_BORDER,
                  const wxBitmapBundle& bitmap = wxNullBitmap,
-                 wxColour hovercolor = "#3c3f43",
-                 wxColour defaultcolor = "#2c2f33",
+                 wxColour hovercolor = Palette::ghover,
+                 wxColour defaultcolor = Palette::border,
                  wxFont font = wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
 
     void SetDefaultColor(wxColour c);
+    
 };

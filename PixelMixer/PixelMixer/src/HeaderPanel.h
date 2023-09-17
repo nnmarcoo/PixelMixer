@@ -32,7 +32,7 @@ public:
     
 private:
     DECLARE_EVENT_TABLE()
-    wxIcon logoicon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in MainFrame
+    wxIcon logoicon_ = wxIcon("res/images/logo.ico", wxBITMAP_TYPE_ICO); // dup also in MainFrame
     wxIcon dropdownicon_ = wxIcon("res/images/dropdown.ico", wxBITMAP_TYPE_ICO);
     
     wxPoint dragStart_;

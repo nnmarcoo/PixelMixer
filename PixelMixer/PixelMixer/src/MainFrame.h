@@ -8,7 +8,7 @@ public:
     int configpanelwidth_;
 
 private:
-    wxIcon logoicon_ = wxIcon("res/images/icon2.ico", wxBITMAP_TYPE_ICO); // dup also in HeaderPanel
+    wxIcon logoicon_ = wxIcon("res/images/logo.ico", wxBITMAP_TYPE_ICO); // dup also in HeaderPanel
     wxStaticText* statustext_;
     
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area
