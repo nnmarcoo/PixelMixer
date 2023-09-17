@@ -1,7 +1,7 @@
 #include "BasicSettingsPanel.h"
 #include "Palette.h"
 
-BasicSettingsPanel::BasicSettingsPanel(wxWindow* parent) : wxPanel(parent) {
+BasicSettingsPanel::BasicSettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
     wxWindowBase::SetBackgroundColour(Palette::config);
 
     // Create a StaticText label for the slider

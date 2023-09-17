@@ -12,7 +12,6 @@ ConfigTabs::ConfigTabs(wxWindow* parent) : wxPanel(parent) {
     wxWindowBase::SetBackgroundColour(Palette::border);
     wxWindowBase::SetMinSize(wxSize(30, -1)); // Is this necessary?
     tabcycle_ = 1;
-
     tabsizer_ = new wxBoxSizer(wxVERTICAL);
 
     sourcebutton_ = new Button(this, SourceButton_ID, wxString(wxT("\U0001F4C1")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/source.ico", wxBITMAP_TYPE_ICO));
@@ -42,6 +41,7 @@ void ConfigTabs::OnDebugButtonClick(wxCommandEvent& e) {
 
 void ConfigTabs::SetTabColors(const int tab) {
     prevtab_ = tabcycle_; tabcycle_ = tab;
+    if (prevtab_ == tabcycle_) return;
     
     Button* buttons[] = {sourcebutton_, operationbutton_, outputbutton_, statsbutton_};
     buttons[tabcycle_]->SetDefaultColor(Palette::config);

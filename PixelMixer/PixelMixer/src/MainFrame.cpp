@@ -24,11 +24,11 @@ MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title, w
     auto* hsplitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_NOSASH);
     auto* vsplitter = new wxSplitterWindow(hsplitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_NOSASH);
     
-    auto* configPanel = new ConfigPanel(vsplitter);
+    
     auto* headerPanel = new HeaderPanel(hsplitter);
     auto* viewportPanel = new ViewportPanel(vsplitter, &headerPanel->isDragging_);
+    auto* configPanel = new ConfigPanel(vsplitter, viewportPanel);
     headerPanel->BindViewport(viewportPanel);
-    configPanel->BindViewport(viewportPanel);
 
     vsplitter->SplitVertically(configPanel, viewportPanel); // Split the left(config) and right(viewport)
     vsplitter->SetSashPosition(configpanelwidth_);

@@ -3,8 +3,7 @@
 
 class BasicSettingsPanel : public wxPanel {
 public:
-    BasicSettingsPanel(wxWindow* parent);
-    void BindViewport(ViewportPanel* viewport) {viewport_ = viewport;}
+    BasicSettingsPanel(wxWindow* parent, ViewportPanel* viewport);
 private:
     void OnThresholdSliderChange(wxScrollEvent& e);
     ViewportPanel* viewport_;

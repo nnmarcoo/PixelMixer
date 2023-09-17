@@ -6,8 +6,7 @@
 
 class ConfigPanel : public wxPanel {
 public:
-    ConfigPanel(wxWindow* parent);
-    void BindViewport(ViewportPanel* viewport) {viewport_ = viewport; basicsettings_->BindViewport(viewport_);}
+    ConfigPanel(wxWindow* parent, ViewportPanel* viewport);
 private:
     ViewportPanel* viewport_;
     BasicSettingsPanel* basicsettings_;
