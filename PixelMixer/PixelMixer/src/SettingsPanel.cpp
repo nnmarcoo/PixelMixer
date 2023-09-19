@@ -1,7 +1,7 @@
-#include "BasicSettingsPanel.h"
+#include "SettingsPanel.h"
 #include "Palette.h"
 
-BasicSettingsPanel::BasicSettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
+SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
     wxWindowBase::SetBackgroundColour(Palette::config);
 
     // Create a StaticText label for the slider
@@ -11,10 +11,10 @@ BasicSettingsPanel::BasicSettingsPanel(wxWindow* parent, ViewportPanel* viewport
     
     wxSlider* thresholdSlider = new wxSlider(this, wxID_ANY, 127, 0, 255, wxPoint(30, 60), wxSize(200, -1));
     
-    thresholdSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &BasicSettingsPanel::OnThresholdSliderChange, this);
+    thresholdSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &SettingsPanel::OnThresholdSliderChange, this);
 }
 
-void BasicSettingsPanel::OnThresholdSliderChange(wxScrollEvent& e) {
+void SettingsPanel::OnThresholdSliderChange(wxScrollEvent& e) {
     viewport_->SetThreshold(static_cast<float>(e.GetPosition()) / static_cast<float>(255.0));
     
 }

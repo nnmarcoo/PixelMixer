@@ -1,9 +1,9 @@
 #pragma once
 #include "ViewportPanel.h"
 
-class BasicSettingsPanel : public wxPanel {
+class SettingsPanel : public wxPanel {
 public:
-    BasicSettingsPanel(wxWindow* parent, ViewportPanel* viewport);
+    SettingsPanel(wxWindow* parent, ViewportPanel* viewport);
 private:
     void OnThresholdSliderChange(wxScrollEvent& e);
     ViewportPanel* viewport_;

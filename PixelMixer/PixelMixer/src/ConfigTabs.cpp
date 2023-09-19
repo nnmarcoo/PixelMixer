@@ -39,9 +39,10 @@ void ConfigTabs::OnDebugButtonClick(wxCommandEvent& e) {
     SetTabColors(3);
 }
 
-void ConfigTabs::SetTabColors(const int tab) {
+void ConfigTabs::SetTabColors(const short tab) {
     prevtab_ = tabcycle_; tabcycle_ = tab;
     if (prevtab_ == tabcycle_) return;
+    configpanel_->SetTabs(tabcycle_, prevtab_);
     
     Button* buttons[] = {sourcebutton_, operationbutton_, outputbutton_, statsbutton_};
     buttons[tabcycle_]->SetDefaultColor(Palette::config);

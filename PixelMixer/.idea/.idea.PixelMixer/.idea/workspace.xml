@@ -7,7 +7,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="" />
+    <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/BasicSettingsPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/BasicSettingsPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigPanel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ConfigTabs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -240,7 +251,8 @@
       <workItem from="1694981097807" duration="233000" />
       <workItem from="1695005568773" duration="968000" />
       <workItem from="1695006739636" duration="1492000" />
-      <workItem from="1695099672024" duration="1604000" />
+      <workItem from="1695099672024" duration="3161000" />
+      <workItem from="1695134213784" duration="5530000" />
     </task>
     <servers />
   </component>

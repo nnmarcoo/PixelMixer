@@ -1,5 +1,6 @@
 #pragma once
 #include "Button.h"
+#include "ConfigPanel.h"
 
 enum Tabs_IDs {
     SourceButton_ID = 100,
@@ -23,7 +24,8 @@ private:
     Button* operationbutton_;
     Button* outputbutton_;
     Button* statsbutton_;
-    int tabcycle_;
-    int prevtab_;
-    void SetTabColors(const int tab);
+    short tabcycle_;
+    short prevtab_;
+    void SetTabColors(short tab);
+    ConfigPanel* configpanel_ = dynamic_cast<ConfigPanel*>(GetParent());
 };
