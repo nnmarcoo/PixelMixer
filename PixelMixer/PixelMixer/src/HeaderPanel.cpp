@@ -100,6 +100,7 @@ void HeaderPanel::OnDoubleClick(wxMouseEvent& e) {
 
 void HeaderPanel::OnExitButtonClick(wxCommandEvent& e) { // todo ask to save
     if (dropdown_->IsShown()) dropdown_->Hide();
+    mainframe_->Hide();
     mainframe_->Destroy();
 }
 
