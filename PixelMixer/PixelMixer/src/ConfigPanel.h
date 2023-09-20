@@ -1,4 +1,5 @@
 #pragma once
+#include "InputPanel.h"
 #include "SettingsPanel.h"
 #include "StatsPanel.h"
 #include "ViewportPanel.h"
@@ -13,4 +14,6 @@ private:
     ViewportPanel* viewport_;
     SettingsPanel* settings_;
     StatsPanel* stats_;
+    InputPanel* input_;
+    OutputPanel* output_;
 };

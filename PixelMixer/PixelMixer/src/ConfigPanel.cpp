@@ -1,5 +1,6 @@
 #include "ConfigPanel.h"
 #include "ConfigTabs.h"
+#include "InputPanel.h"
 #include "StatsPanel.h"
 
 ConfigPanel::ConfigPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
@@ -7,17 +8,23 @@ ConfigPanel::ConfigPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pa
     auto* configtabs = new ConfigTabs(this);
     settings_ = new SettingsPanel(this, viewport_);
     stats_ = new StatsPanel(this, viewport_);
+    input_ = new InputPanel(this, viewport_);
+    output_ = new OutputPanel(this, viewport_);
     mainsizer_->Add(configtabs, 0, wxEXPAND);
     mainsizer_->Add(settings_, 1, wxEXPAND);
     mainsizer_->Add(stats_, 1, wxEXPAND);
+    mainsizer_->Add(input_, 1, wxEXPAND);
+    mainsizer_->Add(output_, 1, wxEXPAND);
     stats_->Hide();
+    input_->Hide();
+    output_->Hide();
     
     SetSizerAndFit(mainsizer_);
 }
 
 void ConfigPanel::SetTabs(short curr, short prev) const {
     
-    wxPanel* tabs[] = {nullptr, settings_, nullptr, stats_}; // sourcebutton_, operationbutton_, outputbutton_, statsbutton_
+    wxPanel* tabs[] = {input_, settings_, output_, stats_}; // sourcebutton_, operationbutton_, outputbutton_, statsbutton_
     tabs[prev]->Hide();
     tabs[curr]->Show();
     mainsizer_->Layout();

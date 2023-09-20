@@ -1,5 +1,5 @@
 #pragma once
-#include "ViewportPanel.h"
+#include "OutputPanel.h"
 
 class StatsPanel : public wxPanel {
 public:
