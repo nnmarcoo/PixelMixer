@@ -1,5 +1,6 @@
 #pragma once
 #include "SettingsPanel.h"
+#include "StatsPanel.h"
 #include "ViewportPanel.h"
 
 class ConfigPanel : public wxPanel {
@@ -11,4 +12,5 @@ private:
     
     ViewportPanel* viewport_;
     SettingsPanel* settings_;
+    StatsPanel* stats_;
 };
