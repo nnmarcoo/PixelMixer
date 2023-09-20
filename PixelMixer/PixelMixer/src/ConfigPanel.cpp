@@ -12,5 +12,8 @@ ConfigPanel::ConfigPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pa
 }
 
 void ConfigPanel::SetTabs(short curr, short prev) const {
-    wxPanel* tabs[] = {settings_};
+    
+    wxPanel* tabs[] = {0, settings_, 0, 0}; // sourcebutton_, operationbutton_, outputbutton_, statsbutton_
+    tabs[curr]->Show();
+    tabs[prev]->Hide();
 }
