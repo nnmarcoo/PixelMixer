@@ -12,19 +12,15 @@ ConfigPanel::ConfigPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pa
     output_ = new OutputPanel(this, viewport_);
     mainsizer_->Add(configtabs, 0, wxEXPAND);
     mainsizer_->Add(settings_, 1, wxEXPAND);
-    mainsizer_->Add(stats_, 1, wxEXPAND);
-    mainsizer_->Add(input_, 1, wxEXPAND);
-    mainsizer_->Add(output_, 1, wxEXPAND);
-    stats_->Hide();
-    input_->Hide();
-    output_->Hide();
+    mainsizer_->Add(stats_, 1, wxEXPAND); stats_->Hide();
+    mainsizer_->Add(input_, 1, wxEXPAND); input_->Hide();
+    mainsizer_->Add(output_, 1, wxEXPAND); output_->Hide();
     
     SetSizerAndFit(mainsizer_);
 }
 
 void ConfigPanel::SetTabs(short curr, short prev) const {
-    
-    wxPanel* tabs[] = {input_, settings_, output_, stats_}; // sourcebutton_, operationbutton_, outputbutton_, statsbutton_
+    wxPanel* tabs[] = {input_, settings_, output_, stats_};
     tabs[prev]->Hide();
     tabs[curr]->Show();
     mainsizer_->Layout();
