@@ -23,11 +23,11 @@ Pixel Mixer is designed to be intuitive and straightforward to use. Here's a qui
 
 2. Import an image that you want to sort.
 
-3. Choose your desired sorting algorithm and adjust any parameters as needed.
+3. adjust parameters as needed.
 
 4. Preview the sorting effect in real-time.
 
-5. Once you are satisfied with the result, save the modified image to your preferred location.
+5. Save the modified image to your preferred location.
 
 ## License
 
