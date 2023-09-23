@@ -19,7 +19,7 @@
 
 //todo fix zoom border restrictions ?
 //todo waiting for media and animation when no media
-//todo if a button is held, it will show the original iamge
+//todo if a button is held, it will show the original image 
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
