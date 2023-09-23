@@ -35,3 +35,11 @@ FrameBuffer::~FrameBuffer() {
     TextureID_ = 0;
     RenderBufferID_ = 0;
 }
+
+void FrameBuffer::Bind() {
+    glBindFramebuffer(GL_FRAMEBUFFER, RendererID_);
+}
+
+void FrameBuffer::Unbind() {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}

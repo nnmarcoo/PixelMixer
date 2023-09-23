@@ -90,27 +90,33 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     texture_ = new Texture("res/textures/debug.jpg");
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
-    
 }
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
+
     
-    renderer_->Clear();
+    
+    Renderer::Clear();
     shader_->SetUniformMat4f("u_MVP", mvp_);
     shader_->SetUniform1f("u_Threshold", threshold_);
     shader_->SetUniform1i("u_Frame", frame_);
     shader_->SetUniform2f("u_Resolution", resolution_);
-    renderer_->Draw(*va_, *ib_, *shader_);
+
+    fb_->Bind();
+    Renderer::Draw(*va_, *ib_, *shader_);
+
+    fb_->Unbind();
+    Renderer::Draw(*va_, *ib_, *shader_);
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     double renderinms = static_cast<double>(shaderExecutionTime) * 1.0e-6;
-    //std::cout << renderinms << " ms " << std::endl;
+    std::cout << renderinms << " ms " << std::endl;
     
     SwapBuffers();
 }
@@ -132,6 +138,9 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y);
+
+    fb_ = new FrameBuffer(viewport_.x, viewport_.y);
+    texture_->Bind();
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {

@@ -8,7 +8,7 @@
 #include "Renderer.h"
 #include "vendor/glm/gtc/type_ptr.hpp"
 
-Shader::Shader(const std::string& filepath) : FilePath_(filepath), RendererID_(0) {
+Shader::Shader(const std::string& filepath) : RendererID_(0), FilePath_(filepath) {
     ShaderProgramSource source = ParseShader(filepath);
     RendererID_ = CreateShader(source.VertexSource, source.FragmentSource);
 }

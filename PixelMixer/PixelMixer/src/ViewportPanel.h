@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <wx/glcanvas.h>
 
+#include "FrameBuffer.h"
 #include "IndexBuffer.h"
 #include "Renderer.h"
 #include "Shader.h"
@@ -55,6 +56,7 @@ private:
     Shader* shader_;
     Renderer* renderer_;
     Texture* texture_;
+    FrameBuffer* fb_;
     
     glm::vec2 loc_;     // Temporary variable to store previous position during pan
     glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan(initialized in center of screen)
