@@ -7,12 +7,12 @@ public:
     FrameBuffer(unsigned int width, unsigned int height);
     ~FrameBuffer();
 
-    inline unsigned int GetFBO() const { return RendererID_; }
-    inline unsigned int GetTexture() const { return TextureID_; }
-    inline unsigned int GetRBO() const { return RenderBufferID_; }
-    inline void GetSize(unsigned int& w, unsigned int& h) { w = Width_; h = Height_; }
-    inline void SetClearColor(float r, float g, float b, float a) { ClearColor_ = glm::vec4(r,g,b,a); }
-    inline void GetClearColor(float& r, float& g, float& b, float& a) { r = ClearColor_.x; g = ClearColor_.y; b = ClearColor_.z; a = ClearColor_.w; }
+    unsigned int GetFBO() const { return RendererID_; }
+    unsigned int GetTexture() const { return TextureID_; }
+    unsigned int GetRBO() const { return RenderBufferID_; }
+    void GetSize(unsigned int& w, unsigned int& h) const { w = Width_; h = Height_; }
+    void SetClearColor(float r, float g, float b, float a) { ClearColor_ = glm::vec4(r,g,b,a); }
+    void GetClearColor(float& r, float& g, float& b, float& a) const { r = ClearColor_.x; g = ClearColor_.y; b = ClearColor_.z; a = ClearColor_.w; }
 
 private:
     unsigned int RendererID_;
