@@ -3,7 +3,32 @@
 #include "Renderer.h"
 
 FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), TextureID_(0), RenderBufferID_(0), Width_(width), Height_(height), ClearColor_(1) {
+    InitializeFrameBuffer();
+}
 
+FrameBuffer::~FrameBuffer() {
+    DestroyFrameBuffer();
+}
+
+void FrameBuffer::Bind() {
+    glBindFramebuffer(GL_FRAMEBUFFER, RendererID_);
+}
+
+void FrameBuffer::Unbind() {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void FrameBuffer::setWidth(unsigned int w) {
+    Width_ = w;
+    ResizeFrameBuffer();
+}
+
+void FrameBuffer::setHeight(unsigned int h) {
+    Height_ = h;
+    ResizeFrameBuffer();
+}
+
+void FrameBuffer::InitializeFrameBuffer() {
     GLCall(glGenFramebuffers(1, &RendererID_))
     GLCall(glBindFramebuffer(GL_FRAMEBUFFER, RendererID_))
     
@@ -26,17 +51,16 @@ FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), Text
     GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0))
 }
 
-FrameBuffer::~FrameBuffer() {
+void FrameBuffer::DestroyFrameBuffer() {
     GLCall(glDeleteFramebuffers(1, &RendererID_))
     RendererID_ = 0;
     TextureID_ = 0;
     RenderBufferID_ = 0;
 }
 
-void FrameBuffer::Bind() {
-    glBindFramebuffer(GL_FRAMEBUFFER, RendererID_);
-}
-
-void FrameBuffer::Unbind() {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+void FrameBuffer::ResizeFrameBuffer() {
+    if (RendererID_ == 0) return;
+    
+    DestroyFrameBuffer();
+    InitializeFrameBuffer();
 }
