@@ -96,8 +96,6 @@ void ViewportPanel::render() {
     if (!IsShown()) return;
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
-
-    
     
     Renderer::Clear();
     shader_->SetUniformMat4f("u_MVP", mvp_);
@@ -215,6 +213,7 @@ void ViewportPanel::ResetMVP() {
     zoomfactor_ = 1.0f;
     view_ = base_;
     CenterMedia();
+    UpdateMVP();
 }
 
 void ViewportPanel::CenterMedia() {
@@ -259,7 +258,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     texture_ = new Texture(path);
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
-
+    
     ResetMVP();
     render();
 }
