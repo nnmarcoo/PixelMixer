@@ -163,7 +163,7 @@ void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
     CenterMedia();
 }
 
-void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
+void ViewportPanel::OnMouseMove(wxMouseEvent& e) { // todo limit zoom based on mvp instead
     if (!isDragging_) return;
     /*
     std::thread calc([this, e] {
@@ -188,17 +188,13 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate by the difference
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo limit zoom based on mvp instead
     if (isDragging_) return;
-    const int scrolldelta = e.GetWheelRotation();
     
-    if (scrolldelta > 0)
-        zoomfactor_ *= 11.0 / 10.0;
-    else
-        zoomfactor_ *= 10.0 / 11.0;
-
-    // Clamp
-    zoomfactor_ = std::max(.5, std::min(2.0, zoomfactor_));
+    zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
+    zoomfactor_ = std::max(0.5, std::min(2.0, zoomfactor_)); // Clamp
+    
+    if (zoomfactor_ == 2.0 || zoomfactor_ == 0.5) return;
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
@@ -292,6 +288,8 @@ ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
     delete ib_;
     delete vb_;
     delete va_;
+    delete fb_;
+    delete efb_;
     delete layout_;
     delete shader_;
     delete renderer_;
