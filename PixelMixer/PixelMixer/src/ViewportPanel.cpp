@@ -259,6 +259,9 @@ void ViewportPanel::SetMedia(const std::string& path) {
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
     
+    efb_ = new FrameBuffer(img.x, img.y);
+    texture_->Bind();
+    
     ResetMVP();
     render();
 }
