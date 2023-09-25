@@ -132,11 +132,13 @@ void ViewportPanel::OnIdle(wxIdleEvent& e) {
 
 void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
+    if (viewport_.x < 1) return;
+    
     glViewport(0, 0, viewport_.x, viewport_.y);
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y);
-
+    
     fb_ = new FrameBuffer(viewport_.x, viewport_.y);
     texture_->Bind();
 }
