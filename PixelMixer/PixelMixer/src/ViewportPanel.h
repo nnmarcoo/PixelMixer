@@ -19,6 +19,7 @@ public:
     ViewportPanel(wxWindow* parent, bool* DragState);
     ~ViewportPanel() override;
     wxGLContext* context_;
+    double renderinms_;
 
     void CenterMedia();
     void SetMedia(const std::string& path);
