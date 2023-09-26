@@ -9,14 +9,13 @@ StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pare
     wxWindowBase::SetBackgroundColour(Palette::config);
 
     rendertime_ = new wxStaticText(this, wxID_ANY, "Render time: " + std::to_string(viewport_->renderinms_), wxPoint(30, 30));
+    rendertime_->SetFont(wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
     rendertime_->SetForegroundColour(Palette::text);
 
     wxTimer* updateTimer = new wxTimer(this, wxID_ANY);
-    updateTimer->Start(1);
-
-    
+    updateTimer->Start(10);
 }
 
-void StatsPanel::OnTimer(wxTimerEvent& e) {
-    rendertime_->SetLabel("Render time: " + std::to_string(viewport_->renderinms_));
+void StatsPanel::OnTimer(wxTimerEvent& e) { // todo instead of using timer, call update render time from viewport
+    rendertime_->SetLabel("Render time: " + std::to_string(viewport_->renderinms_).substr(0, 5) + "ms");
 }
