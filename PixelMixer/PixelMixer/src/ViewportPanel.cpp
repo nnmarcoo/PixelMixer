@@ -162,7 +162,7 @@ void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
     CenterMedia();
 }
 
-void ViewportPanel::OnMouseMove(wxMouseEvent& e) { // todo limit zoom based on mvp instead
+void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
     /*
     std::thread calc([this, e] {
@@ -182,7 +182,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) { // todo limit zoom based on m
     render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo limit zoom based on mvp instead
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo offset by mouse pos so it scales towards mouse
     if (isDragging_) return;
     
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
