@@ -177,11 +177,6 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) { // todo limit zoom based on m
     float newposx = ratiox + prevpos_.x;
     float newposy = ratioy + prevpos_.y;
 
-    if (newposx*2*static_cast<float>(viewport_.x) > static_cast<float>(viewport_.x)) newposx = 0.5; // if image pos is greater than viewport size..
-    if (newposx*2*static_cast<float>(viewport_.x) < -static_cast<float>(viewport_.x)) newposx = -0.5;
-    if (newposy*2*static_cast<float>(viewport_.y) > static_cast<float>(viewport_.y)) newposy = 0.5;
-    if (newposy*2*static_cast<float>(viewport_.y) < -static_cast<float>(viewport_.y)) newposy = -0.5;
-
     loc_ = glm::vec2(newposx, newposy);
     UpdateMVP();
     render();

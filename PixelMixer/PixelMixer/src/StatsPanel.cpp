@@ -17,5 +17,6 @@ StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pare
 }
 
 void StatsPanel::OnTimer(wxTimerEvent& e) { // todo instead of using timer, call update render time from viewport
-    rendertime_->SetLabel("Render time: " + std::to_string(viewport_->renderinms_).substr(0, 5) + "ms");
+    if (!IsShown()) return;
+    rendertime_->SetLabel("Render time: " + std::to_string(viewport_->renderinms_).substr(0, 4) + "ms");
 }
