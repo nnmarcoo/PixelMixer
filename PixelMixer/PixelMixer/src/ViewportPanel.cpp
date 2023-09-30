@@ -186,9 +186,12 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo limit zoom based on 
     if (isDragging_) return;
     
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
-    zoomfactor_ = std::max(0.5, std::min(2.0, zoomfactor_)); // Clamp
-    
-    if (zoomfactor_ == 2.0 || zoomfactor_ == 0.5) return;
+
+    const double zoomval = mvp_[0][0] * zoomfactor_;
+    if (zoomval > 20 || zoomval < 0.00001) {
+        zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;
+        return;
+    }
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
