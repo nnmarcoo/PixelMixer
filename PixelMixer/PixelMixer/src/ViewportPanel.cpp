@@ -182,7 +182,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo offset by mouse pos so it scales towards mouse
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo Change threshold so it only resets if it does not approach the threshold
     if (isDragging_) return;
     
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;

@@ -55,7 +55,9 @@ private:
     
 
     wxFrame* dropdown_;
+    wxFrame* settings_;
     void CreateDropDown();
+    void CreateSettings();
     void OnCenterMediaClick(wxCommandEvent& e);
     void OnImportMediaClick(wxCommandEvent& e);
     void OnExportMediaClick(wxCommandEvent& e);

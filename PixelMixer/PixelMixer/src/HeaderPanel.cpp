@@ -157,6 +157,12 @@ void HeaderPanel::CreateDropDown() {
     dropdown_->SetSizerAndFit(sizer);
 }
 
+void HeaderPanel::CreateSettings() {
+    const wxFont font(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
+    settings_ = new wxFrame(this, dropdownFrame_ID, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxFRAME_NO_TASKBAR | wxFRAME_SHAPED | wxBORDER_SIMPLE);
+    settings_->SetBackgroundColour(Palette::viewport);
+}
+
 void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) { // todo implement
     viewport_->CenterMedia();
     mainframe_->Raise();
