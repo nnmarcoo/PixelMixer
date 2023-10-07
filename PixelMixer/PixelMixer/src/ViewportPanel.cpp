@@ -182,21 +182,17 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
-
-    const double MAX = 20;
-    const double MIN = 0.00001;
-
+    const double MAX = 20, MIN = 0.00001;
+    
     const double prevzoomval = mvp_[0][0] * zoomfactor_;
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
     const double zoomval = mvp_[0][0] * zoomfactor_;
-
     const double diff = zoomval - prevzoomval;
 
-    if (!((diff < 0 && prevzoomval > MAX) || (diff > 0 && prevzoomval < MIN)))
-        if (zoomval > MAX || zoomval < MIN) {
-        zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;
+    if (!((diff < 0 && prevzoomval > MAX) || (diff > 0 && prevzoomval < MIN)) && (zoomval > MAX || zoomval < MIN)) { // If the resulting zoom does 
+        zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
         return;
     }
     
