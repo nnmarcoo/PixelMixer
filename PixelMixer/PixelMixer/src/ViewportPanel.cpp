@@ -182,13 +182,20 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo Change threshold so it only resets if it does not approach the threshold
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) {
     if (isDragging_) return;
-    
-    zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
 
+    const double MAX = 20;
+    const double MIN = 0.00001;
+
+    const double prevzoomval = mvp_[0][0] * zoomfactor_;
+    zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
     const double zoomval = mvp_[0][0] * zoomfactor_;
-    if (zoomval > 20 || zoomval < 0.00001) {
+
+    const double diff = zoomval - prevzoomval;
+
+    if (!((diff < 0 && prevzoomval > MAX) || (diff > 0 && prevzoomval < MIN)))
+        if (zoomval > MAX || zoomval < MIN) {
         zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;
         return;
     }
