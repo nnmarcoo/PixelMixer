@@ -8,7 +8,7 @@ END_EVENT_TABLE()
 StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
     wxWindowBase::SetBackgroundColour(Palette::config);
 
-    rendertime_ = new wxStaticText(this, wxID_ANY, "Render time: ", wxPoint(30, 30));
+    rendertime_ = new wxStaticText(this, wxID_ANY, "Render time: 0.00ms", wxPoint(30, 30));
     rendertime_->SetFont(wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
     rendertime_->SetForegroundColour(Palette::text);
 

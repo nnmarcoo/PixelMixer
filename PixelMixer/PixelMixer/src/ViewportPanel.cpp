@@ -3,14 +3,15 @@
 
 #include <wx/display.h>
 
-#include "Renderer.h"
-
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
+#include "FrameBuffer.h"
 #include "IndexBuffer.h"
-#include "VertexArray.h"
+#include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+
+#include "VertexBufferLayout.h"
 
 #include "vendor/glm/gtx/string_cast.hpp"
 #include "vendor/glm/glm.hpp"

@@ -3,13 +3,15 @@
 #include <GL/glew.h>
 #include <wx/glcanvas.h>
 
-#include "FrameBuffer.h"
-#include "IndexBuffer.h"
-#include "Renderer.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "VertexArray.h"
-#include "VertexBuffer.h"
+
+class VertexBufferLayout;
+class FrameBuffer;
+class IndexBuffer;
+class Renderer;
+class Shader;
+class Texture;
+class VertexArray;
+class VertexBuffer;
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
