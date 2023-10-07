@@ -115,9 +115,8 @@ void ViewportPanel::render() {
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
-    renderinms_ = static_cast<double>(shaderExecutionTime) * 1.0e-6;
 
-    statspanel_->UpdateRenderTime(renderinms_);
+    statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
     
     SwapBuffers();
 }
