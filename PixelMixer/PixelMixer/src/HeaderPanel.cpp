@@ -28,6 +28,7 @@ BEGIN_EVENT_TABLE(HeaderPanel, wxPanel)
     EVT_BUTTON(helpButton_ID, HeaderPanel::OnHelpClick)
     EVT_BUTTON(exportmediaButton_ID, HeaderPanel::OnExportMediaClick)
     EVT_BUTTON(screenshotButton_ID, HeaderPanel::OnScreenshotClick)
+    EVT_BUTTON(resetzoomButton_ID, HeaderPanel::OnResetZoomClick)
 END_EVENT_TABLE()
 
 HeaderPanel::HeaderPanel(wxWindow* parent) : wxPanel(parent) {
@@ -136,6 +137,7 @@ void HeaderPanel::CreateDropDown() {
     // 1F5AB save icon
     auto* importmedia = new Button(dropdown_, importmediaButton_ID, "Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font); // this is so jank
     auto* exportmedia = new Button(dropdown_, exportmediaButton_ID, "Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
+    auto* resetzoom = new Button(dropdown_, resetzoomButton_ID, "Reset Zoom                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
     auto* centermedia = new Button(dropdown_, centermediaButton_ID, "Center Media                           ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
     auto* screenshot = new Button(dropdown_, screenshotButton_ID, "Screenshot                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
     auto* settings = new Button(dropdown_, settingsButton_ID, "Settings                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
@@ -146,6 +148,7 @@ void HeaderPanel::CreateDropDown() {
     sizer->Add(importmedia, 0, wxALL, 5);
     sizer->Add(exportmedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(new DropdownLineBreak(dropdown_), 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    sizer->Add(resetzoom, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(centermedia, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(screenshot, 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
     sizer->Add(new DropdownLineBreak(dropdown_), 0, wxLEFT | wxRIGHT | wxBOTTOM, 5);
@@ -193,4 +196,9 @@ void HeaderPanel::OnSettingsClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnHelpClick(wxCommandEvent& e) {
+}
+
+void HeaderPanel::OnResetZoomClick(wxCommandEvent& e) {
+    viewport_->ResetZoom();
+    mainframe_->Raise();
 }

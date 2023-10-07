@@ -20,7 +20,8 @@ enum Header_IDs {
     settingsButton_ID = 12,
     helpButton_ID = 13,
     exportmediaButton_ID = 14,
-    screenshotButton_ID = 15
+    screenshotButton_ID = 15,
+    resetzoomButton_ID = 16
 };
 
 class HeaderPanel : public wxPanel {
@@ -64,6 +65,7 @@ private:
     void OnScreenshotClick(wxCommandEvent& e);
     void OnSettingsClick(wxCommandEvent& e);
     void OnHelpClick(wxCommandEvent& e);
+    void OnResetZoomClick(wxCommandEvent& e);
 
     MainFrame* mainframe_ = dynamic_cast<MainFrame*>(wxGetTopLevelParent(this));
     ViewportPanel* viewport_;
