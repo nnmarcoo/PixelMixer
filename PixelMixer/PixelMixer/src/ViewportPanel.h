@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 #include <wx/glcanvas.h>
 
-
 class VertexBufferLayout;
 class FrameBuffer;
 class IndexBuffer;
@@ -25,6 +24,7 @@ public:
     wxGLContext* context_;
 
     void CenterMedia();
+    void ResetZoom();
     void SetMedia(const std::string& path);
     void ExportMedia(const std::string& path);
     void Screenshot(const std::string& path);

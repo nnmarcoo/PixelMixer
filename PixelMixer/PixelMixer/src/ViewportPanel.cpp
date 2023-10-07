@@ -226,6 +226,13 @@ void ViewportPanel::CenterMedia() {
     render();
 }
 
+void ViewportPanel::ResetZoom() {
+    zoomfactor_ = 1.0f;
+    view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
+    UpdateMVP();
+    render();
+}
+
 void ViewportPanel::SetMedia(const std::string& path) {
     frame_ = 0;
     const wxSize img = wxImage(path).GetSize(); // todo bad
