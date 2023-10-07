@@ -1,6 +1,7 @@
 #include "ConfigPanel.h"
 #include "ConfigTabs.h"
 #include "InputPanel.h"
+#include "OutputPanel.h"
 #include "StatsPanel.h"
 
 ConfigPanel::ConfigPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {

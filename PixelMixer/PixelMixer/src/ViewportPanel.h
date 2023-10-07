@@ -13,6 +13,8 @@
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
+class StatsPanel;
+
 class ViewportPanel : public wxGLCanvas {
     
 public:
@@ -26,6 +28,8 @@ public:
     void ExportMedia(const std::string& path);
     void Screenshot(const std::string& path);
     void SetThreshold(float value);
+
+    void SetStatsPanel(StatsPanel* statspanel) { statspanel_ = statspanel; }
 
 private:
     DECLARE_EVENT_TABLE()
@@ -79,4 +83,6 @@ private:
     
     GLuint sqo_; // shader query object
     GLuint elapsedtime_;
+
+    StatsPanel* statspanel_;
 };

@@ -17,6 +17,8 @@
 #include "vendor/stb_image/stb_image.h"
 #include "vendor/stb_image/stb_image_write.h"
 
+#include "StatsPanel.h"
+
 //todo fix zoom border restrictions ?
 //todo waiting for media and animation when no media
 //todo if a button is held, it will show the original image 
@@ -114,6 +116,8 @@ void ViewportPanel::render() {
     GLuint64 shaderExecutionTime;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
     renderinms_ = static_cast<double>(shaderExecutionTime) * 1.0e-6;
+
+    statspanel_->UpdateRenderTime(renderinms_);
     
     SwapBuffers();
 }
