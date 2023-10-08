@@ -24,7 +24,7 @@ public:
     wxGLContext* context_;
 
     void CenterMedia();
-    void ResetZoom();
+    void ResetScale();
     void SetMedia(const std::string& path);
     void ExportMedia(const std::string& path);
     void Screenshot(const std::string& path);
@@ -41,7 +41,6 @@ private:
     void render();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);
-    void OnIdle(wxIdleEvent& e);
 
     int width_;
     int height_;

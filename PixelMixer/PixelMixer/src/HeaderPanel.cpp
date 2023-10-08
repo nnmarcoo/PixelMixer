@@ -199,6 +199,6 @@ void HeaderPanel::OnHelpClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnResetZoomClick(wxCommandEvent& e) {
-    viewport_->ResetZoom();
+    viewport_->ResetScale();
     mainframe_->Raise();
 }

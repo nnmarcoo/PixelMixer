@@ -26,7 +26,6 @@
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
-    //EVT_IDLE(ViewportPanel::OnIdle)
     EVT_SIZE(ViewportPanel::OnSize)
 
     EVT_RIGHT_DOWN(ViewportPanel::OnRightDown)
@@ -129,10 +128,6 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
     render();
 }
 
-void ViewportPanel::OnIdle(wxIdleEvent& e) {
-    render();
-}
-
 void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
     if (viewport_.x < 1) return;
@@ -226,7 +221,7 @@ void ViewportPanel::CenterMedia() {
     render();
 }
 
-void ViewportPanel::ResetZoom() {
+void ViewportPanel::ResetScale() {
     zoomfactor_ = 1.0f;
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
