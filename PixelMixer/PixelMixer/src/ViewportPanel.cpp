@@ -87,6 +87,12 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_->Bind();
     
     shader_ = new Shader("res/shaders/SimpleSort.glsl");
+    
+    
+    displayshader_ = new Shader("res/shaders/Display.glsl");
+    displayshader_->Bind();
+    displayshader_->SetUniform1i("u_Texture", 0);
+
     shader_->Bind();
     
     texture_ = new Texture("res/textures/debug.jpg");
@@ -107,9 +113,14 @@ void ViewportPanel::render() {
 
     fb_->Bind();
     Renderer::Draw(*va_, *ib_, *shader_);
-
     fb_->Unbind();
+
     Renderer::Draw(*va_, *ib_, *shader_);
+    
+    //Texture::BindTexture(fb_->GetTexture());
+    //displayshader_->SetUniform1i("u_Texture", 0);
+    
+    //Renderer::Draw(*displayshader_);
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -276,7 +287,7 @@ void ViewportPanel::ExportMedia(const std::string& path) {
 
 void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboard?
     std::vector<unsigned char> data(static_cast<unsigned long long>(viewport_.x) * static_cast<unsigned long long>(viewport_.y) * 4); // why am I casting
-
+    
     render();
     glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 

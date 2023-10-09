@@ -63,6 +63,8 @@ private:
     Texture* texture_;
     FrameBuffer* fb_;
     FrameBuffer* efb_;
+
+    Shader* displayshader_;
     
     glm::vec2 loc_;     // Temporary variable to store previous position during pan
     glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan(initialized in center of screen)

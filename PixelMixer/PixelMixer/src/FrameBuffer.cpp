@@ -11,6 +11,8 @@ FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), Text
     GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width_, Height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr))
     GLCall(glBindTexture(GL_TEXTURE_2D, 0))
     GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TextureID_, 0))
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE))
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE))
     
     GLCall(glGenRenderbuffers(1, &RenderBufferID_))
     GLCall(glBindRenderbuffer(GL_RENDERBUFFER, RenderBufferID_))
@@ -38,4 +40,9 @@ void FrameBuffer::Bind() {
 
 void FrameBuffer::Unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void FrameBuffer::BindTexture() const {
+    GLCall(glActiveTexture(GL_TEXTURE0))
+    GLCall(glBindTexture(GL_TEXTURE_2D, TextureID_))
 }
