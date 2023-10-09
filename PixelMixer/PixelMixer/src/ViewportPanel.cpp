@@ -20,9 +20,9 @@
 
 #include "StatsPanel.h"
 
-//todo fix zoom border restrictions ?
 //todo waiting for media and animation when no media
-//todo if a button is held, it will show the original image 
+//todo if a button is held, it will show the original image
+//todo if portion of viewport is off screen, it won't be updated if dragged back into screen until later
 
 BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_PAINT(ViewportPanel::OnPaint)
@@ -45,7 +45,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
         return;
     }
-    std::cout << glGetString(GL_VERSION) << "\n" << glGetString(GL_RENDERER) << "\n" << std::endl; // debug
+    std::cout << glGetString(GL_VERSION) << '\n' << glGetString(GL_RENDERER) << '\n' << glGetString(GL_VENDOR) << '\n' << std::endl; // debug
 
     GLCall(glEnable(GL_BLEND))                                      // Enable blending
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
@@ -201,8 +201,8 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(base_, glm::vec3(loc_.x*static_cast<float>(viewport_.x)* 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
-                                           -loc_.y*static_cast<float>(viewport_.y)* 2 * (1 / zoomfactor_), 0));
+    modl_ = translate(base_, glm::vec3(loc_.x * static_cast<float>(viewport_.x) * 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
+                                     -loc_.y * static_cast<float>(viewport_.y) * 2 * (1 / zoomfactor_), 0));
     mvp_ = proj_ * view_ * modl_;
 }
 

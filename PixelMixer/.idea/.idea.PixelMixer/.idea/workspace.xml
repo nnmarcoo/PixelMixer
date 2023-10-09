@@ -8,10 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/Display.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/HeaderPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/PixelMixer.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,14 +23,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um/gl/GL.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/App.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/App.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/PixelMixer/src/BasicSettingsPanel.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/PixelMixer/src/BasicSettingsPanel.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/ConfigTabs.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/ConfigTabs.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/marco/Documents/GitHub/PixelMixer/PixelMixer/PixelMixer/src/Palette.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/Renderer.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/Renderer.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/Shader.h" root0="FORCE_HIGHLIGHTING" />
@@ -277,7 +277,10 @@
       <workItem from="1696647010009" duration="316000" />
       <workItem from="1696647678767" duration="2611000" />
       <workItem from="1696693278736" duration="6089000" />
-      <workItem from="1696727995846" duration="985000" />
+      <workItem from="1696727995846" duration="1107000" />
+      <workItem from="1696789718943" duration="765000" />
+      <workItem from="1696823435031" duration="777000" />
+      <workItem from="1696869056048" duration="2118000" />
     </task>
     <servers />
   </component>
