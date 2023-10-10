@@ -111,6 +111,7 @@ void ViewportPanel::render() {
     shader_->SetUniform1i("u_Frame", frame_);
     shader_->SetUniform2f("u_Resolution", resolution_);
 
+    texture_->Bind();
     fb_->Bind();
     Renderer::Draw(*va_, *ib_, *shader_);
     fb_->Unbind();
@@ -149,7 +150,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     resolution_ = glm::vec2(viewport_.x, viewport_.y);
     
     fb_ = new FrameBuffer(viewport_.x, viewport_.y);
-    texture_->Bind();
+    
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
