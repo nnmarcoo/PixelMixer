@@ -87,11 +87,6 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_->Bind();
     
     shader_ = new Shader("res/shaders/SimpleSort.glsl");
-    
-    
-    displayshader_ = new Shader("res/shaders/Display.glsl");
-    displayshader_->Bind();
-    displayshader_->SetUniform1i("u_Texture", 0);
 
     shader_->Bind();
     
@@ -107,21 +102,8 @@ void ViewportPanel::render() {
     
     Renderer::Clear();
     shader_->SetUniformMat4f("u_MVP", mvp_);
-    shader_->SetUniform1f("u_Threshold", threshold_);
-    shader_->SetUniform1i("u_Frame", frame_);
-    shader_->SetUniform2f("u_Resolution", resolution_);
-
-    texture_->Bind();
-    fb_->Bind();
-    Renderer::Draw(*va_, *ib_, *shader_);
-    fb_->Unbind();
 
     Renderer::Draw(*va_, *ib_, *shader_);
-    
-    //Texture::BindTexture(fb_->GetTexture());
-    //displayshader_->SetUniform1i("u_Texture", 0);
-    
-    //Renderer::Draw(*displayshader_);
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -148,9 +130,6 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y);
-    
-    fb_ = new FrameBuffer(viewport_.x, viewport_.y);
-    
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
@@ -275,7 +254,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     texture_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
     
-    efb_ = new FrameBuffer(img.x, img.y);
+    sfb_ = new FrameBuffer(img.x, img.y);
     texture_->Bind();
     
     ResetMVP();
@@ -306,8 +285,7 @@ ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
     delete ib_;
     delete vb_;
     delete va_;
-    delete fb_;
-    delete efb_;
+    delete sfb_;
     delete layout_;
     delete shader_;
     delete renderer_;
