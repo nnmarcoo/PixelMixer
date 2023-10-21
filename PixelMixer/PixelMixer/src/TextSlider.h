@@ -8,9 +8,11 @@ private:
     DECLARE_EVENT_TABLE()
 
     void OnMouseLeftDown(wxMouseEvent& e);
+    void OnMouseLeftUp(wxMouseEvent& e);
+    void OnMouseMove(wxMouseEvent& e);
 
     int val_;
     int min_;
     int max_;
-    
+    wxPoint prevpos_;
 };
