@@ -32,11 +32,10 @@ void TextSlider::OnMouseMove(wxMouseEvent& e) {
     wxPoint currpos = e.GetPosition();
     int deltaX = currpos.x - prevpos_.x;
 
-    if (deltaX > 0)
-        val_++;
-    else if (deltaX < 0)
-        val_--;
-
+    val_ += deltaX > 0 ? 1 : -1;
+    val_ = val_ > max_ ? max_ : val_;   // val_ = std::min(max_, std::max(min_, val_ + (deltaX > 0 ? 1 : -1)));
+    val_ = val_ < min_ ? min_ : val_;
+    
     prevpos_ = currpos;
     SetLabel(std::to_string(val_));
 }
