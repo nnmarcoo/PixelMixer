@@ -8,18 +8,13 @@ wxBEGIN_EVENT_TABLE(TextSlider, wxStaticText)
     EVT_MOTION(TextSlider::OnMouseMove)
 wxEND_EVENT_TABLE()
 
-TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, int minval, int maxval) :
-    wxStaticText(parent, id, defaultval), val_(std::stoi(static_cast<std::string>(defaultval))), min_(minval),
-    max_(maxval)
-{
+TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, int minval, int maxval) : wxStaticText(parent, id, defaultval), val_(std::stoi(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
     wxWindowBase::SetForegroundColour(Palette::clickable);
 }
 
 void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
-
     prevpos_ = e.GetPosition();
     CaptureMouse();
-    
 }
 
 void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
