@@ -10,6 +10,7 @@ private:
     void OnMouseLeftDown(wxMouseEvent& e);
     void OnMouseLeftUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
+    void OnMouseEnter(wxMouseEvent& e);
 
     int val_;
     int min_;
