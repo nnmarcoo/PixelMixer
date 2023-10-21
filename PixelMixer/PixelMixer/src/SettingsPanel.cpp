@@ -14,7 +14,7 @@ SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPane
     
     thresholdSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &SettingsPanel::OnThresholdSliderChange, this);
 
-    slider_ = new TextSlider(this, wxID_ANY, "hey");
+    slider_ = new TextSlider(this, wxID_ANY, "50", 0 , 100);
 }
 
 void SettingsPanel::OnThresholdSliderChange(wxScrollEvent& e) {

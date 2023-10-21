@@ -3,10 +3,14 @@
 
 class TextSlider : wxStaticText {
 public:
-    TextSlider(wxWindow* parent, wxWindowID id, const wxString& label, wxPoint pos = wxDefaultPosition, wxSize size = wxDefaultSize, long style = 0);
+    TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, int minval, int maxval);
 private:
     DECLARE_EVENT_TABLE()
 
     void OnMouseLeftDown(wxMouseEvent& e);
+
+    int val_;
+    int min_;
+    int max_;
     
 };

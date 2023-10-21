@@ -9,12 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/MainFrame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Palette.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Palette.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +23,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um/gl/GL.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/App.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/App.h" root0="FORCE_HIGHLIGHTING" />
@@ -48,6 +44,7 @@
     <setting file="file://$WXWIN$/include/wx/generic/splitter.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$WXWIN$/include/wx/glcanvas.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$WXWIN$/include/wx/msw/statbox.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$WXWIN$/include/wx/msw/stattext.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$WXWIN$/include/wx/toplevel.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$WXWIN$/include/wx/window.h" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -288,7 +285,7 @@
       <workItem from="1697389993807" duration="480000" />
       <workItem from="1697823552969" duration="1956000" />
       <workItem from="1697825800512" duration="903000" />
-      <workItem from="1697913367517" duration="1073000" />
+      <workItem from="1697913367517" duration="2360000" />
     </task>
     <servers />
   </component>

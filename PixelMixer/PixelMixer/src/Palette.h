@@ -11,4 +11,5 @@ namespace Palette {
     const wxColour viewport("#313338");     // lightest color
     const wxColour config("#2b2d31");
     const wxColour linebreak("#646464");
+    const wxColour clickable("#285fd0");
 }

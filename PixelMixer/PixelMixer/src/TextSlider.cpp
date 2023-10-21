@@ -7,10 +7,13 @@ wxBEGIN_EVENT_TABLE(TextSlider, wxStaticText)
 
 wxEND_EVENT_TABLE()
 
-TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& label, wxPoint pos, wxSize size, long style) : wxStaticText(parent, id, label, pos, size, style) {
-    wxWindowBase::SetForegroundColour(Palette::bhover);
+TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, int minval, int maxval) :
+    wxStaticText(parent, id, defaultval), val_(std::stoi(static_cast<std::string>(defaultval))), min_(minval),
+    max_(maxval)
+{
+    wxWindowBase::SetForegroundColour(Palette::clickable);
 }
 
 void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
-    SetLabel("test");
+    SetLabel(std::to_string(val_));
 }
