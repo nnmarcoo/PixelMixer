@@ -1,5 +1,6 @@
 #include "SettingsPanel.h"
 #include "Palette.h"
+#include "TextSlider.h"
 
 SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
     wxWindowBase::SetBackgroundColour(Palette::config);
@@ -12,6 +13,8 @@ SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPane
     wxSlider* thresholdSlider = new wxSlider(this, wxID_ANY, 127, 0, 255, wxPoint(30, 60), wxSize(200, -1));
     
     thresholdSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &SettingsPanel::OnThresholdSliderChange, this);
+
+    slider_ = new TextSlider(this, wxID_ANY, "hey");
 }
 
 void SettingsPanel::OnThresholdSliderChange(wxScrollEvent& e) {

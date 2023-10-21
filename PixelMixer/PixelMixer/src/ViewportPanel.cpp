@@ -5,6 +5,7 @@
 
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
+#include "Palette.h"
 #include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -89,6 +90,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     shader_ = new Shader("res/shaders/SimpleSort.glsl");
 
     shader_->Bind();
+
+    sfb_ = new FrameBuffer(2048, 2048);
     
     texture_ = new Texture("res/textures/debug.jpg");
     texture_->Bind();
@@ -102,6 +105,10 @@ void ViewportPanel::render() {
     
     Renderer::Clear();
     shader_->SetUniformMat4f("u_MVP", mvp_);
+
+    sfb_->Bind();
+    Renderer::Draw(*va_, *ib_, *shader_);
+    sfb_->Unbind();
 
     Renderer::Draw(*va_, *ib_, *shader_);
     
@@ -130,6 +137,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y);
+    
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
