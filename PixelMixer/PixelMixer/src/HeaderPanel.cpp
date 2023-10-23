@@ -84,8 +84,7 @@ void HeaderPanel::OnLeftUp(wxMouseEvent& e) { // todo add docking ?
         mainframe_->SetPosition(mainframe_->GetPosition() + wxPoint(0, 50));
         ToggleMaximize();
     }
-    if (HasCapture())
-        ReleaseMouse();
+    if (HasCapture()) ReleaseMouse();
 }
 
 void HeaderPanel::OnMouseMove(wxMouseEvent& e) {

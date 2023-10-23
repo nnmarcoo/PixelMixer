@@ -1,6 +1,8 @@
 #include "TextSlider.h"
 #include "Palette.h"
 
+//todo: scroll wheel scrolls value
+
 wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
     EVT_LEFT_UP(TextSlider::OnMouseLeftUp)
@@ -20,18 +22,20 @@ void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
 }
 
 void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
+    std::cout << abs(e.GetPosition().x) << " " << prevpos_.x << std::endl;
     
-    //if (prevpos_.x-5 > e.GetPosition().x || prevpos_.x+5 < e.GetPosition().x)
-        //SetFocus();
-    //SetCursor(wxCursor(wxCURSOR_DEFAULT));
-
-    if (HasCapture()) ReleaseMouse();
+    if (abs(e.GetPosition().x - prevpos_.x) < 1) {
+        SetFocus();
+        SetSelection(0, -1);
+    }
+    
+     if (HasCapture()) ReleaseMouse();
 }
 
 void TextSlider::OnMouseMove(wxMouseEvent& e) {
     if (!HasCapture()) return;
-    
-    wxPoint currpos = e.GetPosition();
+
+    const wxPoint currpos = e.GetPosition();
     const int deltaX = currpos.x - prevpos_.x;
 
     val_ += deltaX > 0 ? 1.0f : deltaX < 0 ? -1.0f : 0.0f;
@@ -48,6 +52,6 @@ void TextSlider::OnMouseEnter(wxMouseEvent& e) {
     SetCursor(wxCursor(wxCURSOR_SIZEWE));
 }
 
-float TextSlider::getvalue() {
+float TextSlider::getvalue() const {
     return val_;
 }

@@ -4,7 +4,7 @@
 class TextSlider : wxTextCtrl {
 public:
     TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos = wxDefaultPosition);
-    float getvalue();
+    float getvalue() const;
 private:
     DECLARE_EVENT_TABLE()
 
