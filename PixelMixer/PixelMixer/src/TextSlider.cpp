@@ -28,7 +28,7 @@ void TextSlider::OnMouseMove(wxMouseEvent& e) { // todo a bug where if the mouse
     if (!HasCapture()) return;
     
     wxPoint currpos = e.GetPosition();
-    int deltaX = currpos.x - prevpos_.x;
+    const int deltaX = currpos.x - prevpos_.x;
 
     val_ += deltaX > 0 ? 1 : -1;
     val_ = val_ > max_ ? max_ : val_;   // val_ = std::min(max_, std::max(min_, val_ + (deltaX > 0 ? 1 : -1)));

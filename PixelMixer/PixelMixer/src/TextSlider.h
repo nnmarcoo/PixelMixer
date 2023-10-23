@@ -12,8 +12,8 @@ private:
     void OnMouseMove(wxMouseEvent& e);
     void OnMouseEnter(wxMouseEvent& e);
 
-    int val_;
-    int min_;
-    int max_;
+    float val_;
+    float min_;
+    float max_;
     wxPoint prevpos_;
 };

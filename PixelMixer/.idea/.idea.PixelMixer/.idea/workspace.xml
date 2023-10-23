@@ -9,6 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +285,7 @@
       <workItem from="1697825800512" duration="903000" />
       <workItem from="1697913367517" duration="4181000" />
       <workItem from="1697950034158" duration="267000" />
-      <workItem from="1698020490485" duration="595000" />
+      <workItem from="1698020490485" duration="1424000" />
     </task>
     <servers />
   </component>
