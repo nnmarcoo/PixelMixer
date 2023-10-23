@@ -10,7 +10,6 @@
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,7 +287,7 @@
       <workItem from="1698020490485" duration="1424000" />
       <workItem from="1698029842169" duration="4336000" />
       <workItem from="1698078422364" duration="2670000" />
-      <workItem from="1698087992400" duration="1624000" />
+      <workItem from="1698087992400" duration="2618000" />
     </task>
     <servers />
   </component>

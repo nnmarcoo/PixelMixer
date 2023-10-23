@@ -24,8 +24,8 @@ void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
 }
 
 void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
-    if (abs(clickpos_.x - prevpos_.x) < 1) {
-        SetFocus();
+    if (clickpos_ == prevpos_) { // todo change text to real value
+        SetFocus(); 
         SetSelection(0, -1);
     }
     
