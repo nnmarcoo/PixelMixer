@@ -10,7 +10,7 @@ wxEND_EVENT_TABLE()
 
 TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, int minval, int maxval) : wxStaticText(parent, id, defaultval), val_(std::stoi(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
     wxWindowBase::SetForegroundColour(Palette::clickable);
-    wxStaticText::SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+    wxStaticText::SetFont(wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
 }
 
 void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
