@@ -28,13 +28,13 @@ void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
     if (HasCapture()) ReleaseMouse();
 }
 
-void TextSlider::OnMouseMove(wxMouseEvent& e) { // todo a bug where if the mouse moves down, the value goes down too??
+void TextSlider::OnMouseMove(wxMouseEvent& e) {
     if (!HasCapture()) return;
     
     wxPoint currpos = e.GetPosition();
     const int deltaX = currpos.x - prevpos_.x;
 
-    val_ += deltaX > 0 ? 1 : -1;
+    val_ += deltaX > 0 ? 1.0f : deltaX < 0 ? -1.0f : 0.0f;
     val_ = val_ > max_ ? max_ : val_;   // val_ = std::min(max_, std::max(min_, val_ + (deltaX > 0 ? 1 : -1)));
     val_ = val_ < min_ ? min_ : val_;
     
