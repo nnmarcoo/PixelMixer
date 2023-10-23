@@ -19,4 +19,5 @@ private:
     float min_;
     float max_;
     wxPoint prevpos_;
+    wxPoint clickpos_;
 };

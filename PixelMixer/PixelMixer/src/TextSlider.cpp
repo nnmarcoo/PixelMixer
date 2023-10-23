@@ -17,14 +17,14 @@ TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultv
 }
 
 void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
-    prevpos_ = e.GetPosition();
+    const wxPoint mousepos = e.GetPosition();
+    prevpos_ = mousepos;
+    clickpos_ = mousepos;
     CaptureMouse();
 }
 
 void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
-    std::cout << abs(e.GetPosition().x) << " " << prevpos_.x << std::endl;
-    
-    if (abs(e.GetPosition().x - prevpos_.x) < 1) {
+    if (abs(clickpos_.x - prevpos_.x) < 1) {
         SetFocus();
         SetSelection(0, -1);
     }
