@@ -12,6 +12,9 @@ private:
     void OnMouseLeftUp(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
     void OnMouseEnter(wxMouseEvent& e);
+    void OnKillFocus(wxFocusEvent& e);
+    void OnText(wxCommandEvent& e);
+    void OnChar(wxKeyEvent& e);
     
     wxPoint dragpos_;
 

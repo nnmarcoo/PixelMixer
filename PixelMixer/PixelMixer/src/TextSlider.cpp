@@ -8,6 +8,9 @@ wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_LEFT_UP(TextSlider::OnMouseLeftUp)
     EVT_MOTION(TextSlider::OnMouseMove)
     EVT_ENTER_WINDOW(TextSlider::OnMouseEnter)
+    EVT_KILL_FOCUS(TextSlider::OnKillFocus)
+    EVT_TEXT(wxID_ANY, TextSlider::OnText)
+    EVT_CHAR(TextSlider::OnChar)
 wxEND_EVENT_TABLE()
 
 TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos) : wxTextCtrl(parent, id, defaultval, pos, wxDefaultSize,  wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
@@ -25,7 +28,8 @@ void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
 
 void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
     if (clickpos_ == prevpos_) { // todo change text to real value
-        SetFocus(); 
+        SetFocus();
+        SetValue(std::to_string(val_));
         SetSelection(0, -1);
     }
      if (HasCapture()) ReleaseMouse();
@@ -52,6 +56,32 @@ void TextSlider::OnMouseMove(wxMouseEvent& e) { // todo if shift is held, snap t
 
 void TextSlider::OnMouseEnter(wxMouseEvent& e) {
     SetCursor(wxCursor(wxCURSOR_SIZEWE));
+}
+
+void TextSlider::OnKillFocus(wxFocusEvent& e) {
+    if (GetValue().size() > 3) {
+        const std::string label = std::to_string(val_);
+        SetValue(label.substr(0,label.find('.')+3));
+    }
+}
+
+void TextSlider::OnText(wxCommandEvent& e) {
+    val_ = std::stof(static_cast<std::string>(GetValue()));
+}
+
+void TextSlider::OnChar(wxKeyEvent& e) {
+    const int key = e.GetKeyCode();
+    
+    if ((key >= '0' && key <= '9') ||
+        key == WXK_BACK || key == WXK_DELETE ||
+        key == WXK_LEFT || key == WXK_RIGHT || key == WXK_UP || key == WXK_DOWN)
+    {
+        e.Skip(); // Allow the event to be processed
+    }
+    else
+    {
+        // Ignore other keys
+    }
 }
 
 float TextSlider::getvalue() const {

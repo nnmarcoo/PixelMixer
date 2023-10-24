@@ -21,6 +21,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um/gl/GL.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/App.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PixelMixer/src/App.h" root0="FORCE_HIGHLIGHTING" />
@@ -289,7 +291,9 @@
       <workItem from="1698029842169" duration="4336000" />
       <workItem from="1698078422364" duration="2670000" />
       <workItem from="1698087992400" duration="2618000" />
-      <workItem from="1698120838945" duration="1067000" />
+      <workItem from="1698120838945" duration="1285000" />
+      <workItem from="1698134461669" duration="605000" />
+      <workItem from="1698167053259" duration="1675000" />
     </task>
     <servers />
   </component>
