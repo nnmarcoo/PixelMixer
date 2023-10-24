@@ -2,6 +2,7 @@
 #include "Palette.h"
 
 //todo: scroll wheel scrolls value
+//todo: isn't storing the value correctly
 
 wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
@@ -62,6 +63,7 @@ void TextSlider::OnKillFocus(wxFocusEvent& e) {
     const std::string label = std::to_string(val_);
     SetValue(label.substr(0,label.find('.')+3));
     Hide();Show(); // dumbass work around for cursor problem
+    SetInsertionPointEnd();
 }
 
 void TextSlider::OnText(wxCommandEvent& e) {
@@ -71,16 +73,12 @@ void TextSlider::OnText(wxCommandEvent& e) {
 void TextSlider::OnChar(wxKeyEvent& e) {
     const int key = e.GetKeyCode();
     
-    if ((key >= '0' && key <= '9') ||
+    if (!((key >= '0' && key <= '9') ||
         key == WXK_BACK || key == WXK_DELETE ||
-        key == WXK_LEFT || key == WXK_RIGHT || key == WXK_UP || key == WXK_DOWN || key == '.')
-    {
-        e.Skip(); // todo check if the number is within the limits 
-    }
-    else
-    {
-        // Ignore other keys
-    }
+        key == WXK_LEFT || key == WXK_RIGHT  ||
+        key == WXK_UP   || key == WXK_DOWN   || key == '.'))
+        return;
+    e.Skip();
 }
 
 float TextSlider::getvalue() const {
