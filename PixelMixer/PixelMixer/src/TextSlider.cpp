@@ -28,21 +28,23 @@ void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
         SetFocus(); 
         SetSelection(0, -1);
     }
-    
      if (HasCapture()) ReleaseMouse();
 }
 
-void TextSlider::OnMouseMove(wxMouseEvent& e) {
+void TextSlider::OnMouseMove(wxMouseEvent& e) { // todo if shift is held, snap to increments of 5
     if (!HasCapture()) return;
+    callcount_++;
+    if (callcount_ < 3) return;
 
     const wxPoint currpos = e.GetPosition();
     const int deltaX = currpos.x - prevpos_.x;
-
+    
     val_ += deltaX > 0 ? 1.0f : deltaX < 0 ? -1.0f : 0.0f;
     val_ = val_ > max_ ? max_ : val_;   // val_ = std::min(max_, std::max(min_, val_ + (deltaX > 0 ? 1 : -1)));
     val_ = val_ < min_ ? min_ : val_;
     
     prevpos_ = currpos;
+    callcount_ = 0;
     
     const std::string label = std::to_string(val_);
     SetValue(label.substr(0,label.find('.')+3));

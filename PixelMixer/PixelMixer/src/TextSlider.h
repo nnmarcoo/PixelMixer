@@ -20,4 +20,6 @@ private:
     float max_;
     wxPoint prevpos_;
     wxPoint clickpos_;
+
+    unsigned int callcount_;
 };
