@@ -74,9 +74,9 @@ void TextSlider::OnChar(wxKeyEvent& e) {
     
     if ((key >= '0' && key <= '9') ||
         key == WXK_BACK || key == WXK_DELETE ||
-        key == WXK_LEFT || key == WXK_RIGHT || key == WXK_UP || key == WXK_DOWN)
+        key == WXK_LEFT || key == WXK_RIGHT || key == WXK_UP || key == WXK_DOWN || key == '.')
     {
-        e.Skip(); // Allow the event to be processed
+        e.Skip(); // todo check if the number is within the limits 
     }
     else
     {
