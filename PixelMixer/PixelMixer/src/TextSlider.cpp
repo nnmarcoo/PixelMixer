@@ -27,7 +27,7 @@ void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
     CaptureMouse();
 }
 
-void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
+void TextSlider::OnMouseLeftUp(wxMouseEvent& e) { // todo: change so it only displays as many decimals as needed
     if (clickpos_ == prevpos_) { // todo change text to real value
         SetFocus();
         SetValue(std::to_string(val_));
@@ -67,7 +67,8 @@ void TextSlider::OnKillFocus(wxFocusEvent& e) {
 }
 
 void TextSlider::OnText(wxCommandEvent& e) {
-    val_ = std::stof(static_cast<std::string>(GetValue()));
+    //if (GetValue().substr(GetValue().find('.')).size() > 2)
+        val_ = std::stof(static_cast<std::string>(GetValue()));
 }
 
 void TextSlider::OnChar(wxKeyEvent& e) {
