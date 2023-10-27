@@ -1,7 +1,8 @@
 #include "TextSlider.h"
 #include "Palette.h"
 
-//todo: scroll wheel scrolls value
+// todo: scroll wheel scrolls value
+// todo: fix cursor not going away on focus kill (fix: have dummy textctrl to switch to?)
 
 wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
@@ -61,7 +62,7 @@ void TextSlider::OnMouseEnter(wxMouseEvent& e) {
 void TextSlider::OnKillFocus(wxFocusEvent& e) {
     const std::string label = std::to_string(val_);
     SetValue(label.substr(0,label.find('.')+3));
-    Hide();Show(); // dumbass work around for cursor problem
+    //Hide();Show(); // dumbass work around for cursor problem
     SetInsertionPointEnd();
 }
 
@@ -76,8 +77,14 @@ void TextSlider::OnChar(wxKeyEvent& e) {
     if (!((key >= '0' && key <= '9') ||
         key == WXK_BACK || key == WXK_DELETE ||
         key == WXK_LEFT || key == WXK_RIGHT  ||
-        key == WXK_UP   || key == WXK_DOWN   || key == '.'))
+        key == WXK_UP   || key == WXK_DOWN   ||
+        key == '.'                           ))
         return;
+    
+    if (std::stof(std::string(GetValue() + static_cast<char>(key))) > max_ ||
+        std::stof(std::string(GetValue() + static_cast<char>(key))) < min_  )
+        return;
+    
     e.Skip();
 }
 
