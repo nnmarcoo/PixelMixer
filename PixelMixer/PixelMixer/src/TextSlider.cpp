@@ -3,6 +3,7 @@
 
 //todo: scroll wheel scrolls value
 //todo: isn't storing the value correctly
+//todo: change the value to be stored as a string and convert it whenever arithmetic is needed (or in getter)
 
 wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
