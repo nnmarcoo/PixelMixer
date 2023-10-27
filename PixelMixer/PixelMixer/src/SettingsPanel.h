@@ -7,8 +7,11 @@ class SettingsPanel : public wxPanel {
 public:
     SettingsPanel(wxWindow* parent, ViewportPanel* viewport);
 private:
-    void OnThresholdSliderChange(wxScrollEvent& e);
+    DECLARE_EVENT_TABLE()
+    
+    void OnThresholdSliderChange(wxCommandEvent& e);
     ViewportPanel* viewport_;
 
+    wxStaticText* thresholdlabel_;
     TextSlider* slider_;
 };

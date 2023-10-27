@@ -10,7 +10,9 @@
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/SettingsPanel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/TextSlider.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +300,7 @@
       <workItem from="1698265025193" duration="2289000" />
       <workItem from="1698282018314" duration="687000" />
       <workItem from="1698375074941" duration="700000" />
-      <workItem from="1698422851593" duration="2390000" />
+      <workItem from="1698422851593" duration="4506000" />
     </task>
     <servers />
   </component>

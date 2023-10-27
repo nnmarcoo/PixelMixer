@@ -120,6 +120,8 @@ void ViewportPanel::render() {
     statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
     
     SwapBuffers();
+
+    std::cout << threshold_ << std::endl;
 }
 
 /* MEDIA CONTROLS */

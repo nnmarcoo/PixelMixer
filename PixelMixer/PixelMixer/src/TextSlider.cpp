@@ -43,9 +43,10 @@ void TextSlider::OnMouseMove(wxMouseEvent& e) { // todo if shift is held, snap t
 
     const wxPoint currpos = e.GetPosition();
     const int deltaX = currpos.x - prevpos_.x;
+    const float step = max_ / 100;
     
-    val_ += deltaX > 0 ? 1.0f : deltaX < 0 ? -1.0f : 0.0f;
-    val_ = val_ > max_ ? max_ : val_;   // val_ = std::min(max_, std::max(min_, val_ + (deltaX > 0 ? 1 : -1)));
+    val_ += deltaX > 0 ? step : deltaX < 0 ? -step : 0.0f;
+    val_ = val_ > max_ ? max_ : val_;                           // val_ = std::min(max_, std::max(min_, val_ + (deltaX > 0 ? 1 : -1)));
     val_ = val_ < min_ ? min_ : val_;
     
     prevpos_ = currpos;
@@ -62,11 +63,10 @@ void TextSlider::OnMouseEnter(wxMouseEvent& e) {
 void TextSlider::OnKillFocus(wxFocusEvent& e) {
     const std::string label = std::to_string(val_);
     SetValue(label.substr(0,label.find('.')+3));
-    //Hide();Show(); // dumbass work around for cursor problem
     SetInsertionPointEnd();
 }
 
-void TextSlider::OnText(wxCommandEvent& e) {
+void TextSlider::OnText(wxCommandEvent& e) { // todo: don't error if it isn't a number
     if (HasFocus())
         val_ = std::stof(static_cast<std::string>(GetValue()));
 }
@@ -82,12 +82,12 @@ void TextSlider::OnChar(wxKeyEvent& e) {
         return;
     
     if (std::stof(std::string(GetValue() + static_cast<char>(key))) > max_ ||
-        std::stof(std::string(GetValue() + static_cast<char>(key))) < min_  )
+        std::stof(std::string(GetValue() + static_cast<char>(key))) < min_  ) 
         return;
     
     e.Skip();
 }
 
-float TextSlider::getvalue() const {
+float TextSlider::Value() const {
     return val_;
 }
