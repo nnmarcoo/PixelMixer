@@ -2,8 +2,6 @@
 #include "Palette.h"
 
 //todo: scroll wheel scrolls value
-//todo: isn't storing the value correctly
-//todo: change the value to be stored as a string and convert it whenever arithmetic is needed (or in getter)
 
 wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
@@ -28,8 +26,8 @@ void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
     CaptureMouse();
 }
 
-void TextSlider::OnMouseLeftUp(wxMouseEvent& e) { // todo: change so it only displays as many decimals as needed
-    if (clickpos_ == prevpos_) { // todo change text to real value
+void TextSlider::OnMouseLeftUp(wxMouseEvent& e) {
+    if (clickpos_ == prevpos_) {
         SetFocus();
         SetValue(std::to_string(val_));
         SetSelection(0, -1);
@@ -68,7 +66,7 @@ void TextSlider::OnKillFocus(wxFocusEvent& e) {
 }
 
 void TextSlider::OnText(wxCommandEvent& e) {
-    //if (GetValue().substr(GetValue().find('.')).size() > 2)
+    if (HasFocus())
         val_ = std::stof(static_cast<std::string>(GetValue()));
 }
 

@@ -1,6 +1,8 @@
 #pragma once
 #include <wx/colour.h>
 
+// todo: add the font here?
+
 // https://www.color-hex.com/color-palette/28549
 namespace Palette {
     const wxColour text("#bfbfbf");         // off-white
