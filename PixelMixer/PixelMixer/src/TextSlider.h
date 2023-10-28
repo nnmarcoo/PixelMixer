@@ -15,6 +15,7 @@ private:
     void OnKillFocus(wxFocusEvent& e);
     void OnText(wxCommandEvent& e);
     void OnChar(wxKeyEvent& e);
+    void OnRightDown(wxMouseEvent& e);
     
     wxPoint dragpos_;
 

@@ -10,8 +10,8 @@ wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_MOTION(TextSlider::OnMouseMove)
     EVT_ENTER_WINDOW(TextSlider::OnMouseEnter)
     EVT_KILL_FOCUS(TextSlider::OnKillFocus)
-    EVT_TEXT(wxID_ANY, TextSlider::OnText)
     EVT_CHAR(TextSlider::OnChar)
+    EVT_RIGHT_DOWN(TextSlider::OnRightDown)
 wxEND_EVENT_TABLE()
 
 TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos) : wxTextCtrl(parent, id, defaultval, pos, wxDefaultSize, wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
@@ -66,11 +66,6 @@ void TextSlider::OnKillFocus(wxFocusEvent& e) {
     SetInsertionPointEnd();
 }
 
-void TextSlider::OnText(wxCommandEvent& e) { // todo: don't error if it isn't a number
-    if (HasFocus())
-        val_ = std::stof(static_cast<std::string>(GetValue()));
-}
-
 void TextSlider::OnChar(wxKeyEvent& e) {
     const int key = e.GetKeyCode();
     
@@ -85,7 +80,48 @@ void TextSlider::OnChar(wxKeyEvent& e) {
         std::stof(std::string(GetValue() + static_cast<char>(key))) < min_  ) 
         return;
     
-    e.Skip();
+    // Handle inputs manually because e.Skip() causes mistake where the input is 1 step behind 
+    // todo: handle exceptions
+    
+    long start, end;
+    GetSelection(&start, &end);
+
+    if (start != end)
+        Remove(start, end);
+
+    std::string value{GetValue()};
+    const long insertion = GetInsertionPoint();
+
+    switch(key) { // todo: support shift selection
+    case WXK_RIGHT:
+    case WXK_UP:
+        SetInsertionPoint(insertion+1);
+        break;
+    case WXK_LEFT:
+    case WXK_DOWN:
+        SetInsertionPoint(insertion-1);
+        break;
+    case WXK_BACK:
+        Remove(insertion, insertion-1);
+        break;
+    case WXK_DELETE:
+        Remove(insertion, insertion+1);
+        break;
+    default:
+        WriteText(static_cast<char>(key));
+    }
+    
+    try {
+        val_ = std::stof(std::string(GetValue()));
+    } catch (const std::invalid_argument& e) {
+        val_ = 0;
+    }
+
+    //SetValue(GetValue());
+}
+
+void TextSlider::OnRightDown(wxMouseEvent& e) { // Remove native m2 feature
+    e.Skip(false);
 }
 
 float TextSlider::Value() const {
