@@ -8,9 +8,11 @@ public:
     StatsPanel(wxWindow* parent, ViewportPanel* viewport);
     
     void UpdateRenderTime(double time) const;
+    void UpdateZoomFactor(double zoomfactor) const;
 private:
     DECLARE_EVENT_TABLE()
     ViewportPanel* viewport_;
     wxStaticText* rendertime_;
+    wxStaticText* zoomfactor_;
     
 };

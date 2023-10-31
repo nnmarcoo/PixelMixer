@@ -118,9 +118,11 @@ void ViewportPanel::render() {
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
 
     statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
+    statspanel_->UpdateZoomFactor(zoomfactor_);
     
     SwapBuffers();
 
+    // Debug
     std::cout << threshold_ << std::endl;
 }
 

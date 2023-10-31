@@ -82,6 +82,7 @@ void TextSlider::OnChar(wxKeyEvent& e) {
     
     // Handle inputs manually because e.Skip() causes mistake where the input is 1 step behind 
     // todo: handle exceptions
+    // todo: add shift < > controls
     
     long start, end;
     GetSelection(&start, &end);
@@ -113,7 +114,7 @@ void TextSlider::OnChar(wxKeyEvent& e) {
     
     try {
         val_ = std::stof(std::string(GetValue()));
-    } catch (const std::invalid_argument& e) {
+    } catch (const std::invalid_argument&) {
         val_ = 0;
     }
 
