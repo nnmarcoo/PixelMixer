@@ -277,13 +277,17 @@ void ViewportPanel::ExportMedia(const std::string& path) {
 }
 
 void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboard?
-    std::vector<unsigned char> data(static_cast<unsigned long long>(viewport_.x) * static_cast<unsigned long long>(viewport_.y) * 4); // why am I casting
+
+    const int width = viewport_.x;
+    const int height = viewport_.y;
+    
+    std::vector<unsigned char> data(static_cast<unsigned long long>(width) * static_cast<unsigned long long>(height) * 4); // why am I casting
     
     render();
-    glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     stbi_flip_vertically_on_write(1);
-    stbi_write_png(path.c_str(), viewport_.x, viewport_.y, 4, data.data(), 4 * viewport_.x);
+    stbi_write_png(path.c_str(), width, height, 4, data.data(), 4 * width);
     stbi_flip_vertically_on_write(0);
 }
 
