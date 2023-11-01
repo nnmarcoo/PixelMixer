@@ -88,6 +88,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_->Bind();
     
     shader_ = new Shader("res/shaders/SimpleSort.glsl");
+    sshader_ = new Shader("res/shaders/Display.glsl");
 
     shader_->Bind();
 
