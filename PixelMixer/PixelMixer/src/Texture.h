@@ -7,8 +7,7 @@ class Texture
 public:
     Texture(const std::string& path);
     ~Texture();
-
-    static void BindTexture(unsigned int rendererid, unsigned int slot = 0);
+    
     void Bind(unsigned int slot = 0) const;
     void Unbind() const;
 

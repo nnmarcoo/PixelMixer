@@ -8,6 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1351ab64-86a5-4f4c-b1e8-d3c287056aef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PixelMixer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/res/shaders/Display.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/res/shaders/Display.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/FrameBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/FrameBuffer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Renderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Texture.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Texture.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PixelMixer/src/Texture.h" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/Texture.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PixelMixer/src/ViewportPanel.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -529,7 +535,8 @@
       <workItem from="1698434645840" duration="10875000" />
       <workItem from="1698507848246" duration="1529000" />
       <workItem from="1698787189669" duration="956000" />
-      <workItem from="1698859134305" duration="2244000" />
+      <workItem from="1698859134305" duration="3692000" />
+      <workItem from="1698946654030" duration="2222000" />
     </task>
     <servers />
   </component>

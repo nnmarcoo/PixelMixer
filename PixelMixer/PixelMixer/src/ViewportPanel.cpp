@@ -105,11 +105,7 @@ void ViewportPanel::render() {
     
     Renderer::Clear();
     shader_->SetUniformMat4f("u_MVP", mvp_);
-
-    sfb_->Bind();
-    Renderer::Draw(*va_, *ib_, *shader_);
-    sfb_->Unbind();
-
+    
     Renderer::Draw(*va_, *ib_, *shader_);
     
     glEndQuery(GL_TIME_ELAPSED);
