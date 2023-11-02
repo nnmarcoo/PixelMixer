@@ -4,15 +4,16 @@
 // todo: scroll wheel scrolls value
 // todo: fix cursor not going away on focus kill (fix: have dummy textctrl to switch to?)
 
-wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
-    EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
-    EVT_LEFT_UP(TextSlider::OnMouseLeftUp)
-    EVT_MOTION(TextSlider::OnMouseMove)
-    EVT_ENTER_WINDOW(TextSlider::OnMouseEnter)
-    EVT_KILL_FOCUS(TextSlider::OnKillFocus)
-    EVT_CHAR(TextSlider::OnChar)
-    EVT_RIGHT_DOWN(TextSlider::OnRightDown)
-wxEND_EVENT_TABLE()
+//Causing error with comilation: wxEvtHandler is an inaccessible base of 'TextSlider'
+// wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
+//     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
+//     EVT_LEFT_UP(TextSlider::OnMouseLeftUp)
+//     EVT_MOTION(TextSlider::OnMouseMove)
+//     EVT_ENTER_WINDOW(TextSlider::OnMouseEnter)
+//     EVT_KILL_FOCUS(TextSlider::OnKillFocus)
+//     EVT_CHAR(TextSlider::OnChar)
+//     EVT_RIGHT_DOWN(TextSlider::OnRightDown)
+// wxEND_EVENT_TABLE()
 
 TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos) : wxTextCtrl(parent, id, defaultval, pos, wxDefaultSize, wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
     wxTextCtrl::SetForegroundColour(Palette::clickable);
@@ -64,6 +65,11 @@ void TextSlider::OnKillFocus(wxFocusEvent& e) {
     const std::string label = std::to_string(val_);
     SetValue(label.substr(0,label.find('.')+3));
     SetInsertionPointEnd();
+}
+
+//undefined vtable for TextSlider, fixed by implementing all
+//the methods in textslider
+void TextSlider::OnText(wxCommandEvent& e) {
 }
 
 void TextSlider::OnChar(wxKeyEvent& e) {

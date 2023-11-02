@@ -6,7 +6,7 @@ public:
     TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos = wxDefaultPosition);
     float Value() const;
 private:
-    DECLARE_EVENT_TABLE()
+    // DECLARE_EVENT_TABLE()
 
     void OnMouseLeftDown(wxMouseEvent& e);
     void OnMouseLeftUp(wxMouseEvent& e);

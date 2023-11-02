@@ -62,7 +62,9 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     
     /* REST OF CONSTRUCTOR IS FOR TESTING */
 
-    const float s = 500; // todo make relative to screen size instead of constant
+	// needed to be a const expression for some reason, idk
+	// I just do what the language server tells me
+    constexpr float s = 500; // todo make relative to screen size instead of constant
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
           1.0f*s, -1.0f*s, 1.0f, 0.0f, // 1 bottom-right

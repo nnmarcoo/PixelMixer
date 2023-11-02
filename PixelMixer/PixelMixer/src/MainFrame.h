@@ -12,6 +12,7 @@ private:
     wxStaticText* statustext_;
     
     // https://stackoverflow.com/questions/41179437/wxwidgets-wxborder-none-and-wxresize-border-makes-white-area
+		#ifdef __WXMSW__
     WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override
     {
         switch (nMsg)
@@ -49,4 +50,5 @@ private:
         }
         return wxFrame::MSWWindowProc(nMsg, wParam, lParam);
     }
+	 	#endif // __WXMSW__
 };
