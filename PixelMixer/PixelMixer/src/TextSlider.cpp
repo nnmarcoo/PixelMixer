@@ -5,6 +5,7 @@
 // todo: fix cursor not going away on focus kill (fix: have dummy textctrl to switch to?)
 
 //Causing error with comilation: wxEvtHandler is an inaccessible base of 'TextSlider'
+//Might just be a me issue.
 // wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
 //     EVT_LEFT_DOWN(TextSlider::OnMouseLeftDown)
 //     EVT_LEFT_UP(TextSlider::OnMouseLeftUp)
