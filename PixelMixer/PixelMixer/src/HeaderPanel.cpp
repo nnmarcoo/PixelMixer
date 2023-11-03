@@ -129,19 +129,18 @@ void HeaderPanel::OnDropDownButtonClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::CreateDropDown() {
-    const wxFont font(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
     dropdown_ = new wxFrame(this, dropdownFrame_ID, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxFRAME_NO_TASKBAR | wxFRAME_SHAPED | wxBORDER_SIMPLE);
     dropdown_->SetBackgroundColour(Palette::viewport);
     
     // 1F5AB save icon
-    auto* importmedia = new Button(dropdown_, importmediaButton_ID, "Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font); // this is so jank
-    auto* exportmedia = new Button(dropdown_, exportmediaButton_ID, "Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
-    auto* resetzoom = new Button(dropdown_, resetzoomButton_ID, "Reset Zoom                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
-    auto* centermedia = new Button(dropdown_, centermediaButton_ID, "Center Media                           ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
-    auto* screenshot = new Button(dropdown_, screenshotButton_ID, "Screenshot                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
-    auto* settings = new Button(dropdown_, settingsButton_ID, "Settings                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
-    auto* help = new Button(dropdown_, helpButton_ID, "Help                                        ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
-    auto* exit = new Button(dropdown_, exitdropdownButton_ID, "Exit                                         ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, font);
+    auto* importmedia = new Button(dropdown_, importmediaButton_ID, "Import                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown); // this is so jank
+    auto* exportmedia = new Button(dropdown_, exportmediaButton_ID, "Export                                      ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
+    auto* resetzoom = new Button(dropdown_, resetzoomButton_ID, "Reset Zoom                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
+    auto* centermedia = new Button(dropdown_, centermediaButton_ID, "Center Media                           ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
+    auto* screenshot = new Button(dropdown_, screenshotButton_ID, "Screenshot                             ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
+    auto* settings = new Button(dropdown_, settingsButton_ID, "Settings                                   ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
+    auto* help = new Button(dropdown_, helpButton_ID, "Help                                        ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
+    auto* exit = new Button(dropdown_, exitdropdownButton_ID, "Exit                                         ", wxDefaultPosition, wxSize(230, 30), wxBORDER_NONE | wxALIGN_LEFT, wxNullBitmap, Palette::bhover, Palette::viewport, Font::dropdown);
     
     wxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(importmedia, 0, wxALL, 5);
@@ -160,7 +159,6 @@ void HeaderPanel::CreateDropDown() {
 }
 
 void HeaderPanel::CreateSettings() {
-    const wxFont font(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
     settings_ = new wxFrame(this, dropdownFrame_ID, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxFRAME_NO_TASKBAR | wxFRAME_SHAPED | wxBORDER_SIMPLE);
     settings_->SetBackgroundColour(Palette::viewport);
 }
