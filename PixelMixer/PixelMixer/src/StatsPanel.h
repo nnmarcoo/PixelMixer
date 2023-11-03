@@ -13,6 +13,8 @@ private:
     DECLARE_EVENT_TABLE()
     ViewportPanel* viewport_;
     wxStaticText* rendertime_;
+    wxStaticText* rendertimevalue_;
     wxStaticText* zoomfactor_;
+    wxStaticText* zoomfactorvalue_;
     
 };

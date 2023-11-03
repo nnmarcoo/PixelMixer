@@ -117,9 +117,6 @@ void ViewportPanel::render() {
     statspanel_->UpdateZoomFactor(zoomfactor_);
     
     SwapBuffers();
-
-    // Debug
-    std::cout << threshold_ << std::endl;
 }
 
 /* MEDIA CONTROLS */
