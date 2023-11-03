@@ -8,9 +8,6 @@ END_EVENT_TABLE()
 StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
     wxWindowBase::SetBackgroundColour(Palette::config);
 
-    wxFont font = wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
-    wxFont font2 = wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-
     rendertime_ = new wxStaticText(this, wxID_ANY, "Render time", wxPoint(30, 30));
     rendertimevalue_ = new wxStaticText(this, wxID_ANY, "0.00ms", wxPoint(150, 30));
     
@@ -21,12 +18,11 @@ StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pare
     zoomfactorvalue_->SetForegroundColour(Palette::clickable);
     rendertime_->SetForegroundColour(Palette::text);
     rendertimevalue_->SetForegroundColour(Palette::clickable);
-    rendertime_->SetFont(font);
-    zoomfactor_->SetFont(font);
-    zoomfactorvalue_->SetFont(font2); // todo change this
-    rendertimevalue_->SetFont(font2);
+    rendertime_->SetFont(Font::read);
+    zoomfactor_->SetFont(Font::read);
+    zoomfactorvalue_->SetFont(Font::click);
+    rendertimevalue_->SetFont(Font::click);
     
-
     viewport_->SetStatsPanel(this);
 }
 
