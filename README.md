@@ -5,7 +5,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/nnmarcoo/PixelSorter)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/nnmarcoo/PixelSorter)
 
-Welcome to PixelMixer, a C++ pixel sorting tool. PixelMixer allows you to manipulate and sort pixels of images in real time to create visual effects and artistic compositions.
+PixelMixer allows you to manipulate and sort pixels of images in real time to create visual effects and artistic compositions.
 
 ## Features
 
