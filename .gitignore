@@ -42,3 +42,5 @@ output.png
 source.png
 stats.png
 *.ahk
+
+*.xml

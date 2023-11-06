@@ -20,8 +20,8 @@ StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pare
     rendertimevalue_->SetForegroundColour(Palette::clickable);
     rendertime_->SetFont(Font::read);
     zoomfactor_->SetFont(Font::read);
-    zoomfactorvalue_->SetFont(Font::click);
-    rendertimevalue_->SetFont(Font::click);
+    zoomfactorvalue_->SetFont(Font::read);
+    rendertimevalue_->SetFont(Font::read);
     
     viewport_->SetStatsPanel(this);
 }

@@ -11,7 +11,7 @@ namespace Palette {
     const wxColour viewport("#313338");     // lightest color
     const wxColour config("#2b2d31");
     const wxColour linebreak("#646464");
-    const wxColour clickable("#285fd0");
+    const wxColour clickable("#A2BFF7");
 }
 namespace Font {
     const wxFont read(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
