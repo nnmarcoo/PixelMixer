@@ -15,8 +15,8 @@ StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pare
     zoomfactorvalue_ = new wxStaticText(this, wxID_ANY, "100%", wxPoint(150, 60));
     
     zoomfactor_->SetForegroundColour(Palette::text);
-    zoomfactorvalue_->SetForegroundColour(Palette::clickable);
     rendertime_->SetForegroundColour(Palette::text);
+    zoomfactorvalue_->SetForegroundColour(Palette::clickable);
     rendertimevalue_->SetForegroundColour(Palette::clickable);
     rendertime_->SetFont(Font::read);
     zoomfactor_->SetFont(Font::read);

@@ -1947,6 +1947,7 @@
     <ItemGroup>
       <Content Include="res\images\dropdown.ico" />
       <Content Include="res\images\output.ico" />
+      <Content Include="res\images\settings.ico" />
       <Content Include="res\images\source.ico" />
       <Content Include="res\images\stats.ico" />
       <Content Include="res\shaders\Display.glsl" />
