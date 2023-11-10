@@ -3,7 +3,7 @@
 
 class TextSlider : wxTextCtrl {
 public:
-    TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos = wxDefaultPosition);
+    TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos = wxDefaultPosition, wxString unit = wxEmptyString);
     float Value() const;
 private:
     DECLARE_EVENT_TABLE()
@@ -24,6 +24,7 @@ private:
     float max_;
     wxPoint prevpos_;
     wxPoint clickpos_;
+    wxString unit_;
 
     unsigned int callcount_;
 };

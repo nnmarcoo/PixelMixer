@@ -14,7 +14,7 @@ wxBEGIN_EVENT_TABLE(TextSlider, wxTextCtrl)
     EVT_RIGHT_DOWN(TextSlider::OnRightDown)
 wxEND_EVENT_TABLE()
 
-TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos) : wxTextCtrl(parent, id, defaultval, pos, wxDefaultSize, wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
+TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos, wxString unit) : wxTextCtrl(parent, id, defaultval, pos, wxDefaultSize, wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval), unit_(unit) {
     wxTextCtrl::SetForegroundColour(Palette::clickable);
     wxTextCtrl::SetBackgroundColour(Palette::config);
     wxTextCtrl::SetFont(Font::click);
