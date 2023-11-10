@@ -11,7 +11,7 @@ SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPane
     
     thresholdlabel_ = new wxStaticText(this, wxID_ANY, "Threshold", wxPoint(30, 30));
     thresholdlabel_->SetForegroundColour(Palette::text);
-    thresholdlabel_->SetFont(wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+    thresholdlabel_->SetFont(Font::click);
     slider_ = new TextSlider(this, wxID_ANY, "50.00", 0 , 100, wxPoint(150, 30));
 }
 
