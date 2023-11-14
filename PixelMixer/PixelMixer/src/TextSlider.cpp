@@ -18,9 +18,6 @@ TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultv
     wxTextCtrl::SetForegroundColour(Palette::clickable);
     wxTextCtrl::SetBackgroundColour(Palette::config);
     wxTextCtrl::SetFont(Font::click);
-
-    dummy = new wxTextCtrl(this, wxID_ANY, wxEmptyString);
-    dummy->Hide();
 }
 
 void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
@@ -67,7 +64,6 @@ void TextSlider::OnKillFocus(wxFocusEvent& e) {
     const std::string label = std::to_string(val_);
     SetValue(label.substr(0,label.find('.')+3) + unit_);
     SetInsertionPointEnd();
-    dummy->SetFocus();
 }
 
 void TextSlider::OnChar(wxKeyEvent& e) {
