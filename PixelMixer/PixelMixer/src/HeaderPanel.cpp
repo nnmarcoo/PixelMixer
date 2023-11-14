@@ -193,6 +193,7 @@ void HeaderPanel::OnSettingsClick(wxCommandEvent& e) {
 }
 
 void HeaderPanel::OnHelpClick(wxCommandEvent& e) {
+    wxLaunchDefaultBrowser("https://github.com/nnmarcoo/PixelMixer/blob/main/README.md");
 }
 
 void HeaderPanel::OnResetZoomClick(wxCommandEvent& e) {
