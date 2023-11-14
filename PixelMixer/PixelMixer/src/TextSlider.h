@@ -27,4 +27,6 @@ private:
     wxString unit_;
 
     unsigned int callcount_;
+
+    wxTextCtrl* dummy;
 };
