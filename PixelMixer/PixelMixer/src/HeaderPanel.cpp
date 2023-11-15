@@ -80,9 +80,11 @@ void HeaderPanel::OnLeftUp(wxMouseEvent& e) { // todo add docking ?
     const wxPoint mousePos = wxGetMousePosition();
     const wxPoint rMousePos = mousePos - wxDisplay(wxDisplay::GetFromPoint(mousePos)).GetGeometry().GetPosition();
 
-    if (rMousePos.y == 0 && !mainframe_->IsMaximized()) {
-        mainframe_->SetPosition(mainframe_->GetPosition() + wxPoint(0, 50));
-        ToggleMaximize();
+    if (!mainframe_->IsMaximized()) { // todo: docking
+        if (rMousePos.y == 0) {
+            mainframe_->SetPosition(mainframe_->GetPosition() + wxPoint(0, 50));
+            ToggleMaximize();
+        }
     }
     if (HasCapture()) ReleaseMouse();
 }
@@ -163,7 +165,7 @@ void HeaderPanel::CreateSettings() {
     settings_->SetBackgroundColour(Palette::viewport);
 }
 
-void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) { // todo implement
+void HeaderPanel::OnCenterMediaClick(wxCommandEvent& e) {
     viewport_->CenterMedia();
     mainframe_->Raise();
 }
