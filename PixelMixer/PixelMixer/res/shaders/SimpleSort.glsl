@@ -26,7 +26,5 @@ float Lum(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }
 float Ave(vec4 c) { return (c.r + c.g + c.b) / 3; }
 
 void main() {
-    vec4 texColor = texture(u_Texture, v_fragCoord);
-    
-    color = texColor;
+    color = texture(u_Texture, v_fragCoord);
 }

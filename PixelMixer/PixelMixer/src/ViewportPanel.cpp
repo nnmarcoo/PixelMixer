@@ -111,6 +111,7 @@ void ViewportPanel::render() {
     Renderer::Draw(*sshader_);
 
     sfb_->Unbind();
+    sfb_->BindTexture();
     Renderer::Clear();
     shader_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
