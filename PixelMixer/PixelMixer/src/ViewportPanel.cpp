@@ -89,7 +89,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     shader_ = new Shader("res/shaders/SimpleSort.glsl");
     sshader_ = new Shader("res/shaders/Display.glsl");
 
-    shader_->Bind();
+    //shader_->Bind();
+    sshader_->Bind();
 
     sfb_ = new FrameBuffer(2048, 2048);
     
@@ -102,8 +103,17 @@ void ViewportPanel::render() {
     if (!IsShown()) return;
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
+
+    sfb_->Bind();
+    texture_->Bind();
     
     Renderer::Clear();
+    Renderer::Draw(*sshader_);
+
+    sfb_->Unbind();
+    Renderer::Clear();
+    shader_->Bind();
+    shader_->SetUniform1i("u_Texture", 0);
     shader_->SetUniformMat4f("u_MVP", mvp_);
     
     Renderer::Draw(*va_, *ib_, *shader_);
