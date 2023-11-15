@@ -111,7 +111,7 @@ void ViewportPanel::render() {
     Renderer::Draw(*sshader_);
 
     sfb_->Unbind();
-    sfb_->BindTexture();
+    sfb_->BindTexture(); // TODO: FUCKING BIND THE TEXTURE FROM THE FB AND USE IT FOR THE NORMAL RENDER 
     Renderer::Clear();
     shader_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
