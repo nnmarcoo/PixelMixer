@@ -104,20 +104,23 @@ void ViewportPanel::render() {
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
+    // Render image to sfb_
     sfb_->Bind();
     texture_->Bind();
-    
     Renderer::Clear();
     Renderer::Draw(*sshader_);
-
+    
+    
+    // Render sfb_ to geometry
     sfb_->Unbind();
-    sfb_->BindTexture(); // TODO: FUCKING BIND THE TEXTURE FROM THE FB AND USE IT FOR THE NORMAL RENDER 
-    Renderer::Clear();
+    sfb_->BindTexture();
     shader_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
     shader_->SetUniformMat4f("u_MVP", mvp_);
     
+    Renderer::Clear();
     Renderer::Draw(*va_, *ib_, *shader_);
+    
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -277,7 +280,18 @@ void ViewportPanel::SetMedia(const std::string& path) {
 }
 
 void ViewportPanel::ExportMedia(const std::string& path) {
-    
+
+    const int width = 2048;
+    const int height = 2048;
+
+    glBindTexture(GL_TEXTURE_2D, sfb_->GetTexture());
+    std::vector<unsigned char> data(width * height * 4); // todo fix (change constants)
+    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+    stbi_flip_vertically_on_write(1); // Flip the image vertically before saving
+    stbi_write_png(path.c_str(), width, height, 4, data.data(), width * 4); // Save as PNG (RGBA format)
+
+    // Unbind the texture
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboard?
