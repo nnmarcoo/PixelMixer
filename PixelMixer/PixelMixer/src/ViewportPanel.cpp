@@ -287,10 +287,9 @@ void ViewportPanel::ExportMedia(const std::string& path) {
     glBindTexture(GL_TEXTURE_2D, sfb_->GetTexture());
     std::vector<unsigned char> data(width * height * 4); // todo fix (change constants)
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
-    stbi_flip_vertically_on_write(1); // Flip the image vertically before saving
-    stbi_write_png(path.c_str(), width, height, 4, data.data(), width * 4); // Save as PNG (RGBA format)
-
-    // Unbind the texture
+    stbi_flip_vertically_on_write(1);
+    stbi_write_png(path.c_str(), width, height, 4, data.data(), width * 4);
+    
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
