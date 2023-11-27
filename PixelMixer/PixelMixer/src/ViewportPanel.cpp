@@ -86,17 +86,12 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    shader_ = new Shader("res/shaders/SimpleSort.glsl");
-    sshader_ = new Shader("res/shaders/Display.glsl");
-
-    //shader_->Bind();
-    sshader_->Bind();
+    shader_ = new Shader("res/shaders/Display.glsl");
+    sshader_ = new Shader("res/shaders/Step1.glsl");
 
     sfb_ = new FrameBuffer(2048, 2048);
     
     texture_ = new Texture("res/textures/debug.jpg");
-    texture_->Bind();
-    shader_->SetUniform1i("u_Texture", 0);
 }
 
 void ViewportPanel::render() {
@@ -106,6 +101,8 @@ void ViewportPanel::render() {
 
     // Render image to sfb_
     sfb_->Bind();
+    sshader_->Bind();
+    sshader_->SetUniform1i("u_Texture", 0);
     texture_->Bind();
     Renderer::Clear();
     Renderer::Draw(*sshader_);
@@ -113,7 +110,7 @@ void ViewportPanel::render() {
     
     // Render sfb_ to geometry
     sfb_->Unbind();
-    sfb_->BindTexture();
+    //sfb_->BindTexture();
     shader_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
     shader_->SetUniformMat4f("u_MVP", mvp_);
