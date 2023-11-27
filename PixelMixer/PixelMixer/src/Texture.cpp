@@ -21,6 +21,17 @@ Texture::Texture(const std::string& path) : RendererID_(0), FilePath_(path), Loc
         stbi_image_free(LocalBuffer_);
 }
 
+Texture::Texture(unsigned width, unsigned height) : RendererID_(0), Width_(width), Height_(height) {
+    
+    GLCall(glGenTextures(1, &RendererID_))
+    GLCall(glBindTexture(GL_TEXTURE_2D, RendererID_))
+    GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width_, Height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr))
+    GLCall(glBindTexture(GL_TEXTURE_2D, 0))
+    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, RendererID_, 0))
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE))
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE))
+}
+
 void Texture::Bind(unsigned slot) const {
     GLCall(glActiveTexture(GL_TEXTURE0 + slot))
     GLCall(glBindTexture(GL_TEXTURE_2D, RendererID_))

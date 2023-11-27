@@ -6,6 +6,7 @@ class Texture
 {
 public:
     Texture(const std::string& path);
+    Texture(unsigned int width, unsigned int height);
     ~Texture();
     
     void Bind(unsigned int slot = 0) const;

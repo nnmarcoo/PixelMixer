@@ -6,7 +6,7 @@ FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), Text
     GLCall(glGenFramebuffers(1, &RendererID_))
     GLCall(glBindFramebuffer(GL_FRAMEBUFFER, RendererID_))
     
-    GLCall(glGenTextures(1, &TextureID_))
+    GLCall(glGenTextures(1, &TextureID_)) // TODO: use texture object
     GLCall(glBindTexture(GL_TEXTURE_2D, TextureID_))
     GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width_, Height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr))
     GLCall(glBindTexture(GL_TEXTURE_2D, 0))
@@ -20,7 +20,7 @@ FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), Text
     GLCall(glBindRenderbuffer(GL_RENDERBUFFER, 0))
     GLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RenderBufferID_))
     
-    const int status = GLCall(glCheckFramebufferStatus(GL_FRAMEBUFFER))
+    const int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (status != GL_FRAMEBUFFER_COMPLETE)
         std::cerr << "Failure to create framebuffer." << std::endl;
 
