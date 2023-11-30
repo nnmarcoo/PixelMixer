@@ -9,6 +9,7 @@ public:
     
     void UpdateRenderTime(double time) const;
     void UpdateZoomFactor(double zoomfactor) const;
+    void UpdatePosition(wxPoint pos) const;
 private:
     DECLARE_EVENT_TABLE()
     ViewportPanel* viewport_;
@@ -16,5 +17,7 @@ private:
     wxStaticText* rendertimevalue_;
     wxStaticText* zoomfactor_;
     wxStaticText* zoomfactorvalue_;
+    wxStaticText* position_;
+    wxStaticText* positionvalue_;
     
 };

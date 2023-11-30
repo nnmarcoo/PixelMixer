@@ -5,6 +5,7 @@
 
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
+#include "Palette.h"
 #include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -126,6 +127,7 @@ void ViewportPanel::render() {
 
     statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
     statspanel_->UpdateZoomFactor(zoomfactor_);
+    statspanel_->UpdatePosition(wxPoint(viewport_.x * mvp_[3][0],viewport_.y * mvp_[3][1]));
     
     SwapBuffers();
 }

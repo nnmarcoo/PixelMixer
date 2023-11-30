@@ -10,18 +10,24 @@ StatsPanel::StatsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(pare
 
     rendertime_ = new wxStaticText(this, wxID_ANY, "Render time", wxPoint(30, 30));
     rendertimevalue_ = new wxStaticText(this, wxID_ANY, "0.00ms", wxPoint(150, 30));
+    rendertime_->SetForegroundColour(Palette::text);
+    rendertime_->SetFont(Font::read);
+    rendertimevalue_->SetForegroundColour(Palette::clickable);
+    rendertimevalue_->SetFont(Font::read);
     
     zoomfactor_ = new wxStaticText(this, wxID_ANY, "Zoom factor", wxPoint(30, 60));
     zoomfactorvalue_ = new wxStaticText(this, wxID_ANY, "100%", wxPoint(150, 60));
-    
     zoomfactor_->SetForegroundColour(Palette::text);
-    rendertime_->SetForegroundColour(Palette::text);
-    zoomfactorvalue_->SetForegroundColour(Palette::clickable);
-    rendertimevalue_->SetForegroundColour(Palette::clickable);
-    rendertime_->SetFont(Font::read);
     zoomfactor_->SetFont(Font::read);
+    zoomfactorvalue_->SetForegroundColour(Palette::clickable);
     zoomfactorvalue_->SetFont(Font::read);
-    rendertimevalue_->SetFont(Font::read);
+
+    position_ = new wxStaticText(this, wxID_ANY, "Position", wxPoint(30, 90));
+    positionvalue_ = new wxStaticText(this, wxID_ANY, "(0, 0)", wxPoint(150, 90));
+    position_->SetForegroundColour(Palette::text);
+    position_->SetFont(Font::read);
+    positionvalue_->SetForegroundColour(Palette::clickable);
+    positionvalue_->SetFont(Font::read);
     
     viewport_->SetStatsPanel(this);
 }
@@ -35,4 +41,9 @@ void StatsPanel::UpdateZoomFactor(double zoomfactor) const { // technically this
     if (!IsShown()) return;
     std::string string = std::to_string(zoomfactor*100);
     zoomfactorvalue_->SetLabel(string.substr(0, string.find('.')) + "%");
+}
+
+void StatsPanel::UpdatePosition(wxPoint pos) const {
+    if (!IsShown()) return;
+    positionvalue_->SetLabel("(" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")");
 }
