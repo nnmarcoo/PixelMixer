@@ -41,8 +41,3 @@ void FrameBuffer::Bind() {
 void FrameBuffer::Unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
-void FrameBuffer::BindTexture() const {
-    GLCall(glActiveTexture(GL_TEXTURE0))
-    GLCall(glBindTexture(GL_TEXTURE_2D, TextureID_))
-}

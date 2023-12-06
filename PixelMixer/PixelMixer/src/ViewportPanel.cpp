@@ -50,7 +50,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     GLCall(glEnable(GL_BLEND))                                      // Enable blending
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
-    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))  // Set clear color to Palette::viewport
+    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))   // Set clear color to Palette::viewport
 
     glGenQueries(1, &sqo_);
 
@@ -230,7 +230,7 @@ void ViewportPanel::CenterMedia() {
     render();
 }
 
-void ViewportPanel::ResetScale() { // todo: instead of centering the media, use the current zoom point as the origin and keep it in the same spot when it zooms out
+void ViewportPanel::ResetScale() { // todo: instead of centering the media, use the current zoom point as the origin and keep it in the same spot when it zooms out ?
     zoomfactor_ = 1.0f;
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     CenterMedia(); 
@@ -269,7 +269,6 @@ void ViewportPanel::SetMedia(const std::string& path) {
     layout_->Push<float>(2);
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
-
     
     shader_->SetUniform1i("u_Texture", 0);
     
@@ -280,13 +279,13 @@ void ViewportPanel::SetMedia(const std::string& path) {
     render();
 }
 
-void ViewportPanel::ExportMedia(const std::string& path) {
+void ViewportPanel::ExportMedia(const std::string& path) { // TODO
 
-    const int width = 2048;
-    const int height = 2048;
+    const int width = texture_->GetWidth();
+    const int height = texture_->GetHeight();
 
     glBindTexture(GL_TEXTURE_2D, sfb_->GetTexture());
-    std::vector<unsigned char> data(width * height * 4); // todo fix (change constants)
+    std::vector<unsigned char> data(width * height * 4);
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
     stbi_flip_vertically_on_write(1);
     stbi_write_png(path.c_str(), width, height, 4, data.data(), width * 4);
