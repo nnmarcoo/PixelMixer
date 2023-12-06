@@ -238,9 +238,12 @@ void ViewportPanel::ResetScale() { // todo: instead of centering the media, use 
 
 void ViewportPanel::SetMedia(const std::string& path) {
     frame_ = 0;
-    const wxSize img = wxImage(path).GetSize(); // todo bad
-    auto distx = static_cast<float>(img.x >> 1);
-    auto disty = static_cast<float>(img.y >> 1);
+
+    texture_ = new Texture(path);
+    texture_->Bind();
+    
+    auto distx = static_cast<float>(texture_->GetWidth() >> 1);
+    auto disty = static_cast<float>(texture_->GetHeight() >> 1);
 
     while (distx < viewport_.x-40.0 && disty < viewport_.y-40.0) {
         distx+=40;
@@ -267,11 +270,10 @@ void ViewportPanel::SetMedia(const std::string& path) {
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
 
-    texture_ = new Texture(path);
-    texture_->Bind();
+    
     shader_->SetUniform1i("u_Texture", 0);
     
-    sfb_ = new FrameBuffer(img.x, img.y);
+    sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
     texture_->Bind();
     
     ResetMVP();
