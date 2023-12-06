@@ -4,7 +4,6 @@
 #include "Texture.h"
 
 FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), TextureID_(0), RenderBufferID_(0), Width_(width), Height_(height), ClearColor_(1) {
-    // Create the texture internally in the constructor
     const Texture tempTexture(width, height);
     TextureID_ = tempTexture.GetRendererID();
     Width_ = tempTexture.GetWidth();
