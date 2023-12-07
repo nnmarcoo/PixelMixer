@@ -9,7 +9,7 @@ public:
     ~FrameBuffer();
 
     unsigned int GetFBO() const { return RendererID_; }
-    Texture GetTexture() const { return *texture_; }
+    Texture* GetTexture() const { return texture_; }
     unsigned int GetRBO() const { return RenderBufferID_; }
     void GetSize(unsigned int& w, unsigned int& h) const { w = Width_; h = Height_; }
     void SetClearColor(float r, float g, float b, float a) { ClearColor_ = glm::vec4(r,g,b,a); }

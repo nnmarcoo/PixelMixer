@@ -3,15 +3,15 @@
 #include "Renderer.h"
 #include "Texture.h"
 
-FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), RenderBufferID_(0), Width_(width),Height_(height), ClearColor_(1) {
-    const Texture texture_(width, height);
-    Width_ = texture_.GetWidth();
-    Height_ = texture_.GetHeight();
+FrameBuffer::FrameBuffer(unsigned width, unsigned height) : RendererID_(0), RenderBufferID_(0), Width_(width), Height_(height), ClearColor_(0), texture_(nullptr) {
+    texture_ = new Texture(width, height);
+    Width_ = texture_->GetWidth();
+    Height_ = texture_->GetHeight();
 
     GLCall(glGenFramebuffers(1, &RendererID_))
     GLCall(glBindFramebuffer(GL_FRAMEBUFFER, RendererID_))
 
-    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_.GetRendererID(), 0))
+    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_->GetRendererID(), 0))
 
     GLCall(glGenRenderbuffers(1, &RenderBufferID_))
     GLCall(glBindRenderbuffer(GL_RENDERBUFFER, RenderBufferID_))

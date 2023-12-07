@@ -111,7 +111,7 @@ void ViewportPanel::render() {
     
     // Render sfb_ to geometry
     sfb_->Unbind();
-    //sfb_->GetTexture().Bind();
+    sfb_->GetTexture()->Bind();
     shader_->Bind();
     shader_->SetUniform1i("u_Texture", 0);
     shader_->SetUniformMat4f("u_MVP", mvp_);
@@ -284,7 +284,7 @@ void ViewportPanel::ExportMedia(const std::string& path) { // TODO
     const int width = texture_->GetWidth();
     const int height = texture_->GetHeight();
 
-    sfb_->GetTexture().Bind();
+    sfb_->GetTexture()->Bind();
     std::vector<unsigned char> data(width * height * 4);
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
     stbi_flip_vertically_on_write(1);
