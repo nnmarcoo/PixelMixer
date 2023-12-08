@@ -5,7 +5,6 @@
 
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
-#include "Palette.h"
 #include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -36,7 +35,6 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_MOUSEWHEEL(ViewportPanel::OnMouseWheel)
 END_EVENT_TABLE()
 
-// new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
 ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), wdragstate_(DragState) {
     context_ = new wxGLContext(this);
     SetCurrent(*context_);
@@ -87,8 +85,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    shader_ = new Shader("res/shaders/Display.glsl");
-    sshader_ = new Shader("res/shaders/Step1.glsl");
+    display_shader_ = new Shader("res/shaders/Display.glsl");
+    step1_shader_ = new Shader("res/shaders/Step1.glsl");
 
     sfb_ = new FrameBuffer(2048, 2048);
     
@@ -102,22 +100,22 @@ void ViewportPanel::render() {
 
     // Render image to sfb_
     sfb_->Bind();
-    sshader_->Bind();
-    sshader_->SetUniform1i("u_Texture", 0);
+    step1_shader_->Bind();
+    step1_shader_->SetUniform1i("u_Texture", 0);
     texture_->Bind();
     Renderer::Clear();
-    Renderer::Draw(*sshader_);
+    Renderer::Draw(*step1_shader_);
     
     
     // Render sfb_ to geometry
     sfb_->Unbind();
     sfb_->GetTexture()->Bind();
-    shader_->Bind();
-    shader_->SetUniform1i("u_Texture", 0);
-    shader_->SetUniformMat4f("u_MVP", mvp_);
+    display_shader_->Bind();
+    display_shader_->SetUniform1i("u_Texture", 0);
+    display_shader_->SetUniformMat4f("u_MVP", mvp_);
     
     Renderer::Clear();
-    Renderer::Draw(*va_, *ib_, *shader_);
+    Renderer::Draw(*va_, *ib_, *display_shader_);
     
     
     glEndQuery(GL_TIME_ELAPSED);
@@ -270,7 +268,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
     
-    shader_->SetUniform1i("u_Texture", 0);
+    display_shader_->SetUniform1i("u_Texture", 0);
     
     sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
     texture_->Bind();
@@ -319,7 +317,7 @@ ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
     delete va_;
     delete sfb_;
     delete layout_;
-    delete shader_;
+    delete display_shader_;
     delete renderer_;
     delete texture_;
     delete context_; // delete context last to avoid error loop
