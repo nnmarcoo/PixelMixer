@@ -87,10 +87,9 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     
     display_shader_ = new Shader("res/shaders/Display.glsl");
     step1_shader_ = new Shader("res/shaders/Step1.glsl");
-
-    sfb_ = new FrameBuffer(2048, 2048);
     
     texture_ = new Texture("res/textures/debug.jpg");
+    sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
 }
 
 void ViewportPanel::render() {
