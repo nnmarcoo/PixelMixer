@@ -99,6 +99,7 @@ void ViewportPanel::render() {
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
     // Render image to sfb_
+    glViewport(0, 0, sfb_->GetWidth(), sfb_->GetHeight());
     sfb_->Bind();
     step1_shader_->Bind();
     step1_shader_->SetUniform1i("u_Texture", 0);
@@ -108,6 +109,7 @@ void ViewportPanel::render() {
     
     
     // Render sfb_ to geometry
+    glViewport(0, 0, viewport_.x, viewport_.y);
     sfb_->Unbind();
     sfb_->GetTexture()->Bind();
     display_shader_->Bind();
@@ -143,7 +145,6 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y);
-    
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
