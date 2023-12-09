@@ -295,7 +295,7 @@ void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboa
     const int width = viewport_.x;
     const int height = viewport_.y;
     
-    std::vector<unsigned char> data(static_cast<unsigned long long>(width) * static_cast<unsigned long long>(height) * 4); // why am I casting
+    std::vector<unsigned char> data(static_cast<unsigned long long>(width) * static_cast<unsigned long long>(height) * 4);
     
     render();
     glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
