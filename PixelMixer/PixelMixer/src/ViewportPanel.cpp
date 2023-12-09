@@ -99,7 +99,7 @@ void ViewportPanel::render() {
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
     // Render image to sfb_
-    glViewport(0, 0, sfb_->GetWidth(), sfb_->GetHeight());
+    glViewport(0, 0, static_cast<int>(sfb_->GetWidth()), static_cast<int>(sfb_->GetHeight()));
     sfb_->Bind();
     step1_shader_->Bind();
     step1_shader_->SetUniform1i("u_Texture", 0);
