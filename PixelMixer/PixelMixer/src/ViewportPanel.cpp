@@ -94,6 +94,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
 void ViewportPanel::render() {
     if (!IsShown()) return;
+    
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
@@ -128,8 +129,6 @@ void ViewportPanel::render() {
     
     SwapBuffers();
 }
-
-/* MEDIA CONTROLS */
 
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
     if (*wdragstate_) return;

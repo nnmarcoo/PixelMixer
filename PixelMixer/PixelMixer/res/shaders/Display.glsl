@@ -22,9 +22,6 @@ uniform sampler2D u_Texture;
 uniform int u_Frame;
 uniform vec2 u_Resolution;
 
-float Lum(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }
-float Ave(vec4 c) { return (c.r + c.g + c.b) / 3; }
-
 void main() {
     color = texture(u_Texture, v_fragCoord);
 }
