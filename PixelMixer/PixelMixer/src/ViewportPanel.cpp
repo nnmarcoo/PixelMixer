@@ -216,11 +216,9 @@ void ViewportPanel::ResetMVP() {
     zoomfactor_ = 1.0f;
     view_ = base_;
     CenterMedia();
-    UpdateMVP();
 }
 
 void ViewportPanel::CenterMedia() {
-    if (loc_ == glm::vec2(0,0)) return;
     loc_ = glm::vec2(0,0);
     prevpos_ = loc_;
     UpdateMVP();
@@ -230,7 +228,7 @@ void ViewportPanel::CenterMedia() {
 void ViewportPanel::ResetScale() { // todo: instead of centering the media, use the current zoom point as the origin and keep it in the same spot when it zooms out ?
     zoomfactor_ = 1.0f;
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
-    CenterMedia(); 
+    CenterMedia();
 }
 
 void ViewportPanel::SetMedia(const std::string& path) {
