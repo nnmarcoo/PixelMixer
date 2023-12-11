@@ -9,7 +9,7 @@ public:
     
     void UpdateRenderTime(double time) const;
     void UpdateZoomFactor(double zoomfactor) const;
-    void UpdatePosition(wxPoint pos) const;
+    void UpdatePosition(int x, int y) const;
 private:
     DECLARE_EVENT_TABLE()
     ViewportPanel* viewport_;

@@ -43,7 +43,7 @@ void StatsPanel::UpdateZoomFactor(double zoomfactor) const { // technically this
     zoomfactorvalue_->SetLabel(string.substr(0, string.find('.')) + "%");
 }
 
-void StatsPanel::UpdatePosition(wxPoint pos) const {
+void StatsPanel::UpdatePosition(int x, int y) const {
     if (!IsShown()) return;
-    positionvalue_->SetLabel("(" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")");
+    positionvalue_->SetLabel("(" + std::to_string(x) + ", " + std::to_string(y) + ")");
 }

@@ -127,7 +127,7 @@ void ViewportPanel::render() {
 
     statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
     statspanel_->UpdateZoomFactor(zoomfactor_);
-    statspanel_->UpdatePosition(wxPoint(viewport_.x * mvp_[3][0],viewport_.y * mvp_[3][1]));
+    statspanel_->UpdatePosition(viewport_.x * mvp_[3][0],viewport_.y * mvp_[3][1]);
     
     SwapBuffers();
 }
@@ -200,6 +200,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
         return;
     }
+    std::cout << e.GetPosition().x - viewport_.x/2 << " " << e.GetPosition().y - viewport_.y/2 << std::endl;
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
