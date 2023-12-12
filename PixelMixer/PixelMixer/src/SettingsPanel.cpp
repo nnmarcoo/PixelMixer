@@ -3,7 +3,7 @@
 #include "TextSlider.h"
 
 BEGIN_EVENT_TABLE(SettingsPanel, wxPanel)
-    EVT_TEXT(wxID_ANY, SettingsPanel::OnSlider)
+    EVT_TEXT(wxID_ANY, SettingsPanel::OnThresholdSlider)
 END_EVENT_TABLE()
 
 SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
@@ -16,6 +16,6 @@ SettingsPanel::SettingsPanel(wxWindow* parent, ViewportPanel* viewport) : wxPane
 }
 
 
-void SettingsPanel::OnSlider(wxCommandEvent& e) {
+void SettingsPanel::OnThresholdSlider(wxCommandEvent& e) {
     viewport_->SetThreshold(slider_->Value() / 100);
 }
