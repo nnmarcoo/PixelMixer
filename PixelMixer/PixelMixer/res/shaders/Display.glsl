@@ -19,8 +19,6 @@ layout(location = 0) out vec4 color;
 
 in vec2 v_fragCoord;
 uniform sampler2D u_Texture;
-uniform int u_Frame;
-uniform vec2 u_Resolution;
 
 void main() {
     color = texture(u_Texture, v_fragCoord);
