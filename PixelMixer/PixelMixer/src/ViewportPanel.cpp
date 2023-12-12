@@ -85,8 +85,8 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    display_shader_ = new Shader("res/shaders/Display.glsl");
-    step1_shader_ = new Shader("res/shaders/Step1.glsl");
+    displayshader_ = new Shader("res/shaders/Display.glsl");
+    step1shader_ = new Shader("res/shaders/Step1.glsl");
     
     texture_ = new Texture("res/textures/debug.jpg");
     sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
@@ -101,23 +101,23 @@ void ViewportPanel::render() {
     // Render image to sfb_
     glViewport(0, 0, static_cast<int>(sfb_->GetWidth()), static_cast<int>(sfb_->GetHeight()));
     sfb_->Bind();
-    step1_shader_->Bind();
-    step1_shader_->SetUniform1i("u_Texture", 0);
+    step1shader_->Bind();
+    step1shader_->SetUniform1i("u_Texture", 0);
     texture_->Bind();
     Renderer::Clear();
-    Renderer::Draw(*step1_shader_);
+    Renderer::Draw(*step1shader_);
     
     
     // Render sfb_ to geometry
     glViewport(0, 0, viewport_.x, viewport_.y);
     sfb_->Unbind();
     sfb_->GetTexture()->Bind();
-    display_shader_->Bind();
-    display_shader_->SetUniform1i("u_Texture", 0);
-    display_shader_->SetUniformMat4f("u_MVP", mvp_);
+    displayshader_->Bind();
+    displayshader_->SetUniform1i("u_Texture", 0);
+    displayshader_->SetUniformMat4f("u_MVP", mvp_);
     
     Renderer::Clear();
-    Renderer::Draw(*va_, *ib_, *display_shader_);
+    Renderer::Draw(*va_, *ib_, *displayshader_);
     
     
     glEndQuery(GL_TIME_ELAPSED);
@@ -266,7 +266,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
     
-    display_shader_->SetUniform1i("u_Texture", 0);
+    displayshader_->SetUniform1i("u_Texture", 0);
     
     sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
     texture_->Bind();
@@ -315,7 +315,7 @@ ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
     delete va_;
     delete sfb_;
     delete layout_;
-    delete display_shader_;
+    delete displayshader_;
     delete renderer_;
     delete texture_;
     delete context_; // delete context last to avoid error loop
