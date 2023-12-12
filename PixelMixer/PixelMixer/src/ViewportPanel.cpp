@@ -60,7 +60,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     
     /* REST OF CONSTRUCTOR IS FOR TESTING */
 
-    const float s = 500; // todo make relative to screen size instead of constant
+    const float s = 500;
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
           1.0f*s, -1.0f*s, 1.0f, 0.0f, // 1 bottom-right
@@ -73,7 +73,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         2, 3, 0
     };
     
-    vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is // WHY AM I CASTING
+    vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is
     va_ = new VertexArray();
     layout_ = new VertexBufferLayout();
     
@@ -201,6 +201,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         return;
     }
     //std::cout << e.GetPosition().x - viewport_.x/2 << " " << e.GetPosition().y - viewport_.y/2 << std::endl;
+    std::cout << glm::to_string(mvp_) << std::endl;
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
@@ -309,7 +310,7 @@ void ViewportPanel::SetThreshold(float value) {
     render();
 }
 
-ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
+ViewportPanel::~ViewportPanel() {
     delete ib_;
     delete vb_;
     delete va_;
