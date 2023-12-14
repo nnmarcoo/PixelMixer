@@ -60,7 +60,8 @@ private:
     Renderer* renderer_;
     Texture* texture_;
     
-    FrameBuffer* sfb_;
+    FrameBuffer* pfb_; // preview fb
+    FrameBuffer* efb_; // export fb
     Shader* step1shader_;
     
     glm::vec2 loc_;     // Temporary variable to store previous position during pan

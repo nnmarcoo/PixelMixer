@@ -89,7 +89,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     step1shader_ = new Shader("res/shaders/Step1.glsl");
     
     texture_ = new Texture("res/textures/debug.jpg");
-    sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
+    pfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
 }
 
 void ViewportPanel::render() {
@@ -99,8 +99,8 @@ void ViewportPanel::render() {
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
     // Render image to sfb_
-    glViewport(0, 0, static_cast<int>(sfb_->GetWidth()), static_cast<int>(sfb_->GetHeight()));
-    sfb_->Bind();
+    glViewport(0, 0, static_cast<int>(pfb_->GetWidth()), static_cast<int>(pfb_->GetHeight()));
+    pfb_->Bind();
     step1shader_->Bind();
     step1shader_->SetUniform1i("u_Texture", 0);
     texture_->Bind();
@@ -110,8 +110,8 @@ void ViewportPanel::render() {
     
     // Render sfb_ to geometry
     glViewport(0, 0, viewport_.x, viewport_.y);
-    sfb_->Unbind();
-    sfb_->GetTexture()->Bind();
+    pfb_->Unbind();
+    pfb_->GetTexture()->Bind();
     displayshader_->Bind();
     displayshader_->SetUniform1i("u_Texture", 0);
     displayshader_->SetUniformMat4f("u_MVP", mvp_);
@@ -269,7 +269,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     
     displayshader_->SetUniform1i("u_Texture", 0);
     
-    sfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
+    pfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
     texture_->Bind();
     
     ResetMVP();
@@ -281,7 +281,7 @@ void ViewportPanel::ExportMedia(const std::string& path) { // TODO
     const int width = texture_->GetWidth();
     const int height = texture_->GetHeight();
 
-    sfb_->GetTexture()->Bind();
+    pfb_->GetTexture()->Bind();
     std::vector<unsigned char> data(width * height * 4);
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
     stbi_flip_vertically_on_write(1);
@@ -314,7 +314,7 @@ ViewportPanel::~ViewportPanel() {
     delete ib_;
     delete vb_;
     delete va_;
-    delete sfb_;
+    delete pfb_;
     delete layout_;
     delete displayshader_;
     delete renderer_;
