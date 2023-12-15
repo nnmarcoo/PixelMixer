@@ -67,7 +67,8 @@ private:
     Shader* displayshader_;
     Renderer* renderer_;
     Texture* texture_;
-    
+
+    image img;
     FrameBuffer* pfb_; // preview fb
     FrameBuffer* efb_; // export fb
     Shader* step1shader_;
