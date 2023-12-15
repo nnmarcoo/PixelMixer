@@ -15,6 +15,14 @@ class StatsPanel;
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
+typedef struct {
+    FrameBuffer* sfb; // export fb
+    FrameBuffer* pfb; // preview fb
+    FrameBuffer* efb; // export fb
+    unsigned int width;
+    unsigned int height;
+} image;
+
 class ViewportPanel : public wxGLCanvas {
     
 public:
