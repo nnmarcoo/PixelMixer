@@ -100,7 +100,7 @@ void ViewportPanel::render() {
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
-    // Render image to sfb_
+    // Render image to pfb_
     glViewport(0, 0, static_cast<int>(pfb_->GetWidth()), static_cast<int>(pfb_->GetHeight()));
     pfb_->Bind();
     step1shader_->Bind();
