@@ -44,7 +44,9 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
         return;
     }
-    std::cout << glGetString(GL_VERSION) << '\n' << glGetString(GL_RENDERER) << '\n' << glGetString(GL_VENDOR) << '\n' << std::endl; // debug
+    std::cout << glGetString(GL_VERSION)  << '\n' <<
+                 glGetString(GL_RENDERER) << '\n' <<
+                 glGetString(GL_VENDOR)   << '\n' << std::endl;
 
     GLCall(glEnable(GL_BLEND))                                      // Enable blending
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
@@ -60,7 +62,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     
     /* REST OF CONSTRUCTOR IS FOR TESTING */
 
-    const float s = 500;
+    constexpr float s = 500;
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
           1.0f*s, -1.0f*s, 1.0f, 0.0f, // 1 bottom-right
@@ -118,7 +120,8 @@ void ViewportPanel::render() {
     
     Renderer::Clear();
     Renderer::Draw(*va_, *ib_, *displayshader_);
-    
+
+    std::cout << vb_->GetData() << std::endl;
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -127,7 +130,8 @@ void ViewportPanel::render() {
 
     statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
     statspanel_->UpdateZoomFactor(zoomfactor_);
-    statspanel_->UpdatePosition(viewport_.x * mvp_[3][0],viewport_.y * mvp_[3][1]);
+    statspanel_->UpdatePosition(static_cast<int>(static_cast<float>(viewport_.x) * mvp_[3][0]),
+                                  static_cast<int>(static_cast<float>(viewport_.y) * mvp_[3][1]));
     
     SwapBuffers();
 }
@@ -189,14 +193,14 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
-    const double MAX = 20, MIN = 0.00001;
+    constexpr double max = 20, min = 0.00001;
     
     const double prevzoomval = mvp_[0][0] * zoomfactor_;
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
     const double zoomval = mvp_[0][0] * zoomfactor_;
     const double diff = zoomval - prevzoomval;
 
-    if (!((diff < 0 && prevzoomval > MAX) || (diff > 0 && prevzoomval < MIN)) && (zoomval > MAX || zoomval < MIN)) { // If the resulting zoom does 
+    if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
         zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
         return;
     }
@@ -250,8 +254,8 @@ void ViewportPanel::SetMedia(const std::string& path) {
         distx-=40;
         disty-=40;
     }
-    
-    float positions[] = {
+
+    const float positions[] = {
         -1.0f*distx, -1.0f*disty, 0.0f, 0.0f, // 0 bottom-left
          1.0f*distx, -1.0f*disty, 1.0f, 0.0f, // 1 bottom-right
          1.0f*distx,  1.0f*disty, 1.0f, 1.0f, // 2 top-right
@@ -276,13 +280,13 @@ void ViewportPanel::SetMedia(const std::string& path) {
     render();
 }
 
-void ViewportPanel::ExportMedia(const std::string& path) { // TODO
+void ViewportPanel::ExportMedia(const std::string& path) const { // TODO
 
     const int width = texture_->GetWidth();
     const int height = texture_->GetHeight();
 
     pfb_->GetTexture()->Bind();
-    std::vector<unsigned char> data(width * height * 4);
+    std::vector<unsigned char> data(static_cast<unsigned long long>(width * height * 4));
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
     stbi_flip_vertically_on_write(1);
     stbi_write_png(path.c_str(), width, height, 4, data.data(), width * 4);

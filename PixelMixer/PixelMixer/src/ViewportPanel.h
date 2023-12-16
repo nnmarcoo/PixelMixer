@@ -15,14 +15,6 @@ class StatsPanel;
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
-typedef struct {
-    FrameBuffer* sfb; // export fb
-    FrameBuffer* pfb; // preview fb
-    FrameBuffer* efb; // export fb
-    unsigned int width;
-    unsigned int height;
-} image;
-
 class ViewportPanel : public wxGLCanvas {
     
 public:
@@ -33,7 +25,7 @@ public:
     void CenterMedia();
     void ResetScale();
     void SetMedia(const std::string& path);
-    void ExportMedia(const std::string& path);
+    void ExportMedia(const std::string& path) const;
     void Screenshot(const std::string& path);
     void SetThreshold(float value);
 
@@ -42,6 +34,7 @@ public:
 private:
     DECLARE_EVENT_TABLE()
 
+    StatsPanel* statspanel_;
     bool* wdragstate_; // disable rendering when dragging window
     wxSize viewport_;
     
@@ -67,8 +60,7 @@ private:
     Shader* displayshader_;
     Renderer* renderer_;
     Texture* texture_;
-
-    image img;
+    
     FrameBuffer* pfb_; // preview fb
     FrameBuffer* efb_; // export fb
     Shader* step1shader_;
@@ -89,6 +81,5 @@ private:
     
     GLuint sqo_; // shader query object
     GLuint elapsedtime_;
-
-    StatsPanel* statspanel_;
+    
 };
