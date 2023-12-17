@@ -71,8 +71,6 @@ private:
     
     glm::vec2 loc_;     // Temporary variable to store previous position during pan
     glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan (initialized in center of screen)
-
-    glm::mat4 base_;
     
     glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
     glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)

@@ -55,8 +55,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     glGenQueries(1, &sqo_);
 
     zoomfactor_ = 1.0f;
-    base_ = glm::mat4(1.0f);
-    view_ = scale(base_, glm::vec3(1, 1, 0));
+    view_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
 
     threshold_ = 0.5;
     
@@ -183,20 +182,20 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     //std::cout << e.GetPosition().x - viewport_.x/2 << " " << e.GetPosition().y - viewport_.y/2 << std::endl;
     std::cout << to_string(mvp_) << std::endl;
     
-    view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
+    view_ = scale(glm::mat4(1.0f), glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
     render();
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(base_, glm::vec3(loc_.x * static_cast<float>(viewport_.x) * 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
+    modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x * static_cast<float>(viewport_.x) * 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
                                      -loc_.y * static_cast<float>(viewport_.y) * 2 * (1 / zoomfactor_), 0));
     mvp_ = proj_ * view_ * modl_;
 }
 
 void ViewportPanel::ResetMVP() {
     zoomfactor_ = 1.0f;
-    view_ = base_;
+    view_ = glm::mat4(1.0f);
     CenterMedia();
 }
 
@@ -232,7 +231,7 @@ void ViewportPanel::CenterMedia() {
 
 void ViewportPanel::ResetScale() { // todo: instead of centering the media, use the current zoom point as the origin and keep it in the same spot when it zooms out ?
     zoomfactor_ = 1.0f;
-    view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
+    view_ = scale(glm::mat4(1.0f), glm::vec3(zoomfactor_, zoomfactor_, 0));
     CenterMedia();
 }
 
