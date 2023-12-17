@@ -94,7 +94,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     pfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
 }
 
-void ViewportPanel::render() {
+void ViewportPanel::Render() {
     if (!IsShown()) return;
     
     frame_++;
@@ -119,7 +119,7 @@ void ViewportPanel::render() {
 
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
     if (*wdragstate_) return;
-    render();
+    Render();
 }
 
 void ViewportPanel::OnSize(wxSizeEvent& e) {
@@ -164,7 +164,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 
     loc_ = glm::vec2(newposx, newposy);
     UpdateMVP();
-    render();
+    Render();
 }
 
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
@@ -185,7 +185,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     
     view_ = scale(glm::mat4(1.0f), glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
-    render();
+    Render();
 }
 
 void ViewportPanel::UpdateMVP() {
@@ -227,7 +227,7 @@ void ViewportPanel::CenterMedia() {
     loc_ = glm::vec2(0,0);
     prevpos_ = loc_;
     UpdateMVP();
-    render();
+    Render();
 }
 
 void ViewportPanel::ResetScale() { // todo: instead of centering the media, use the current zoom point as the origin and keep it in the same spot when it zooms out ?
@@ -277,7 +277,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     texture_->Bind();
     
     ResetMVP();
-    render();
+    Render();
 }
 
 void ViewportPanel::ExportMedia(const std::string& path) const { // TODO
@@ -301,7 +301,7 @@ void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboa
     
     std::vector<unsigned char> data(static_cast<unsigned long long>(width) * static_cast<unsigned long long>(height) * 4);
     
-    render();
+    Render();
     glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     stbi_flip_vertically_on_write(1);
@@ -311,7 +311,7 @@ void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboa
 
 void ViewportPanel::SetThreshold(float value) {
     threshold_ = value;
-    render();
+    Render();
 }
 
 ViewportPanel::~ViewportPanel() {
