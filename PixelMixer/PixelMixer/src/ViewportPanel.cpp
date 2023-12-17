@@ -71,7 +71,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     };
     memcpy(positions_, positions, sizeof(float) * 16); // is there a better solution?
 
-    const unsigned int indices[] = { // can be char to save on mem
+    const unsigned int indices[] = {
         0, 1, 2,
         2, 3, 0
     };
@@ -102,19 +102,17 @@ void ViewportPanel::render() {
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
     
     PixelSort(pfb_);
-    
     Preview();
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
-    GLuint64 shaderExecutionTime;
-    glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
+    GLuint64 time;
+    glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &time);
 
-    statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
     statspanel_->UpdateZoomFactor(zoomfactor_);
+    statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
     statspanel_->UpdatePosition(static_cast<int>(static_cast<float>(viewport_.x) * mvp_[3][0]),
-                                  static_cast<int>(static_cast<float>(viewport_.y) * mvp_[3][1]));
-    
+                                static_cast<int>(static_cast<float>(viewport_.y) * mvp_[3][1]));
     SwapBuffers();
 }
 
@@ -155,12 +153,7 @@ void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
 
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
-    /*
-    std::thread calc([this, e] {
-
-    });
-    calc.detach();
-    */
+    
     const wxPoint delta = e.GetPosition() - dragStart_;
     const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
     const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
@@ -175,6 +168,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
+    
     constexpr double max = 20, min = 0.00001;
     
     const double prevzoomval = mvp_[0][0] * zoomfactor_;
@@ -187,7 +181,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         return;
     }
     //std::cout << e.GetPosition().x - viewport_.x/2 << " " << e.GetPosition().y - viewport_.y/2 << std::endl;
-    std::cout << glm::to_string(mvp_) << std::endl;
+    std::cout << to_string(mvp_) << std::endl;
     
     view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
     UpdateMVP();
