@@ -15,5 +15,4 @@ public:
                  wxFont font = wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
 
     void SetDefaultColor(wxColour c);
-    
 };

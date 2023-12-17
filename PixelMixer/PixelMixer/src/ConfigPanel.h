@@ -1,9 +1,12 @@
 #pragma once
-#include "InputPanel.h"
-#include "OutputPanel.h"
-#include "SettingsPanel.h"
-#include "StatsPanel.h"
-#include "ViewportPanel.h"
+
+#include <wx/wx.h>
+
+class SettingsPanel;
+class InputPanel;
+class OutputPanel;
+class ViewportPanel;
+class StatsPanel;
 
 class ConfigPanel : public wxPanel {
 public:

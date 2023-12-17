@@ -1,8 +1,10 @@
 #include "ConfigPanel.h"
+
 #include "ConfigTabs.h"
+#include "SettingsPanel.h"
+#include "StatsPanel.h"
 #include "InputPanel.h"
 #include "OutputPanel.h"
-#include "StatsPanel.h"
 
 ConfigPanel::ConfigPanel(wxWindow* parent, ViewportPanel* viewport) : wxPanel(parent), viewport_(viewport) {
     mainsizer_ = new wxBoxSizer(wxHORIZONTAL);
