@@ -88,7 +88,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    displayshader_ = new Shader("res/shaders/Display.glsl");
+    previewshader_ = new Shader("res/shaders/Display.glsl");
     step1shader_ = new Shader("res/shaders/Step1.glsl");
     
     texture_ = new Texture("res/textures/debug.jpg");
@@ -100,20 +100,10 @@ void ViewportPanel::render() {
     
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
-
-    // Render image to pfb_
+    
     PixelSort(pfb_);
     
-    // Render sfb_ to geometry
-    glViewport(0, 0, viewport_.x, viewport_.y);
-    pfb_->Unbind();
-    pfb_->GetTexture()->Bind();
-    displayshader_->Bind();
-    displayshader_->SetUniform1i("u_Texture", 0);
-    displayshader_->SetUniformMat4f("u_MVP", mvp_);
-    
-    Renderer::Clear();
-    Renderer::Draw(*va_, *ib_, *displayshader_);
+    Preview();
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -222,8 +212,21 @@ void ViewportPanel::PixelSort(FrameBuffer* fb) const {
     step1shader_->Bind();
     step1shader_->SetUniform1i("u_Texture", 0);
     texture_->Bind();
+    
     Renderer::Clear();
     Renderer::Draw(*step1shader_);
+}
+
+void ViewportPanel::Preview() const {
+    glViewport(0, 0, viewport_.x, viewport_.y);
+    pfb_->Unbind();
+    pfb_->GetTexture()->Bind();
+    previewshader_->Bind();
+    previewshader_->SetUniform1i("u_Texture", 0);
+    previewshader_->SetUniformMat4f("u_MVP", mvp_);
+
+    Renderer::Clear();
+    Renderer::Draw(*va_, *ib_, *previewshader_);
 }
 
 void ViewportPanel::CenterMedia() {
@@ -274,7 +277,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
     
-    displayshader_->SetUniform1i("u_Texture", 0);
+    previewshader_->SetUniform1i("u_Texture", 0);
     
     pfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
     texture_->Bind();
@@ -323,7 +326,7 @@ ViewportPanel::~ViewportPanel() {
     delete va_;
     delete pfb_;
     delete layout_;
-    delete displayshader_;
+    delete previewshader_;
     delete renderer_;
     delete texture_;
     delete context_; // delete context last to avoid error loop

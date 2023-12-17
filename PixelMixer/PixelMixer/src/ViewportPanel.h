@@ -54,13 +54,14 @@ private:
     void ResetMVP();
 
     void PixelSort(FrameBuffer* fb) const;
+    void Preview() const;
 
     float positions_[16];
     VertexBuffer* vb_;
     VertexArray* va_;
     IndexBuffer* ib_;
     VertexBufferLayout* layout_;
-    Shader* displayshader_;
+    Shader* previewshader_;
     Renderer* renderer_;
     Texture* texture_;
     
