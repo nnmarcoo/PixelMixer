@@ -69,6 +69,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
           1.0f*s,  1.0f*s, 1.0f, 1.0f, // 2 top-right
          -1.0f*s,  1.0f*s, 0.0f, 1.0f  // 3 top-left
     };
+    memcpy(positions_, positions, sizeof(float) * 16); // is there a better solution?
 
     const unsigned int indices[] = { // can be char to save on mem
         0, 1, 2,
@@ -101,14 +102,7 @@ void ViewportPanel::render() {
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
 
     // Render image to pfb_
-    glViewport(0, 0, static_cast<int>(pfb_->GetWidth()), static_cast<int>(pfb_->GetHeight()));
-    pfb_->Bind();
-    step1shader_->Bind();
-    step1shader_->SetUniform1i("u_Texture", 0);
-    texture_->Bind();
-    Renderer::Clear();
-    Renderer::Draw(*step1shader_);
-    
+    PixelSort(pfb_);
     
     // Render sfb_ to geometry
     glViewport(0, 0, viewport_.x, viewport_.y);
@@ -120,8 +114,6 @@ void ViewportPanel::render() {
     
     Renderer::Clear();
     Renderer::Draw(*va_, *ib_, *displayshader_);
-
-    std::cout << vb_->GetData() << std::endl;
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -224,6 +216,16 @@ void ViewportPanel::ResetMVP() {
     CenterMedia();
 }
 
+void ViewportPanel::PixelSort(FrameBuffer* fb) const {
+    glViewport(0, 0, static_cast<int>(fb->GetWidth()), static_cast<int>(fb->GetHeight()));
+    fb->Bind();
+    step1shader_->Bind();
+    step1shader_->SetUniform1i("u_Texture", 0);
+    texture_->Bind();
+    Renderer::Clear();
+    Renderer::Draw(*step1shader_);
+}
+
 void ViewportPanel::CenterMedia() {
     loc_ = glm::vec2(0,0);
     prevpos_ = loc_;
@@ -260,7 +262,8 @@ void ViewportPanel::SetMedia(const std::string& path) {
          1.0f*distx, -1.0f*disty, 1.0f, 0.0f, // 1 bottom-right
          1.0f*distx,  1.0f*disty, 1.0f, 1.0f, // 2 top-right
         -1.0f*distx,  1.0f*disty, 0.0f, 1.0f  // 3 top-left
-   };
+    };
+    memcpy(positions_, positions, sizeof(float) * 16);
 
     vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is // why am I casting
     va_ = new VertexArray();

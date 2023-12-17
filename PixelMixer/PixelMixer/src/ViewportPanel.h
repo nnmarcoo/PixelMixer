@@ -52,7 +52,10 @@ private:
     void OnMouseWheel(wxMouseEvent& e);
     void UpdateMVP();
     void ResetMVP();
-    
+
+    void PixelSort(FrameBuffer* fb) const;
+
+    float positions_[16];
     VertexBuffer* vb_;
     VertexArray* va_;
     IndexBuffer* ib_;
