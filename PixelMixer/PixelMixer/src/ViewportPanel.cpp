@@ -169,15 +169,15 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
     
-    constexpr float max = 20, min = 0.00001;
+    constexpr float max = 20, min = 0.00001f;
     
     const float prevzoomval = mvp_[0][0] * zoomfactor_;
-    zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
+    zoomfactor_ *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
     const float zoomval = mvp_[0][0] * zoomfactor_;
     const float diff = zoomval - prevzoomval;
 
     if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
-        zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
+        zoomfactor_ = zoomfactor_ *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);                           // NOT APPROACH the range, undo it
         return;
     }
     
@@ -189,8 +189,8 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_[3][0] = loc_.x * viewport_.x * (2 / zoomfactor_);
-    modl_[3][1] = -loc_.y * viewport_.y * (2 / zoomfactor_);
+    modl_[3][0] = loc_.x * static_cast<float>(viewport_.x) * (2 / zoomfactor_);
+    modl_[3][1] = -loc_.y * static_cast<float>(viewport_.y) * (2 / zoomfactor_);
     
     mvp_ = proj_ * view_ * modl_;
 }
