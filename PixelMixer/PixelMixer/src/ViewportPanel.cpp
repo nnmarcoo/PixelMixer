@@ -177,21 +177,24 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     const float diff = zoomval - prevzoomval;
 
     if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
-        zoomfactor_ = zoomfactor_ *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);                           // NOT APPROACH the range, undo it
+        zoomfactor_ = zoomfactor_ *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);       // NOT APPROACH the range, undo it
         return;
     }
     
     view_[0][0] = zoomfactor_;
     view_[1][1] = zoomfactor_;
+
+    glm::vec4 transform = glm::vec4(positions_[0] / static_cast<float>(viewport_.x), positions_[1] / static_cast<float>(viewport_.y), 1, 1) * mvp_;
+
+    std::cout << transform[0] * (float)viewport_.x * (float)viewport_.x << std::endl;
     
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_[3][0] = loc_.x * static_cast<float>(viewport_.x) * (2 / zoomfactor_);
+    modl_[3][0] =  loc_.x * static_cast<float>(viewport_.x) * (2 / zoomfactor_);
     modl_[3][1] = -loc_.y * static_cast<float>(viewport_.y) * (2 / zoomfactor_);
-    
     mvp_ = proj_ * view_ * modl_;
 }
 
