@@ -72,11 +72,11 @@ private:
     glm::vec2 loc_;     // Temporary variable to store previous position during pan
     glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan (initialized in center of screen)
 
-    // TODO: simplify this 
+    // simplify this ??
     glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
     glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)
-    glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (ortho)
-    glm::mat4 mvp_; // modl_ * proj_ * view_
+    glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (orthographic camera)
+    glm::mat4 mvp_;     // modl_ * proj_ * view_
 
     int frame_;
     glm::vec2 resolution_;

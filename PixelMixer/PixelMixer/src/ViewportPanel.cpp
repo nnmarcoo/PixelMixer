@@ -102,8 +102,6 @@ void ViewportPanel::Render() {
     
     PixelSort(pfb_);
     Preview();
-
-    std::cout << to_string(view_) << std::endl; 
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
@@ -129,7 +127,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     glViewport(0, 0, viewport_.x, viewport_.y);
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
     UpdateMVP();
-    resolution_ = glm::vec2(viewport_.x, viewport_.y); // why
+    resolution_ = glm::vec2(viewport_.x, viewport_.y); // this should be no longer necessary cuz of pfb_?
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
@@ -181,9 +179,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
         return;
     }
-    //std::cout << e.GetPosition().x - viewport_.x/2 << " " << e.GetPosition().y - viewport_.y/2 << std::endl;
-    
-    view_ = scale(glm::mat4(1.0f), glm::vec3(zoomfactor_, zoomfactor_, 0));
+    view_[0][0] = view_[1][1] = static_cast<float>(zoomfactor_);
     UpdateMVP();
     Render();
 }
