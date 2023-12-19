@@ -127,6 +127,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     
     glViewport(0, 0, viewport_.x, viewport_.y);
     proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
+
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y); // this should be no longer necessary cuz of pfb_?
 }
@@ -157,11 +158,10 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     const wxPoint delta = e.GetPosition() - dragStart_;
     const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
     const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
-
-    float newposx = ratiox + prevpos_.x;
-    float newposy = ratioy + prevpos_.y;
-
-    loc_ = glm::vec2(newposx, newposy);
+    
+    loc_.x = ratiox + prevpos_.x;
+    loc_.y = ratioy + prevpos_.y;
+    
     UpdateMVP();
     Render();
 }
