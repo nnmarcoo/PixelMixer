@@ -8,7 +8,7 @@ public:
     StatsPanel(wxWindow* parent, ViewportPanel* viewport);
     
     void UpdateRenderTime(double time) const;
-    void UpdateZoomFactor(double zoomfactor) const;
+    void UpdateZoomFactor(float zoomfactor) const;
     void UpdatePosition(int x, int y) const;
 private:
     DECLARE_EVENT_TABLE()

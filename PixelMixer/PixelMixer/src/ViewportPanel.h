@@ -15,7 +15,7 @@ class StatsPanel;
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
-class ViewportPanel : public wxGLCanvas {
+class ViewportPanel : public wxGLCanvas { // TODO: add a struct 'mvp' and put the values there instead of multiplying matrices?
     
 public:
     ViewportPanel(wxWindow* parent, bool* DragState);
@@ -48,7 +48,7 @@ private:
     void OnRightUp(wxMouseEvent& e);
     void OnDoubleLeftClick(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
-    double zoomfactor_;
+    float zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
     void UpdateMVP();
     void ResetMVP();

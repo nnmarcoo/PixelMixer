@@ -37,7 +37,7 @@ void StatsPanel::UpdateRenderTime(double time) const {
     rendertimevalue_->SetLabel(std::to_string(time).substr(0, 4) + "ms");
 }
 
-void StatsPanel::UpdateZoomFactor(double zoomfactor) const { // technically this isn't accurate
+void StatsPanel::UpdateZoomFactor(float zoomfactor) const { // technically this isn't accurate
     if (!IsShown()) return;
     std::string string = std::to_string(zoomfactor*100);
     zoomfactorvalue_->SetLabel(string.substr(0, string.find('.')) + "%");

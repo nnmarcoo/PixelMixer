@@ -169,20 +169,20 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
     
-    constexpr double max = 20, min = 0.00001;
+    constexpr float max = 20, min = 0.00001;
     
-    const double prevzoomval = zoomfactor_ * zoomfactor_;
+    const float prevzoomval = mvp_[0][0] * zoomfactor_;
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
-    const double zoomval = mvp_[0][0] * zoomfactor_;
-    const double diff = zoomval - prevzoomval;
+    const float zoomval = mvp_[0][0] * zoomfactor_;
+    const float diff = zoomval - prevzoomval;
 
     if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
         zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
         return;
     }
     
-    view_[0][0] = static_cast<float>(zoomfactor_);
-    view_[1][1] = static_cast<float>(zoomfactor_);
+    view_[0][0] = zoomfactor_;
+    view_[1][1] = zoomfactor_;
     
     UpdateMVP();
     Render();
@@ -201,7 +201,7 @@ void ViewportPanel::ResetMVP() {
     CenterMedia();
 }
 
-void ViewportPanel::PixelSort(FrameBuffer* fb) const {
+void ViewportPanel::PixelSort(FrameBuffer* fb) const { // TODO: more steps.. actually sort
     glViewport(0, 0, static_cast<int>(fb->GetWidth()), static_cast<int>(fb->GetHeight()));
     fb->Bind();
     step1shader_->Bind();
@@ -243,8 +243,8 @@ void ViewportPanel::SetMedia(const std::string& path) {
     texture_ = new Texture(path);
     texture_->Bind();
     
-    auto distx = static_cast<float>(texture_->GetWidth() >> 1);
-    auto disty = static_cast<float>(texture_->GetHeight() >> 1);
+    float distx = static_cast<float>(texture_->GetWidth() >> 1);
+    float disty = static_cast<float>(texture_->GetHeight() >> 1);
 
     while (distx < viewport_.x-40.0 && disty < viewport_.y-40.0) {
         distx+=40;
