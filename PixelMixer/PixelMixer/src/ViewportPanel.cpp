@@ -56,7 +56,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     zoomfactor_ = 1.0f;
     view_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
-    modl_ = glm::mat4(1.0f);
+    modl_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
 
     threshold_ = 0.5;
     
@@ -171,7 +171,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     
     constexpr double max = 20, min = 0.00001;
     
-    const double prevzoomval = mvp_[0][0] * zoomfactor_;
+    const double prevzoomval = zoomfactor_ * zoomfactor_;
     zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
     const double zoomval = mvp_[0][0] * zoomfactor_;
     const double diff = zoomval - prevzoomval;
@@ -180,7 +180,10 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
         return;
     }
-    view_[0][0] = view_[1][1] = static_cast<float>(zoomfactor_);
+    
+    view_[0][0] = static_cast<float>(zoomfactor_);
+    view_[1][1] = static_cast<float>(zoomfactor_);
+    
     UpdateMVP();
     Render();
 }

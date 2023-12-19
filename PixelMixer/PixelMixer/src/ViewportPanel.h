@@ -35,7 +35,7 @@ private:
     DECLARE_EVENT_TABLE()
 
     StatsPanel* statspanel_;
-    bool* wdragstate_; // disable rendering when dragging window
+    bool* wdragstate_; // used to disable rendering when dragging window
     wxSize viewport_;
     
     void Render();
