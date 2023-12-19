@@ -56,6 +56,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     zoomfactor_ = 1.0f;
     view_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
+    modl_ = glm::mat4(1.0f);
 
     threshold_ = 0.5;
     
@@ -185,8 +186,9 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(glm::mat4(1.0f), glm::vec3(loc_.x * static_cast<float>(viewport_.x) * 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
-                                     -loc_.y * static_cast<float>(viewport_.y) * 2 * (1 / zoomfactor_), 0));
+    modl_[3][0] = loc_.x * viewport_.x * (2 / zoomfactor_);
+    modl_[3][1] = -loc_.y * viewport_.y * (2 / zoomfactor_);
+    
     mvp_ = proj_ * view_ * modl_;
 }
 
