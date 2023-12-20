@@ -111,8 +111,7 @@ void ViewportPanel::Render() {
 
     statspanel_->UpdateZoomFactor(zoomfactor_);
     statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
-    statspanel_->UpdatePosition(static_cast<int>(static_cast<float>(viewport_.x) * mvp_[3][0]),
-                                static_cast<int>(static_cast<float>(viewport_.y) * mvp_[3][1]));
+    statspanel_->UpdatePosition(preview_.x, preview_.y);
     SwapBuffers();
 }
 
@@ -163,6 +162,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     loc_.y = ratioy + prevpos_.y;
     
     UpdateMVP();
+    
     Render();
 }
 
@@ -170,6 +170,8 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     if (isDragging_) return;
     
     constexpr float max = 20, min = 0.00001f;
+
+    glm::vec4 prevpos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
     
     const float prevzoomval = mvp_[0][0] * zoomfactor_;
     zoomfactor_ *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
@@ -183,12 +185,20 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     
     view_[0][0] = zoomfactor_;
     view_[1][1] = zoomfactor_;
-
-    glm::vec4 transform = glm::vec4(positions_[0] / static_cast<float>(viewport_.x), positions_[1] / static_cast<float>(viewport_.y), 1, 1) * mvp_;
-
-    std::cout << transform[0] * (float)viewport_.x * (float)viewport_.x << std::endl;
-    
     UpdateMVP();
+
+    glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
+    float diffposx =  abs((pos[0] - prevpos[0]) * static_cast<float>(viewport_.x) / 2) / (float)viewport_.x;
+    float diffposy =  abs((pos[1] - prevpos[1]) * static_cast<float>(viewport_.y) / 2) / (float)viewport_.y;
+
+    wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
+    
+    std::cout << diffposx << std::endl;
+
+    if (mousepos.x < preview_.x)
+        view_[3][0] *= diffposx;
+    else
+        view_[3][0] *= -diffposx;
     Render();
 }
 
@@ -196,6 +206,8 @@ void ViewportPanel::UpdateMVP() {
     modl_[3][0] =  loc_.x * static_cast<float>(viewport_.x) * (2 / zoomfactor_);
     modl_[3][1] = -loc_.y * static_cast<float>(viewport_.y) * (2 / zoomfactor_);
     mvp_ = proj_ * view_ * modl_;
+    preview_.x = static_cast<int>(static_cast<float>(viewport_.x) * mvp_[3][0]);
+    preview_.y = static_cast<int>(static_cast<float>(viewport_.y) * mvp_[3][1]);
 }
 
 void ViewportPanel::ResetMVP() {

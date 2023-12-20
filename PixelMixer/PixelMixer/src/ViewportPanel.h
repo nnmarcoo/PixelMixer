@@ -37,6 +37,7 @@ private:
     StatsPanel* statspanel_;
     bool* wdragstate_; // used to disable rendering when dragging window
     wxSize viewport_;
+    wxPoint preview_;
     
     void Render();
     void OnSize(wxSizeEvent& e);
