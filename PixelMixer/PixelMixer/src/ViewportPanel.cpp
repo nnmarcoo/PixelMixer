@@ -184,6 +184,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     view_[0][0] = zoomfactor_;
     view_[1][1] = zoomfactor_;
 
+    // dont normalize cords and just apply transform?
     glm::vec4 transform = glm::vec4(positions_[0] / static_cast<float>(viewport_.x), positions_[1] / static_cast<float>(viewport_.y), 1, 1) * mvp_;
 
     std::cout << transform[0] * (float)viewport_.x * (float)viewport_.x << std::endl;
