@@ -183,12 +183,13 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         return;
     }
     
-    view_[0][0] = view_[1][1] = zoomfactor_;
+    view_[0][0] = zoomfactor_;
+    view_[1][1] = zoomfactor_;
     UpdateMVP(); // shouldn't this always be last?
 
     glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
-    float diffposx =  abs((pos[0] - prevpos[0]) * static_cast<float>(viewport_.x) / 2) / static_cast<float>(viewport_.x);
-    float diffposy =  abs((pos[1] - prevpos[1]) * static_cast<float>(viewport_.y) / 2) / static_cast<float>(viewport_.y);
+    float diffposx =  abs((pos.x - prevpos.x) / 2);
+    float diffposy =  abs((pos.y - prevpos.y) / 2);
     wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
 
     Render();
