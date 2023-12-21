@@ -33,31 +33,33 @@ public:
 
 private:
     DECLARE_EVENT_TABLE()
-
     StatsPanel* statspanel_;
-    bool* wdragstate_; // used to disable rendering when dragging window
-    wxSize viewport_;
-    wxPoint preview_;
+    bool* wdragstate_; // Used to disable rendering when dragging window
+    
+    wxSize viewport_;     // Size of viewport
+    glm::vec2 loc_;       // Position of preview in viewport
+    float zoomfactor_;    // Factor to scale preview by
+    float positions_[16]; // Initial positions of preview vertices
     
     void Render();
     void OnSize(wxSizeEvent& e);
     void OnPaint(wxPaintEvent& e);
     
     bool isDragging_;
-    wxPoint dragStart_;
+    wxPoint dragStart_; // Mouse position
+    glm::vec2 prevpos_; // Last position of preview  on canvas as a ratio AFTER pan (initialized in center of screen)
     void OnRightDown(wxMouseEvent& e);
     void OnRightUp(wxMouseEvent& e);
     void OnDoubleLeftClick(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
-    float zoomfactor_;
     void OnMouseWheel(wxMouseEvent& e);
+    
     void UpdateMVP();
     void ResetMVP();
 
     void PixelSort(FrameBuffer* fb) const;
     void Preview() const;
-
-    float positions_[16];
+    
     VertexBuffer* vb_;
     VertexArray* va_;
     IndexBuffer* ib_;
@@ -69,9 +71,6 @@ private:
     FrameBuffer* pfb_; // preview fb
     FrameBuffer* efb_; // export fb
     Shader* step1shader_;
-    
-    glm::vec2 loc_;     // Temporary variable to store previous position during pan
-    glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan (initialized in center of screen)
 
     // simplify this ??
     glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
@@ -85,5 +84,8 @@ private:
     
     GLuint sqo_; // shader query object
     GLuint elapsedtime_;
+
+    // Helpers
+    static void ZeroVec2(glm::vec2& vec);
     
 };
