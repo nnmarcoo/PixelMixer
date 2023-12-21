@@ -187,8 +187,8 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     UpdateMVP(); // shouldn't this always be last?
 
     glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
-    float diffposx =  abs((pos[0] - prevpos[0]) * static_cast<float>(viewport_.x) / 2) / (float)viewport_.x;
-    float diffposy =  abs((pos[1] - prevpos[1]) * static_cast<float>(viewport_.y) / 2) / (float)viewport_.y;
+    float diffposx =  abs((pos[0] - prevpos[0]) * static_cast<float>(viewport_.x) / 2) / static_cast<float>(viewport_.x);
+    float diffposy =  abs((pos[1] - prevpos[1]) * static_cast<float>(viewport_.y) / 2) / static_cast<float>(viewport_.y);
     wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
 
     Render();
@@ -267,7 +267,7 @@ void ViewportPanel::SetMedia(const std::string& path) {
     Render();
 }
 
-void ViewportPanel::ExportMedia(const std::string& path) const { // TODO
+void ViewportPanel::ExportMedia(const std::string& path) const { // TODO: change to pixel sort then pull from efb_
 
     const int width = texture_->GetWidth();
     const int height = texture_->GetHeight();
@@ -315,15 +315,12 @@ void ViewportPanel::ResetScale() {
     CenterMedia();
 }
 
-void ViewportPanel::SetThreshold(float value) {
+void ViewportPanel::SetThreshold(const float value) {
     threshold_ = value;
     Render();
 }
 
-void ViewportPanel::ZeroVec2(glm::vec2& vec) {
-    vec.x = 0;
-    vec.y = 0;
-}
+void ViewportPanel::ZeroVec2(glm::vec2& vec) { vec.x = vec.y = 0; }
 
 ViewportPanel::~ViewportPanel() {
     delete ib_;

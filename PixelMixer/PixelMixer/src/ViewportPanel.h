@@ -72,7 +72,7 @@ private:
     FrameBuffer* efb_; // export fb
     Shader* step1shader_;
 
-    // simplify this ??
+    // simplify this and only store values instead of having entire matrices?
     glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
     glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)
     glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (orthographic camera)
