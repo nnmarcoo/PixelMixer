@@ -192,6 +192,9 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     float diffposy =  abs((pos.y - prevpos.y) / 2);
     wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
 
+    view_[3][0] = diffposx;
+    view_[3][1] = diffposy;
+    UpdateMVP();
     Render();
 }
 
