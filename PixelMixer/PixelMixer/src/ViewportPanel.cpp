@@ -156,11 +156,9 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
     
     const wxPoint delta = e.GetPosition() - dragStart_;
-    const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
-    const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
     
-    loc_.x = ratiox + prevpos_.x;
-    loc_.y = ratioy + prevpos_.y;
+    loc_.x = static_cast<float>(delta.x) + prevpos_.x;
+    loc_.y = static_cast<float>(delta.y) + prevpos_.y;
     
     UpdateMVP();
     Render();
@@ -182,25 +180,22 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         zoomfactor_ = zoomfactor_ *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);       // NOT APPROACH the range, undo it
         return;
     }
-    
+
+    wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
     view_[0][0] = zoomfactor_;
     view_[1][1] = zoomfactor_;
-    UpdateMVP(); // shouldn't this always be last?
-
+    
     glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
     float diffposx =  abs((pos.x - prevpos.x) / 2);
     float diffposy =  abs((pos.y - prevpos.y) / 2);
-    wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
-
-    view_[3][0] = diffposx;
-    view_[3][1] = diffposy;
+    
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_[3][0] =  loc_.x * static_cast<float>(viewport_.x) * (2 / zoomfactor_);
-    modl_[3][1] = -loc_.y * static_cast<float>(viewport_.y) * (2 / zoomfactor_);
+    modl_[3][0] =  loc_.x * (2 / zoomfactor_);
+    modl_[3][1] = -loc_.y * (2 / zoomfactor_);
     mvp_ = proj_ * view_ * modl_;
 }
 
