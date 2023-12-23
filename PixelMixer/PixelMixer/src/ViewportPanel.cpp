@@ -155,10 +155,10 @@ void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
     
-    const wxPoint delta = e.GetPosition() - dragStart_;
+    const wxPoint delta = (e.GetPosition() - dragStart_) * 2;
     
-    loc_.x = 2 * static_cast<float>(delta.x) + prevpos_.x;
-    loc_.y = 2 * static_cast<float>(delta.y) + prevpos_.y;
+    loc_.x = static_cast<float>(delta.x) + prevpos_.x;
+    loc_.y = static_cast<float>(delta.y) + prevpos_.y;
     
     UpdateMVP();
     Render();
@@ -195,8 +195,9 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_[3][0] =  loc_.x * (1 / zoomfactor_);
-    modl_[3][1] = -loc_.y * (1 / zoomfactor_);
+    modl_[3][0] =  loc_.x / zoomfactor_;
+    modl_[3][1] = -loc_.y / zoomfactor_;
+    
     mvp_ = proj_ * view_ * modl_;
 }
 
