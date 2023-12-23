@@ -55,10 +55,10 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     glGenQueries(1, &sqo_);
 
     zoomfactor_ = 1.0f;
-    view_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
-    modl_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
+    preview_.mx = preview_.my = preview_.vx = preview_.vy = preview_.px = preview_.py = 1;
+    preview_.mvp[3][3] = 1.0f;
 
-    threshold_ = 0.5;
+    threshold_ = 0.5f;
     
     /* REST OF CONSTRUCTOR IS FOR TESTING */
 
@@ -111,8 +111,8 @@ void ViewportPanel::Render() {
 
     statspanel_->UpdateZoomFactor(zoomfactor_);
     statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
-    statspanel_->UpdatePosition(static_cast<int>(loc_.x),
-                                static_cast<int>(loc_.y));
+    statspanel_->UpdatePosition(static_cast<int>(loc_.x), static_cast<int>(loc_.y));
+    
     SwapBuffers();
 }
 
@@ -126,8 +126,9 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     if (viewport_.x < 1) return;
     
     glViewport(0, 0, viewport_.x, viewport_.y);
-    proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
-
+    preview_.px = 2 / (static_cast<float>(viewport_.x) + static_cast<float>(viewport_.x));
+    preview_.py = 2 / (static_cast<float>(viewport_.y) + static_cast<float>(viewport_.y));
+    
     UpdateMVP();
     resolution_ = glm::vec2(viewport_.x, viewport_.y); // this should be no longer necessary cuz of pfb_?
 }
@@ -148,7 +149,7 @@ void ViewportPanel::OnRightUp(wxMouseEvent& e) {
 }
 
 void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
-    if (modl_[3][0] == 0.0f && modl_[3][1] == 0.0f) return;
+    if (preview_.mx == 0.0f && preview_.my == 0.0f) return;
     CenterMedia();
 }
 
@@ -166,14 +167,14 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
-    constexpr float max = 20, min = 0.00001f;
+    constexpr float max = 20.0f, min = 0.00001f;
 
-    glm::vec4 prevpos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
-    const float prevzoomval = mvp_[0][0] * zoomfactor_;
+    glm::vec4 prevpos = glm::vec4(positions_[0], positions_[1], 1, 1) * preview_.mvp;
+    const float prevzoomval = preview_.mvp[0][0] * zoomfactor_;
     
     zoomfactor_ *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
     
-    const float zoomval = mvp_[0][0] * zoomfactor_;
+    const float zoomval = preview_.mvp[0][0] * zoomfactor_;
     const float diff = zoomval - prevzoomval;
 
     if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
@@ -183,22 +184,24 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
 
     wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
     
-    glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
+    glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * preview_.mvp;
     float diffposx =  abs((pos.x - prevpos.x) / 2);
     float diffposy =  abs((pos.y - prevpos.y) / 2);
 
-    view_[0][0] = zoomfactor_;
-    view_[1][1] = zoomfactor_;
+    preview_.vx = preview_.vy = zoomfactor_;
     
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_[3][0] =  loc_.x / zoomfactor_;
-    modl_[3][1] = -loc_.y / zoomfactor_;
-    
-    mvp_ = proj_ * view_ * modl_;
+    preview_.mx = loc_.x / zoomfactor_;
+    preview_.my = loc_.y / zoomfactor_;
+
+    preview_.mvp[0][0] =  preview_.px * preview_.vx;
+    preview_.mvp[1][1] =  preview_.py * preview_.vy;
+    preview_.mvp[3][0] =  preview_.mx * preview_.mvp[0][0];
+    preview_.mvp[3][1] = -preview_.my * preview_.mvp[1][1];
 }
 
 void ViewportPanel::PixelSort(FrameBuffer* fb) const { // TODO: more steps.. actually sort
@@ -218,7 +221,7 @@ void ViewportPanel::Preview() const {
     pfb_->GetTexture()->Bind();
     previewshader_->Bind();
     previewshader_->SetUniform1i("u_Texture", 0);
-    previewshader_->SetUniformMat4f("u_MVP", mvp_);
+    previewshader_->SetUniformMat4f("u_MVP", preview_.mvp);
 
     Renderer::Clear();
     Renderer::Draw(*va_, *ib_, *previewshader_);
@@ -299,7 +302,7 @@ void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboa
 
 void ViewportPanel::ResetMVP() {
     zoomfactor_ = 1.0f;
-    view_ = scale(glm::mat4(1.0f), glm::vec3(1, 1, 0));
+    preview_.vx = preview_.vy = 1.0f;
     CenterMedia();
 }
 
@@ -312,7 +315,7 @@ void ViewportPanel::CenterMedia() {
 
 void ViewportPanel::ResetScale() {
     zoomfactor_ = 1.0f;
-    view_ = scale(glm::mat4(1.0f), glm::vec3(zoomfactor_, zoomfactor_, 0));
+    preview_.vx = preview_.vy = 1.0f;
     CenterMedia();
 }
 
@@ -321,7 +324,7 @@ void ViewportPanel::SetThreshold(const float value) {
     Render();
 }
 
-void ViewportPanel::ZeroVec2(glm::vec2& vec) { vec.x = vec.y = 0; }
+void ViewportPanel::ZeroVec2(glm::vec2& vec) { vec.x = vec.y = 0.0f; }
 
 ViewportPanel::~ViewportPanel() {
     delete ib_;

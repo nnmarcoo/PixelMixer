@@ -15,6 +15,13 @@ class StatsPanel;
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
+typedef struct {
+    glm::mat4 mvp;
+    float     mx, my,
+              vx, vy,
+              px, py;
+} preview_data;
+
 class ViewportPanel : public wxGLCanvas { // TODO: add a struct 'mvp' and put the values there instead of multiplying matrices?
     
 public:
@@ -35,11 +42,13 @@ private:
     DECLARE_EVENT_TABLE()
     StatsPanel* statspanel_;
     bool* wdragstate_; // Used to disable rendering when dragging window
+
+    preview_data preview_;
     
     wxSize viewport_;     // Size of viewport
     glm::vec2 loc_;       // Position of preview in viewport
     float zoomfactor_;    // Factor to scale preview by
-    float positions_[16]; // Initial positions of preview vertices
+    float positions_[16]; // Initial positions of preview vertices // todo: prob remove
     
     void Render();
     void OnSize(wxSizeEvent& e);
@@ -71,13 +80,7 @@ private:
     FrameBuffer* pfb_; // preview fb
     FrameBuffer* efb_; // export fb
     Shader* step1shader_;
-
-    // simplify this and only store values instead of having entire matrices?
-    glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
-    glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)
-    glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (orthographic camera)
-    glm::mat4 mvp_;     // modl_ * proj_ * view_
-
+    
     int frame_;
     glm::vec2 resolution_;
     float threshold_;
