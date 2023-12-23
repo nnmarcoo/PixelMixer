@@ -22,11 +22,10 @@ typedef struct {
               scale;
 } preview_data;
 
-
 class ViewportPanel : public wxGLCanvas {
     
 public:
-    ViewportPanel(wxWindow* parent, bool* DragState);
+    ViewportPanel(wxWindow* parent, bool* dragstate);
     ~ViewportPanel() override;
 
     void CenterMedia();
@@ -47,6 +46,25 @@ private:
     preview_data preview_;
     wxSize viewport_;
     float positions_[16]; // Initial positions of preview vertices // todo: prob remove
+
+    VertexBuffer* vb_;
+    VertexArray* va_;
+    IndexBuffer* ib_;
+    VertexBufferLayout* layout_;
+    Shader* previewshader_;
+    Renderer* renderer_;
+    Texture* texture_;
+    
+    FrameBuffer* pfb_; // preview fb
+    FrameBuffer* efb_; // export fb
+    Shader* step1shader_;
+    
+    int frame_;
+    glm::vec2 resolution_;
+    float threshold_;
+    
+    GLuint sqo_; // shader query object
+    GLuint elapsedtime_;
     
     void Render();
     void OnSize(wxSizeEvent& e);
@@ -66,26 +84,6 @@ private:
     void PixelSort(FrameBuffer* fb) const;
     void Preview() const;
     
-    VertexBuffer* vb_;
-    VertexArray* va_;
-    IndexBuffer* ib_;
-    VertexBufferLayout* layout_;
-    Shader* previewshader_;
-    Renderer* renderer_;
-    Texture* texture_;
-    
-    FrameBuffer* pfb_; // preview fb
-    FrameBuffer* efb_; // export fb
-    Shader* step1shader_;
-    
-    int frame_;
-    glm::vec2 resolution_;
-    float threshold_;
-    
-    GLuint sqo_; // shader query object
-    GLuint elapsedtime_;
-
-    // Helpers
     static void ZeroVec2(glm::vec2& vec);
     
 };

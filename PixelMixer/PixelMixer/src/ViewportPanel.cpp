@@ -35,7 +35,7 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_MOUSEWHEEL(ViewportPanel::OnMouseWheel)
 END_EVENT_TABLE()
 
-ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), wdragstate_(DragState) {
+ViewportPanel::ViewportPanel(wxWindow* parent, bool* dragstate) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), wdragstate_(dragstate) {
     context_ = new wxGLContext(this);
     SetCurrent(*context_);
 
@@ -50,7 +50,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     GLCall(glEnable(GL_BLEND))                                      // Enable blending
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
-    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))   // Set clear color to Palette::viewport
+    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))   // Palette::viewport
 
     glGenQueries(1, &sqo_);
 
