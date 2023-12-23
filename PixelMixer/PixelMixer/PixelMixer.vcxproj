@@ -1951,7 +1951,7 @@
       <Content Include="res\images\source.ico" />
       <Content Include="res\images\stats.ico" />
       <Content Include="res\shaders\Step1.glsl" />
-      <Content Include="res\shaders\Display.glsl" />
+      <Content Include="res\shaders\DisplayPreview.glsl" />
       <Content Include="res\textures\test.png" />
       <Content Include="src\vendor\glm\CMakeLists.txt" />
     </ItemGroup>

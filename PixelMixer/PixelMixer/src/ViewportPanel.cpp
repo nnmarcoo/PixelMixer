@@ -54,7 +54,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
 
     glGenQueries(1, &sqo_);
 
-    zoomfactor_ = 1.0f;
+    preview_.scale = 1.0f;
     preview_.mx = preview_.my = preview_.vx = preview_.vy = preview_.px = preview_.py = 1;
     preview_.mvp[3][3] = 1.0f;
 
@@ -88,7 +88,7 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    previewshader_ = new Shader("res/shaders/Display.glsl");
+    previewshader_ = new Shader("res/shaders/DisplayPreview.glsl");
     step1shader_ = new Shader("res/shaders/Step1.glsl");
     
     texture_ = new Texture("res/textures/debug.jpg");
@@ -109,9 +109,9 @@ void ViewportPanel::Render() {
     GLuint64 time;
     glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &time);
 
-    statspanel_->UpdateZoomFactor(zoomfactor_);
+    statspanel_->UpdateZoomFactor(preview_.scale);
     statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
-    statspanel_->UpdatePosition(static_cast<int>(loc_.x), static_cast<int>(loc_.y));
+    statspanel_->UpdatePosition(static_cast<int>(preview_.location.x), static_cast<int>(preview_.location.y));
     
     SwapBuffers();
 }
@@ -145,7 +145,7 @@ void ViewportPanel::OnRightUp(wxMouseEvent& e) {
     isDragging_ = false;
     if (HasCapture())
         ReleaseMouse();
-    prevpos_ = loc_;
+    preview_.previous_location = preview_.location;
 }
 
 void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
@@ -158,8 +158,8 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     
     const wxPoint delta = (e.GetPosition() - dragStart_) * 2;
     
-    loc_.x = static_cast<float>(delta.x) + prevpos_.x;
-    loc_.y = static_cast<float>(delta.y) + prevpos_.y;
+    preview_.location.x = static_cast<float>(delta.x) + preview_.previous_location.x;
+    preview_.location.y = static_cast<float>(delta.y) + preview_.previous_location.y;
     
     UpdateMVP();
     Render();
@@ -170,15 +170,15 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     constexpr float max = 20.0f, min = 0.00001f;
 
     glm::vec4 prevpos = glm::vec4(positions_[0], positions_[1], 1, 1) * preview_.mvp;
-    const float prevzoomval = preview_.mvp[0][0] * zoomfactor_;
+    const float prevzoomval = preview_.mvp[0][0] * preview_.scale;
     
-    zoomfactor_ *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
+    preview_.scale *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
     
-    const float zoomval = preview_.mvp[0][0] * zoomfactor_;
+    const float zoomval = preview_.mvp[0][0] * preview_.scale;
     const float diff = zoomval - prevzoomval;
 
     if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
-        zoomfactor_ = zoomfactor_ *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);       // NOT APPROACH the range, undo it
+        preview_.scale = preview_.scale *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);       // NOT APPROACH the range, undo it
         return;
     }
 
@@ -188,15 +188,15 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     float diffposx =  abs((pos.x - prevpos.x) / 2);
     float diffposy =  abs((pos.y - prevpos.y) / 2);
 
-    preview_.vx = preview_.vy = zoomfactor_;
+    preview_.vx = preview_.vy = preview_.scale;
     
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::UpdateMVP() {
-    preview_.mx = loc_.x / zoomfactor_;
-    preview_.my = loc_.y / zoomfactor_;
+    preview_.mx = preview_.location.x / preview_.scale;
+    preview_.my = preview_.location.y / preview_.scale;
 
     preview_.mvp[0][0] =  preview_.px * preview_.vx;
     preview_.mvp[1][1] =  preview_.py * preview_.vy;
@@ -301,20 +301,20 @@ void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboa
 }
 
 void ViewportPanel::ResetMVP() {
-    zoomfactor_ = 1.0f;
+    preview_.scale = 1.0f;
     preview_.vx = preview_.vy = 1.0f;
     CenterMedia();
 }
 
 void ViewportPanel::CenterMedia() {
-    ZeroVec2(loc_);
-    ZeroVec2(prevpos_);
+    ZeroVec2(preview_.location);
+    ZeroVec2(preview_.previous_location);
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::ResetScale() {
-    zoomfactor_ = 1.0f;
+    preview_.scale = 1.0f;
     preview_.vx = preview_.vy = 1.0f;
     CenterMedia();
 }

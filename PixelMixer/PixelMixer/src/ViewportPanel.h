@@ -17,37 +17,35 @@ class StatsPanel;
 
 typedef struct {
     glm::mat4 mvp;
-    float     mx, my,
-              vx, vy,
-              px, py;
+    glm::vec2 location, previous_location;
+    float     mx, my, vx, vy, px, py,
+              scale;
 } preview_data;
 
-class ViewportPanel : public wxGLCanvas { // TODO: add a struct 'mvp' and put the values there instead of multiplying matrices?
+
+class ViewportPanel : public wxGLCanvas {
     
 public:
     ViewportPanel(wxWindow* parent, bool* DragState);
     ~ViewportPanel() override;
-    wxGLContext* context_;
 
     void CenterMedia();
-    void ResetScale();
+    void ResetScale(); // TODO: adjust for scale offset
     void SetMedia(const std::string& path);
     void ExportMedia(const std::string& path) const;
     void Screenshot(const std::string& path);
     void SetThreshold(float value);
-
-    void SetStatsPanel(StatsPanel* statspanel) { statspanel_ = statspanel; }
+    
+    void SetStatsPanel(StatsPanel* panel) { statspanel_ = panel; }
 
 private:
     DECLARE_EVENT_TABLE()
+    wxGLContext* context_;
     StatsPanel* statspanel_;
     bool* wdragstate_; // Used to disable rendering when dragging window
 
     preview_data preview_;
-    
-    wxSize viewport_;     // Size of viewport
-    glm::vec2 loc_;       // Position of preview in viewport
-    float zoomfactor_;    // Factor to scale preview by
+    wxSize viewport_;
     float positions_[16]; // Initial positions of preview vertices // todo: prob remove
     
     void Render();
@@ -56,7 +54,6 @@ private:
     
     bool isDragging_;
     wxPoint dragStart_; // Mouse position
-    glm::vec2 prevpos_; // Last position of preview  on canvas as a ratio AFTER pan (initialized in center of screen)
     void OnRightDown(wxMouseEvent& e);
     void OnRightUp(wxMouseEvent& e);
     void OnDoubleLeftClick(wxMouseEvent& e);
