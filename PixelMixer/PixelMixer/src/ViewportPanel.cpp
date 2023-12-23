@@ -111,8 +111,8 @@ void ViewportPanel::Render() {
 
     statspanel_->UpdateZoomFactor(zoomfactor_);
     statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
-    statspanel_->UpdatePosition(static_cast<int>(loc_.x * static_cast<float>(viewport_.x)),
-                                static_cast<int>(loc_.y * static_cast<float>(viewport_.y)));
+    statspanel_->UpdatePosition(static_cast<int>(loc_.x),
+                                static_cast<int>(loc_.y));
     SwapBuffers();
 }
 
@@ -157,8 +157,8 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     
     const wxPoint delta = e.GetPosition() - dragStart_;
     
-    loc_.x = static_cast<float>(delta.x) + prevpos_.x;
-    loc_.y = static_cast<float>(delta.y) + prevpos_.y;
+    loc_.x = 2 * static_cast<float>(delta.x) + prevpos_.x;
+    loc_.y = 2 * static_cast<float>(delta.y) + prevpos_.y;
     
     UpdateMVP();
     Render();
@@ -182,20 +182,21 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     }
 
     wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
-    view_[0][0] = zoomfactor_;
-    view_[1][1] = zoomfactor_;
     
     glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * mvp_;
     float diffposx =  abs((pos.x - prevpos.x) / 2);
     float diffposy =  abs((pos.y - prevpos.y) / 2);
+
+    view_[0][0] = zoomfactor_;
+    view_[1][1] = zoomfactor_;
     
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_[3][0] =  loc_.x * (2 / zoomfactor_);
-    modl_[3][1] = -loc_.y * (2 / zoomfactor_);
+    modl_[3][0] =  loc_.x * (1 / zoomfactor_);
+    modl_[3][1] = -loc_.y * (1 / zoomfactor_);
     mvp_ = proj_ * view_ * modl_;
 }
 
