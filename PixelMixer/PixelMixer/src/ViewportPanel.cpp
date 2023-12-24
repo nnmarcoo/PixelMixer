@@ -124,6 +124,12 @@ void ViewportPanel::OnPaint(wxPaintEvent& e) {
 void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
     if (viewport_.x < 1) return;
+
+    if (preview_.location.x > static_cast<float>(viewport_.x)  ||
+        preview_.location.x < -static_cast<float>(viewport_.x) ||
+        preview_.location.y > static_cast<float>(viewport_.y)  ||
+        preview_.location.y < -static_cast<float>(viewport_.x)  )
+        CenterMedia();
     
     glViewport(0, 0, viewport_.x, viewport_.y);
     preview_.px = 2 / (static_cast<float>(viewport_.x) + static_cast<float>(viewport_.x));
