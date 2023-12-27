@@ -77,7 +77,8 @@ private:
     void OnDoubleLeftClick(wxMouseEvent& e);
     void OnMouseMove(wxMouseEvent& e);
     void OnMouseWheel(wxMouseEvent& e);
-    
+
+    void UpdatePosition();
     void UpdateMVP();
     void ResetMVP();
 

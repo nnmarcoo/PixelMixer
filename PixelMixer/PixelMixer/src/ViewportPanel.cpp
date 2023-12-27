@@ -188,7 +188,10 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         return;
     }
 
+    // TODO: transform mouse pos to center, offset, then move back?
+    
     wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
+    
     
     glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * preview_.mvp;
     float diffposx =  abs((pos.x - prevpos.x) / 2);
@@ -200,10 +203,14 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     Render();
 }
 
-void ViewportPanel::UpdateMVP() {
+void ViewportPanel::UpdatePosition() { // TODO: this needs to incorporate the offset from the mouse
     preview_.mx = preview_.location.x / preview_.scale;
     preview_.my = preview_.location.y / preview_.scale;
+}
 
+void ViewportPanel::UpdateMVP() {
+    UpdatePosition();
+    
     preview_.mvp[0][0] =  preview_.px * preview_.vx;
     preview_.mvp[1][1] =  preview_.py * preview_.vy;
     preview_.mvp[3][0] =  preview_.mx * preview_.mvp[0][0];
