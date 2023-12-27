@@ -174,8 +174,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
 void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
     if (isDragging_) return;
     constexpr float max = 20.0f, min = 0.00001f;
-
-    glm::vec4 prevpos = glm::vec4(positions_[0], positions_[1], 1, 1) * preview_.mvp;
+    
     const float prevzoomval = preview_.mvp[0][0] * preview_.scale;
     
     preview_.scale *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
@@ -184,21 +183,11 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
     const float diff = zoomval - prevzoomval;
 
     if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
-        preview_.scale = preview_.scale *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0);       // NOT APPROACH the range, undo it
+        preview_.scale = preview_.scale *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0); // NOT APPROACH the range, undo it
         return;
     }
 
-    // TODO: transform mouse pos to center, offset, then move back?
-    
-    wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
-    
-    
-    glm::vec4 pos = glm::vec4(positions_[0], positions_[1], 1, 1) * preview_.mvp;
-    float diffposx =  abs((pos.x - prevpos.x) / 2);
-    float diffposy =  abs((pos.y - prevpos.y) / 2);
-
     preview_.vx = preview_.vy = preview_.scale;
-    
     UpdateMVP();
     Render();
 }
