@@ -111,7 +111,7 @@ void ViewportPanel::Render() {
 
     statspanel_->UpdateZoomFactor(preview_.scale);
     statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
-    statspanel_->UpdatePosition(static_cast<int>(preview_.location.x), static_cast<int>(preview_.location.y));
+    statspanel_->UpdatePosition(static_cast<int>(preview_.location.x)/2, static_cast<int>(preview_.location.y)/2);
     
     SwapBuffers();
 }
@@ -125,7 +125,7 @@ void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
     if (viewport_.x < 1) return;
 
-    if (preview_.location.x > static_cast<float>(viewport_.x)  ||
+    if (preview_.location.x > static_cast<float>(viewport_.x)  || // TODO: animate it back instead of snap?
         preview_.location.x < -static_cast<float>(viewport_.x) ||
         preview_.location.y > static_cast<float>(viewport_.y)  ||
         preview_.location.y < -static_cast<float>(viewport_.x)  )
