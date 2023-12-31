@@ -193,7 +193,7 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
 }
 
 void ViewportPanel::UpdatePosition() { // TODO: this needs to incorporate the offset from the mouse
-    preview_.mx = preview_.location.x / preview_.scale;
+    preview_.mx = preview_.location.x / preview_.scale; // TODO: offset by relative pos of mouse
     preview_.my = preview_.location.y / preview_.scale;
 }
 
