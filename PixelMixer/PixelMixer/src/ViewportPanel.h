@@ -18,7 +18,7 @@ class StatsPanel;
 typedef struct {
     glm::mat4 mvp;
     glm::vec2 location, previous_location;
-    float     mx, my, vx, vy, px, py,
+    float     mx, my, vx, vy, px, py, mrx, mry,
               scale;
 } preview_data;
 

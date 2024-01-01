@@ -187,13 +187,19 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         return;
     }
 
+    // TODO: Get POI, relative pos of mouse
+
+    wxPoint mousepos = e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2);
+    preview_.mrx = static_cast<float>(mousepos.x) - preview_.location.x;
+    preview_.mry = static_cast<float>(mousepos.y) - preview_.location.y;
+
     preview_.vx = preview_.vy = preview_.scale;
     UpdateMVP();
     Render();
 }
 
 void ViewportPanel::UpdatePosition() { // TODO: this needs to incorporate the offset from the mouse
-    preview_.mx = preview_.location.x / preview_.scale; // TODO: offset by relative pos of mouse
+    preview_.mx = preview_.location.x / preview_.scale; // TODO: ADD POI
     preview_.my = preview_.location.y / preview_.scale;
 }
 
