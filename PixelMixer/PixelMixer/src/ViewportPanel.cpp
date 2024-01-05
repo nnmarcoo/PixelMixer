@@ -171,7 +171,7 @@ void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     Render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is POI
     if (isDragging_) return;
     constexpr float max = 20.0f, min = 0.00001f;
     
@@ -187,20 +187,18 @@ void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mou
         return;
     }
 
-    // TODO: Get POI, relative pos of mouse
+    // TODO: Calculate POI
 
     wxPoint mousepos = (e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2)) * 2;
     preview_.mrx = static_cast<float>(mousepos.x) - preview_.location.x;
     preview_.mry = static_cast<float>(mousepos.y) - preview_.location.y;
-
-    std::cout << preview_.mrx << " " << preview_.mry << std::endl;
 
     preview_.vx = preview_.vy = preview_.scale;
     UpdateMVP();
     Render();
 }
 
-void ViewportPanel::UpdatePosition() { // TODO: this needs to incorporate the offset from the mouse
+void ViewportPanel::UpdatePosition() {
     preview_.mx = preview_.location.x / preview_.scale - preview_.mrx;
     preview_.my = preview_.location.y / preview_.scale - preview_.mry;
 }
