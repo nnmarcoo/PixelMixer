@@ -31,6 +31,4 @@ float Ave(vec4 c) { return (c.r + c.g + c.b) / 3; }
 
 void main() {
     color = texture(u_Texture, v_fragCoord);
-    //color = vec4(v_fragCoord, 0.0, 1.0);
-    //color = vec4(1,.5,.3,1);
 }
