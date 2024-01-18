@@ -11,77 +11,80 @@ class Shader;
 class Texture;
 class VertexArray;
 class VertexBuffer;
+class StatsPanel;
 
 #include "vendor/glm/gtc/matrix_transform.hpp"
 
-class StatsPanel;
+typedef struct {
+    glm::mat4 mvp;
+    glm::vec2 location, previous_location;
+    float     mx, my, vx, vy, px, py, mrx, mry,
+              scale;
+} preview_data;
 
 class ViewportPanel : public wxGLCanvas {
     
 public:
-    ViewportPanel(wxWindow* parent, bool* DragState);
+    ViewportPanel(wxWindow* parent, bool* dragstate);
     ~ViewportPanel() override;
-    wxGLContext* context_;
 
     void CenterMedia();
-    void ResetScale();
+    void ResetScale(); // TODO: adjust for scale offset
     void SetMedia(const std::string& path);
-    void ExportMedia(const std::string& path);
+    void ExportMedia(const std::string& path) const;
     void Screenshot(const std::string& path);
     void SetThreshold(float value);
-
-    void SetStatsPanel(StatsPanel* statspanel) { statspanel_ = statspanel; }
+    
+    void SetStatsPanel(StatsPanel* panel) { statspanel_ = panel; }
 
 private:
     DECLARE_EVENT_TABLE()
+    wxGLContext* context_;
+    StatsPanel* statspanel_;
+    bool* wdragstate_; // Used to disable rendering when dragging window
 
-    bool* wdragstate_; // used to disable rendering when dragging window
+    preview_data preview_;
     wxSize viewport_;
-    
-    void render();
-    void OnSize(wxSizeEvent& e);
-    void OnPaint(wxPaintEvent& e);
+    float positions_[16]; // Initial positions of preview vertices // todo: prob remove
 
-    int width_;
-    int height_;
-    
-    bool isDragging_;
-    wxPoint dragStart_;
-    void OnRightDown(wxMouseEvent& e);
-    void OnRightUp(wxMouseEvent& e);
-    void OnDoubleLeftClick(wxMouseEvent& e);
-    void OnMouseMove(wxMouseEvent& e);
-    double zoomfactor_;
-    void OnMouseWheel(wxMouseEvent& e);
-    
     VertexBuffer* vb_;
     VertexArray* va_;
     IndexBuffer* ib_;
     VertexBufferLayout* layout_;
-    Shader* shader_;
+    Shader* previewshader_;
     Renderer* renderer_;
     Texture* texture_;
-    FrameBuffer* sfb_;
     
-    glm::vec2 loc_;     // Temporary variable to store previous position during pan
-    glm::vec2 prevpos_; // Last position of image on canvas as a ratio AFTER pan(initialized in center of screen)
-
-    glm::mat4 base_;
+    FrameBuffer* pfb_; // preview fb
+    FrameBuffer* efb_; // export fb
+    Shader* step1shader_;
     
-    glm::mat4 modl_;    // Model matrix: defines position, rotation and scale of the vertices of the model in the world.       (translation)
-    glm::mat4 view_;    // View matrix: defines position and orientation of the "camera".                                      (scale)
-    glm::mat4 proj_;    // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective. (ortho)
-    glm::mat4 mvp_; // modl_ * proj_ * view_
-    
-    void UpdateMVP();
-    void ResetMVP();
-
     int frame_;
     glm::vec2 resolution_;
     float threshold_;
     
     GLuint sqo_; // shader query object
     GLuint elapsedtime_;
+    
+    void Render();
+    void OnSize(wxSizeEvent& e);
+    void OnPaint(wxPaintEvent& e);
+    
+    bool isDragging_;
+    wxPoint dragStart_; // Mouse position
+    void OnRightDown(wxMouseEvent& e);
+    void OnRightUp(wxMouseEvent& e);
+    void OnDoubleLeftClick(wxMouseEvent& e);
+    void OnMouseMove(wxMouseEvent& e);
+    void OnMouseWheel(wxMouseEvent& e);
 
-    StatsPanel* statspanel_;
+    void UpdatePosition();
+    void UpdateMVP();
+    void ResetMVP();
+
+    void PixelSort(FrameBuffer* fb) const;
+    void Preview() const;
+    
+    static void ZeroVec2(glm::vec2& vec);
+    
 };

@@ -14,10 +14,10 @@ ConfigTabs::ConfigTabs(wxWindow* parent) : wxPanel(parent) {
     tabcycle_ = 1;
     tabsizer_ = new wxBoxSizer(wxVERTICAL);
 
-    sourcebutton_ = new Button(this, SourceButton_ID, wxString(wxT("\U0001F4C1")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/source.ico", wxBITMAP_TYPE_ICO));
-    operationbutton_ = new Button(this, OperationButton_ID, wxString(wxT("\U00002699")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxNullBitmap, Palette::ghover, Palette::config, wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
-    outputbutton_ = new Button(this, OutputButton_ID, wxString(wxT("\U0001F4C2")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/output.ico", wxBITMAP_TYPE_ICO));
-    statsbutton_ = new Button(this, StatsButton_ID, wxString(wxT("\U0001F41B")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/stats.ico", wxBITMAP_TYPE_ICO));
+    sourcebutton_ = new Button(this, SourceButton_ID, wxEmptyString, wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/source.ico", wxBITMAP_TYPE_ICO));
+    operationbutton_ = new Button(this, OperationButton_ID, wxString(wxT("\U00002699")), wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/settings.ico", wxBITMAP_TYPE_ICO), Palette::ghover, Palette::config, wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+    outputbutton_ = new Button(this, OutputButton_ID, wxEmptyString, wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/output.ico", wxBITMAP_TYPE_ICO));
+    statsbutton_ = new Button(this, StatsButton_ID, wxEmptyString, wxDefaultPosition, wxSize(30, 30), wxNO_BORDER, wxIcon("res/images/stats.ico", wxBITMAP_TYPE_ICO));
     tabsizer_->Add(sourcebutton_, 0, wxBOTTOM, 5);
     tabsizer_->Add(operationbutton_, 0, wxBOTTOM, 5);
     tabsizer_->Add(outputbutton_, 0, wxBOTTOM, 5);

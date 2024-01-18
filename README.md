@@ -1,11 +1,11 @@
-# <img src="PixelMixer/PixelMixer/res/images/logo.ico" alt="Icon" width="32px" /> Pixel Mixer
+# <img src="PixelMixer/PixelMixer/res/images/logo.ico" alt="Icon" width="32px" /> PixelMixer
 
 ![GitHub](https://img.shields.io/badge/license-MIT-green)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/nnmarcoo/PixelSorter)
 ![GitHub issues](https://img.shields.io/github/issues/nnmarcoo/PixelSorter)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/nnmarcoo/PixelSorter)
 
-Welcome to PixelMixer, a C++ pixel sorting tool. PixelMixer allows you to manipulate and sort pixels of images in real time to create visual effects and artistic compositions.
+PixelMixer allows you to manipulate and sort pixels of images in real time to create visual effects and artistic compositions.
 
 ## Features
 

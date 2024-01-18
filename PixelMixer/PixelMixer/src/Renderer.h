@@ -11,6 +11,8 @@
 #include "signal.h"
 #define DEBUG_BREAK() raise(SIGTRAP)
 #endif
+#define ASSERT(x) if (!(x)) __debugbreak();
+#define GLCall(x) GLClearError();x;ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
 #define ASSERT(x)                                                              \
   {                                                                            \

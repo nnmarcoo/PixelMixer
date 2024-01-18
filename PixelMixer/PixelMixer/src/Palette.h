@@ -1,8 +1,6 @@
 #pragma once
 #include <wx/colour.h>
 
-// todo: add the font here?
-
 // https://www.color-hex.com/color-palette/28549
 namespace Palette {
     const wxColour text("#bfbfbf");         // off-white
@@ -13,5 +11,10 @@ namespace Palette {
     const wxColour viewport("#313338");     // lightest color
     const wxColour config("#2b2d31");
     const wxColour linebreak("#646464");
-    const wxColour clickable("#285fd0");
+    const wxColour clickable("#A2BFF7");
+}
+namespace Font {
+    const wxFont read(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    const wxFont click(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    const wxFont dropdown(11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_THIN);
 }

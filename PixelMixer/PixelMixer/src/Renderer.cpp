@@ -26,6 +26,6 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 
 void Renderer::Draw(const Shader& shader) {
     shader.Bind();
-    GLCall(glDrawArrays(GL_TRIANGLES, 0, 3))
+    GLCall(glDrawArrays(GL_TRIANGLES, 0, 6))
 }
 

@@ -1947,10 +1947,11 @@
     <ItemGroup>
       <Content Include="res\images\dropdown.ico" />
       <Content Include="res\images\output.ico" />
+      <Content Include="res\images\settings.ico" />
       <Content Include="res\images\source.ico" />
       <Content Include="res\images\stats.ico" />
-      <Content Include="res\shaders\Display.glsl" />
-      <Content Include="res\shaders\SimpleSort.glsl" />
+      <Content Include="res\shaders\Step1.glsl" />
+      <Content Include="res\shaders\DisplayPreview.glsl" />
       <Content Include="res\textures\test.png" />
       <Content Include="src\vendor\glm\CMakeLists.txt" />
     </ItemGroup>

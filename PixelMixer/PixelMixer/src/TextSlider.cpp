@@ -16,10 +16,10 @@
 //     EVT_RIGHT_DOWN(TextSlider::OnRightDown)
 // wxEND_EVENT_TABLE()
 
-TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos) : wxTextCtrl(parent, id, defaultval, pos, wxDefaultSize, wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval) {
+TextSlider::TextSlider(wxWindow* parent, wxWindowID id, const wxString& defaultval, float minval, float maxval, const wxPoint& pos, wxString unit) : wxTextCtrl(parent, id, defaultval + unit, pos, wxDefaultSize, wxNO_BORDER), val_(std::stof(static_cast<std::string>(defaultval))), min_(minval), max_(maxval), unit_(unit) {
     wxTextCtrl::SetForegroundColour(Palette::clickable);
     wxTextCtrl::SetBackgroundColour(Palette::config);
-    wxTextCtrl::SetFont(wxFont(13, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
+    wxTextCtrl::SetFont(Font::click);
 }
 
 void TextSlider::OnMouseLeftDown(wxMouseEvent& e) {
@@ -55,7 +55,7 @@ void TextSlider::OnMouseMove(wxMouseEvent& e) { // todo if shift is held, snap t
     callcount_ = 0;
     
     const std::string label = std::to_string(val_);
-    SetValue(label.substr(0,label.find('.')+3));
+    SetValue(label.substr(0,label.find('.')+3) + unit_);
 }
 
 void TextSlider::OnMouseEnter(wxMouseEvent& e) {
@@ -64,7 +64,7 @@ void TextSlider::OnMouseEnter(wxMouseEvent& e) {
 
 void TextSlider::OnKillFocus(wxFocusEvent& e) {
     const std::string label = std::to_string(val_);
-    SetValue(label.substr(0,label.find('.')+3));
+    SetValue(label.substr(0,label.find('.')+3) + unit_);
     SetInsertionPointEnd();
 }
 

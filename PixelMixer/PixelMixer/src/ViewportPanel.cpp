@@ -5,7 +5,6 @@
 
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
-#include "Palette.h"
 #include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -36,8 +35,7 @@ BEGIN_EVENT_TABLE(ViewportPanel, wxGLCanvas)
     EVT_MOUSEWHEEL(ViewportPanel::OnMouseWheel)
 END_EVENT_TABLE()
 
-// new int[] {WX_GL_CORE_PROFILE, WX_GL_MAJOR_VERSION, 3, WX_GL_MINOR_VERSION, 3, 0} // doesn't work
-ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), wdragstate_(DragState) {
+ViewportPanel::ViewportPanel(wxWindow* parent, bool* dragstate) : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE), wdragstate_(dragstate) {
     context_ = new wxGLContext(this);
     SetCurrent(*context_);
 
@@ -46,38 +44,40 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
         std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
         return;
     }
-    std::cout << glGetString(GL_VERSION) << '\n' << glGetString(GL_RENDERER) << '\n' << glGetString(GL_VENDOR) << '\n' << std::endl; // debug
+    std::cout << glGetString(GL_VERSION)  << '\n' <<
+                 glGetString(GL_RENDERER) << '\n' <<
+                 glGetString(GL_VENDOR)   << '\n' << std::endl;
 
     GLCall(glEnable(GL_BLEND))                                      // Enable blending
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA))       // Blend the alpha channel
-    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))  // Set clear color to Palette::viewport
+    GLCall(glClearColor(0.19140625f, 0.19921875f, 0.21875f, 1.0))   // Palette::viewport
 
     glGenQueries(1, &sqo_);
 
-    zoomfactor_ = 1.0f;
-    base_ = glm::mat4(1.0f);
-    view_ = scale(base_, glm::vec3(1, 1, 0));
+    preview_.scale = 1.0f;
+    preview_.mx = preview_.my = preview_.vx = preview_.vy = preview_.px = preview_.py = 1;
+    preview_.mvp[3][3] = 1.0f;
 
-    threshold_ = 0.5;
+    threshold_ = 0.5f;
     
     /* REST OF CONSTRUCTOR IS FOR TESTING */
 
-	// needed to be a const expression for some reason, idk
-	// I just do what the language server tells me
     constexpr float s = 500; // todo make relative to screen size instead of constant
+
     constexpr float positions[] = {
          -1.0f*s, -1.0f*s, 0.0f, 0.0f, // 0 bottom-left
           1.0f*s, -1.0f*s, 1.0f, 0.0f, // 1 bottom-right
           1.0f*s,  1.0f*s, 1.0f, 1.0f, // 2 top-right
          -1.0f*s,  1.0f*s, 0.0f, 1.0f  // 3 top-left
     };
+    memcpy(positions_, positions, sizeof(float) * 16); // is there a better solution?
 
-    const unsigned int indices[] = { // can be char to save on mem
+    const unsigned int indices[] = {
         0, 1, 2,
         2, 3, 0
     };
     
-    vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is // WHY AM I CASTING
+    vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is
     va_ = new VertexArray();
     layout_ = new VertexBufferLayout();
     
@@ -89,61 +89,55 @@ ViewportPanel::ViewportPanel(wxWindow* parent, bool* DragState) : wxGLCanvas(par
     ib_ = new IndexBuffer(indices, 6);
     ib_->Bind();
     
-    shader_ = new Shader("res/shaders/SimpleSort.glsl");
-
-    shader_->Bind();
-
-    sfb_ = new FrameBuffer(2048, 2048);
+    previewshader_ = new Shader("res/shaders/DisplayPreview.glsl");
+    step1shader_ = new Shader("res/shaders/Step1.glsl");
     
     texture_ = new Texture("res/textures/debug.jpg");
-    texture_->Bind();
-    shader_->SetUniform1i("u_Texture", 0);
+    pfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
 }
 
-void ViewportPanel::render() {
+void ViewportPanel::Render() {
     if (!IsShown()) return;
+    
     frame_++;
     glBeginQuery(GL_TIME_ELAPSED, sqo_);
     
-    Renderer::Clear();
-    shader_->SetUniformMat4f("u_MVP", mvp_);
-
-    sfb_->Bind();
-    Renderer::Draw(*va_, *ib_, *shader_);
-    sfb_->Unbind();
-
-    Renderer::Draw(*va_, *ib_, *shader_);
+    PixelSort(pfb_);
+    Preview();
     
     glEndQuery(GL_TIME_ELAPSED);
     glGetQueryObjectuiv(sqo_, GL_QUERY_RESULT_AVAILABLE, &elapsedtime_);
-    GLuint64 shaderExecutionTime;
-    glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &shaderExecutionTime);
+    GLuint64 time;
+    glGetQueryObjectui64v(sqo_, GL_QUERY_RESULT, &time);
 
-    statspanel_->UpdateRenderTime(static_cast<double>(shaderExecutionTime) * 1.0e-6);
-    statspanel_->UpdateZoomFactor(zoomfactor_);
+    statspanel_->UpdateZoomFactor(preview_.scale);
+    statspanel_->UpdateRenderTime(static_cast<double>(time) * 1.0e-6);
+    statspanel_->UpdatePosition(static_cast<int>(preview_.location.x)/2, static_cast<int>(preview_.location.y)/2);
     
     SwapBuffers();
-
-    // Debug
-    std::cout << threshold_ << std::endl;
 }
-
-/* MEDIA CONTROLS */
 
 void ViewportPanel::OnPaint(wxPaintEvent& e) {
     if (*wdragstate_) return;
-    render();
+    Render();
 }
 
 void ViewportPanel::OnSize(wxSizeEvent& e) {
     viewport_ = GetSize();
     if (viewport_.x < 1) return;
+
+    if (preview_.location.x > static_cast<float>(viewport_.x)  || // TODO: animate it back instead of snap?
+        preview_.location.x < -static_cast<float>(viewport_.x) ||
+        preview_.location.y > static_cast<float>(viewport_.y)  ||
+        preview_.location.y < -static_cast<float>(viewport_.x)  )
+        CenterMedia();
     
     glViewport(0, 0, viewport_.x, viewport_.y);
-    proj_ = glm::ortho(-static_cast<float>(viewport_.x), static_cast<float>(viewport_.x), -static_cast<float>(viewport_.y), static_cast<float>(viewport_.y), -1.0f, 1.0f);
-    UpdateMVP();
-    resolution_ = glm::vec2(viewport_.x, viewport_.y);
+    preview_.px = 2 / (static_cast<float>(viewport_.x) + static_cast<float>(viewport_.x));
+    preview_.py = 2 / (static_cast<float>(viewport_.y) + static_cast<float>(viewport_.y));
     
+    UpdateMVP();
+    resolution_ = glm::vec2(viewport_.x, viewport_.y); // this should be no longer necessary cuz of pfb_?
 }
 
 void ViewportPanel::OnRightDown(wxMouseEvent& e) {
@@ -158,85 +152,98 @@ void ViewportPanel::OnRightUp(wxMouseEvent& e) {
     isDragging_ = false;
     if (HasCapture())
         ReleaseMouse();
-    prevpos_ = loc_;
+    preview_.previous_location = preview_.location;
 }
 
 void ViewportPanel::OnDoubleLeftClick(wxMouseEvent& e) {
-    if (modl_[3][0] == 0.0 && modl_[3][1] == 0.0) return;
+    if (preview_.mx == 0.0f && preview_.my == 0.0f) return;
     CenterMedia();
 }
 
 void ViewportPanel::OnMouseMove(wxMouseEvent& e) {
     if (!isDragging_) return;
-    /*
-    std::thread calc([this, e] {
-
-    });
-    calc.detach();
-    */
-    const wxPoint delta = e.GetPosition() - dragStart_;
-    const float ratiox = static_cast<float>(delta.x) / static_cast<float>(viewport_.x);
-    const float ratioy = static_cast<float>(delta.y) / static_cast<float>(viewport_.y);
-
-    float newposx = ratiox + prevpos_.x;
-    float newposy = ratioy + prevpos_.y;
-
-    loc_ = glm::vec2(newposx, newposy);
+    
+    const wxPoint delta = (e.GetPosition() - dragStart_) * 2;
+    
+    preview_.location.x = static_cast<float>(delta.x) + preview_.previous_location.x;
+    preview_.location.y = static_cast<float>(delta.y) + preview_.previous_location.y;
+    
     UpdateMVP();
-    render();
+    Render();
 }
 
-void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is centered
+void ViewportPanel::OnMouseWheel(wxMouseEvent& e) { // todo translate so the mouse is POI
     if (isDragging_) return;
-    const double MAX = 20, MIN = 0.00001;
+    constexpr float max = 20.0f, min = 0.00001f;
     
-    const double prevzoomval = mvp_[0][0] * zoomfactor_;
-    zoomfactor_ *= e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0;
-    const double zoomval = mvp_[0][0] * zoomfactor_;
-    const double diff = zoomval - prevzoomval;
+    const float prevzoomval = preview_.mvp[0][0] * preview_.scale;
+    
+    preview_.scale *= static_cast<float>(e.GetWheelRotation() > 0 ? 11.0 / 10.0 : 10.0 / 11.0);
+    
+    const float zoomval = preview_.mvp[0][0] * preview_.scale;
+    const float diff = zoomval - prevzoomval;
 
-    if (!((diff < 0 && prevzoomval > MAX) || (diff > 0 && prevzoomval < MIN)) && (zoomval > MAX || zoomval < MIN)) { // If the resulting zoom does 
-        zoomfactor_ = zoomfactor_ *= e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0;                           // NOT APPROACH the range, undo it
+    if (!((diff < 0 && prevzoomval > max) || (diff > 0 && prevzoomval < min)) && (zoomval > max || zoomval < min)) { // If the resulting zoom does 
+        preview_.scale = preview_.scale *= static_cast<float>(e.GetWheelRotation() < 0 ? 11.0 / 10.0 : 10.0 / 11.0); // NOT APPROACH the range, undo it
         return;
     }
-    
-    view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
+
+    // TODO: Calculate POI
+
+    wxPoint mousepos = (e.GetPosition() - wxPoint(viewport_.x / 2, viewport_.y / 2)) * 2;
+    preview_.mrx = static_cast<float>(mousepos.x) - preview_.location.x;
+    preview_.mry = static_cast<float>(mousepos.y) - preview_.location.y;
+
+    preview_.vx = preview_.vy = preview_.scale;
     UpdateMVP();
-    render();
+    Render();
+}
+
+void ViewportPanel::UpdatePosition() {
+    preview_.mx = preview_.location.x / preview_.scale - preview_.mrx;
+    preview_.my = preview_.location.y / preview_.scale - preview_.mry;
 }
 
 void ViewportPanel::UpdateMVP() {
-    modl_ = translate(base_, glm::vec3(loc_.x * static_cast<float>(viewport_.x) * 2 * (1 / zoomfactor_), // modl_ must be recalculated for all window manipulation
-                                     -loc_.y * static_cast<float>(viewport_.y) * 2 * (1 / zoomfactor_), 0));
-    mvp_ = proj_ * view_ * modl_;
+    UpdatePosition();
+    
+    preview_.mvp[0][0] =  preview_.px * preview_.vx;
+    preview_.mvp[1][1] =  preview_.py * preview_.vy;
+    preview_.mvp[3][0] =  preview_.mx * preview_.mvp[0][0];
+    preview_.mvp[3][1] = -preview_.my * preview_.mvp[1][1];
 }
 
-void ViewportPanel::ResetMVP() {
-    zoomfactor_ = 1.0f;
-    view_ = base_;
-    CenterMedia();
-    UpdateMVP();
+void ViewportPanel::PixelSort(FrameBuffer* fb) const { // TODO: more steps.. actually sort
+    glViewport(0, 0, static_cast<int>(fb->GetWidth()), static_cast<int>(fb->GetHeight()));
+    fb->Bind();
+    step1shader_->Bind();
+    step1shader_->SetUniform1i("u_Texture", 0);
+    texture_->Bind();
+    
+    Renderer::Clear();
+    Renderer::Draw(*step1shader_);
 }
 
-void ViewportPanel::CenterMedia() {
-    if (loc_ == glm::vec2(0,0)) return;
-    loc_ = glm::vec2(0,0);
-    prevpos_ = loc_;
-    UpdateMVP();
-    render();
-}
+void ViewportPanel::Preview() const {
+    glViewport(0, 0, viewport_.x, viewport_.y);
+    pfb_->Unbind();
+    pfb_->GetTexture()->Bind();
+    previewshader_->Bind();
+    previewshader_->SetUniform1i("u_Texture", 0);
+    previewshader_->SetUniformMat4f("u_MVP", preview_.mvp);
 
-void ViewportPanel::ResetScale() { // todo: instead of centering the media, use the current zoom point as the origin and keep it in the same spot when it zooms out
-    zoomfactor_ = 1.0f;
-    view_ = scale(base_, glm::vec3(zoomfactor_, zoomfactor_, 0));
-    CenterMedia(); 
+    Renderer::Clear();
+    Renderer::Draw(*va_, *ib_, *previewshader_);
 }
 
 void ViewportPanel::SetMedia(const std::string& path) {
     frame_ = 0;
-    const wxSize img = wxImage(path).GetSize(); // todo bad
-    auto distx = static_cast<float>(img.x >> 1);
-    auto disty = static_cast<float>(img.y >> 1);
+
+    texture_ = new Texture(path);
+    texture_->Bind();
+    
+    float distx = static_cast<float>(texture_->GetWidth() >> 1);
+    float disty = static_cast<float>(texture_->GetHeight() >> 1);
 
     while (distx < viewport_.x-40.0 && disty < viewport_.y-40.0) {
         distx+=40;
@@ -246,13 +253,14 @@ void ViewportPanel::SetMedia(const std::string& path) {
         distx-=40;
         disty-=40;
     }
-    
-    float positions[] = {
+
+    const float positions[] = {
         -1.0f*distx, -1.0f*disty, 0.0f, 0.0f, // 0 bottom-left
          1.0f*distx, -1.0f*disty, 1.0f, 0.0f, // 1 bottom-right
          1.0f*distx,  1.0f*disty, 1.0f, 1.0f, // 2 top-right
         -1.0f*distx,  1.0f*disty, 0.0f, 1.0f  // 3 top-left
-   };
+    };
+    memcpy(positions_, positions, sizeof(float) * 16);
 
     vb_ = new VertexBuffer(positions, static_cast<unsigned long long>(4) * 4 * sizeof(float)); // points * components * how big each component is // why am I casting
     va_ = new VertexArray();
@@ -262,45 +270,78 @@ void ViewportPanel::SetMedia(const std::string& path) {
     layout_->Push<float>(2);
     va_->AddBuffer(*vb_, *layout_);
     va_->Bind();
-
-    texture_ = new Texture(path);
-    texture_->Bind();
-    shader_->SetUniform1i("u_Texture", 0);
     
-    sfb_ = new FrameBuffer(img.x, img.y);
+    previewshader_->SetUniform1i("u_Texture", 0);
+    
+    pfb_ = new FrameBuffer(texture_->GetWidth(), texture_->GetHeight());
     texture_->Bind();
     
     ResetMVP();
-    render();
+    Render();
 }
 
-void ViewportPanel::ExportMedia(const std::string& path) {
+void ViewportPanel::ExportMedia(const std::string& path) const { // TODO: change to pixel sort then pull from efb_
+
+    const int width = texture_->GetWidth();
+    const int height = texture_->GetHeight();
+
+    pfb_->GetTexture()->Bind();
+    std::vector<unsigned char> data(static_cast<unsigned long long>(width * height * 4));
+    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+    stbi_flip_vertically_on_write(1);
+    stbi_write_png(path.c_str(), width, height, 4, data.data(), width * 4);
     
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void ViewportPanel::Screenshot(const std::string& path) { // todo put in clipboard?
-    std::vector<unsigned char> data(static_cast<unsigned long long>(viewport_.x) * static_cast<unsigned long long>(viewport_.y) * 4); // why am I casting
+
+    const int width = viewport_.x;
+    const int height = viewport_.y;
     
-    render();
-    glReadPixels(0, 0, viewport_.x, viewport_.y, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
+    std::vector<unsigned char> data(static_cast<unsigned long long>(width) * static_cast<unsigned long long>(height) * 4);
+    
+    Render();
+    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     stbi_flip_vertically_on_write(1);
-    stbi_write_png(path.c_str(), viewport_.x, viewport_.y, 4, data.data(), 4 * viewport_.x);
+    stbi_write_png(path.c_str(), width, height, 4, data.data(), 4 * width);
     stbi_flip_vertically_on_write(0);
 }
 
-void ViewportPanel::SetThreshold(float value) {
-    threshold_ = value;
-    render();
+void ViewportPanel::ResetMVP() {
+    preview_.scale = 1.0f;
+    preview_.vx = preview_.vy = 1.0f;
+    CenterMedia();
 }
 
-ViewportPanel::~ViewportPanel() { // do these needs to be on the heap..?
+void ViewportPanel::CenterMedia() {
+    ZeroVec2(preview_.location);
+    ZeroVec2(preview_.previous_location);
+    UpdateMVP();
+    Render();
+}
+
+void ViewportPanel::ResetScale() {
+    preview_.scale = 1.0f;
+    preview_.vx = preview_.vy = 1.0f;
+    CenterMedia();
+}
+
+void ViewportPanel::SetThreshold(const float value) {
+    threshold_ = value;
+    Render();
+}
+
+void ViewportPanel::ZeroVec2(glm::vec2& vec) { vec.x = vec.y = 0.0f; }
+
+ViewportPanel::~ViewportPanel() {
     delete ib_;
     delete vb_;
     delete va_;
-    delete sfb_;
+    delete pfb_;
     delete layout_;
-    delete shader_;
+    delete previewshader_;
     delete renderer_;
     delete texture_;
     delete context_; // delete context last to avoid error loop
