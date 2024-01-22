@@ -1,4 +1,4 @@
-# <img src="PixelMixer/PixelMixer/res/images/logo.ico" alt="Icon" width="32px" /> PixelMixer
+# <img src="PixelMixer/res/images/logo.ico" alt="Icon" width="32px" /> PixelMixer
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/nnmarcoo/PixelSorter)
 ![GitHub issues](https://img.shields.io/github/issues/nnmarcoo/PixelSorter)
