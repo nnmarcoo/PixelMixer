@@ -6,14 +6,6 @@
 
 PixelMixer allows you to manipulate and sort pixels of images in real time to create visual effects and artistic compositions.
 
-## Features
-
-- **Pixel Sorting**: Pixel Mixer excels at sorting pixels within an image based on various criteria, allowing you to create unique and eye-catching visuals.
-
-- **Custom Sorting Algorithms**: You can choose from a variety of sorting algorithms, each providing a distinct visual outcome. Experiment with different algorithms to achieve the desired effect.
-
-- **Easy-to-Use Interface**: Pixel Mixer comes with a user-friendly interface that simplifies the process of importing, sorting, and exporting images.
-
 ## Usage
 
 Pixel Mixer is designed to be intuitive and straightforward to use. Here's a quick overview of the basic usage:
