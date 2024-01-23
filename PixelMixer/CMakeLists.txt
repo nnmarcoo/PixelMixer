@@ -32,6 +32,7 @@ endif()
 
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SRC_FILES})
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 
 if(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
