@@ -21,7 +21,24 @@ endif()
 include_directories(include)
 
 set(SRC_FILES
-    src/main.cpp
+    src/App.cpp
+    src/Button.cpp
+    src/ConfigPanel.cpp
+    src/ConfigTabs.cpp
+    src/FrameBuffer.cpp
+    src/HeaderPanel.cpp
+    src/IndexBuffer.cpp
+    src/InputPanel.cpp
+    src/MainFrame.cpp
+    src/OutputPanel.cpp
+    src/Renderer.cpp
+    src/SettingsPanel.cpp
+    src/StatsPanel.cpp
+    src/TextSlider.cpp
+    src/Texture.cpp
+    src/VertexArray.cpp
+    src/VertexBuffer.cpp
+    src/ViewportPanel.cpp
     )
 
 if(WIN32)
