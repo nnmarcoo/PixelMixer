@@ -13,9 +13,13 @@ endif()
 project(PixelMixer)
 
 find_package(wxWidgets)
-
 if(wxWidgets_USE_FILE)
     include(${wxWidgets_USE_FILE})
+endif()
+
+find_package(GLEW)
+if(GLEW_FOUND)
+    include(${GLEW_INCLUDE_DIRS})
 endif()
 
 include_directories(include)
