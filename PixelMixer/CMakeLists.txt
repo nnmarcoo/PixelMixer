@@ -13,22 +13,14 @@ endif()
 project(PixelMixer)
 include_directories(include)
 
-find_package(wxWidgets REQUIRED)
-if(wxWidgets_USE_FILE)
-    include(${wxWidgets_USE_FILE})
-endif()
+
+find_package(wxWidgets)
+include(${wxWidgets_USE_FILE})
 
 set(CMAKE_PREFIX_PATH "c:/libs/glew-cmake-master")
-set(CMAKE_LIBRARY_PATH "c:/libs/glew-cmake-master/lib/Debug/Win32/")
-find_package(GLEW REQUIRED)
+set(CMAKE_LIBRARY_PATH "c:/libs/glew-cmake-master/lib/Debug/x64/")
+find_package(GLEW)
 include_directories(${GLEW_INCLUDE_DIRS})
-link_libraries(${GLEW_LIBRARIES})
-
-add_subdirectory(src/vendor/glm)
-
-file(GLOB SRC_FILES
-    src/*.cpp
-)
 
 if(WIN32)
     list(APPEND SRC_FILES res/rc.rc)
@@ -37,7 +29,7 @@ elseif(APPLE)
 endif()
 
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SRC_FILES})
-target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES} ${GLEW_LIBRARIES})
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 
 if(APPLE)
