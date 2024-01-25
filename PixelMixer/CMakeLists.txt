@@ -12,6 +12,7 @@ endif()
 
 project(PixelMixer)
 include_directories(include)
+file(GLOB SRC_FILES src/*.cpp)
 
 
 find_package(wxWidgets)
