@@ -11,39 +11,24 @@ if(APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
 endif()
 
 project(PixelMixer)
+include_directories(include)
 
-find_package(wxWidgets)
+find_package(wxWidgets REQUIRED)
 if(wxWidgets_USE_FILE)
     include(${wxWidgets_USE_FILE})
 endif()
 
-find_package(GLEW)
-if(GLEW_FOUND)
-    include(${GLEW_INCLUDE_DIRS})
-endif()
+set(CMAKE_PREFIX_PATH "c:/libs/glew-cmake-master")
+set(CMAKE_LIBRARY_PATH "c:/libs/glew-cmake-master/lib/Debug/Win32/")
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+link_libraries(${GLEW_LIBRARIES})
 
-include_directories(include)
+add_subdirectory(src/vendor/glm)
 
-set(SRC_FILES
-    src/App.cpp
-    src/Button.cpp
-    src/ConfigPanel.cpp
-    src/ConfigTabs.cpp
-    src/FrameBuffer.cpp
-    src/HeaderPanel.cpp
-    src/IndexBuffer.cpp
-    src/InputPanel.cpp
-    src/MainFrame.cpp
-    src/OutputPanel.cpp
-    src/Renderer.cpp
-    src/SettingsPanel.cpp
-    src/StatsPanel.cpp
-    src/TextSlider.cpp
-    src/Texture.cpp
-    src/VertexArray.cpp
-    src/VertexBuffer.cpp
-    src/ViewportPanel.cpp
-    )
+file(GLOB SRC_FILES
+    src/*.cpp
+)
 
 if(WIN32)
     list(APPEND SRC_FILES res/rc.rc)
@@ -53,7 +38,6 @@ endif()
 
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SRC_FILES})
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} GLEW::GLEW)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 
 if(APPLE)
