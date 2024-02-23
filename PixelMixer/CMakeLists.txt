@@ -13,6 +13,7 @@ endif()
 project(PixelMixer)
 include_directories(include)
 add_subdirectory(src/vendor/glm)
+add_subdirectory(src/vendor/stb_image)
 file(GLOB SRC_FILES src/*.cpp)
 
 
