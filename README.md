@@ -1,3 +1,5 @@
+**This project has been discontinued. It's functionality may be completed in the distance future within [img](https://github.com/nnmarcoo/img).**
+---
 # <img src="PixelMixer/res/images/logo.ico" alt="Icon" width="32px" /> PixelMixer
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/nnmarcoo/PixelSorter)
@@ -26,4 +28,4 @@ Pixel Mixer is licensed under the MIT License. See the [LICENSE](LICENSE) file f
 
 ---
 
-*Disclaimer: Pixel Mixer is a project by [nnmarcoo](https://github.com/nnmarcoo) and is not affiliated with any other pixel sorting software or project.*
+*Disclaimer: Pixel Mixer is a project by [nnmarcoo](https://github.com/nnmarcoo) and is not affiliated with any other pixel sorting software or project.*](https://github.com/nnmarcoo/img)
