@@ -1,4 +1,4 @@
-**This project has been discontinued. It's functionality may be completed in the distance future within [img](https://github.com/nnmarcoo/img).**
+**This project has been discontinued. It's functionality may be completed in the distant future within [img](https://github.com/nnmarcoo/img).**
 ---
 # <img src="PixelMixer/res/images/logo.ico" alt="Icon" width="32px" /> PixelMixer
 
